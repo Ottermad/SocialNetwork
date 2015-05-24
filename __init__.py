@@ -61,6 +61,18 @@ def after_request(response):
 
 # Routes
 
+@app.route("/")
+def index():
+    if current_user.is_authenticated():
+        return redirect(url_for("home"))
+    return render_template("index.html")
+
+@app.route("/home")
+@login_required
+def home():
+    return render_template("home.html")
+
+
 @app.route("/register", methods=("POST", "GET"))
 def register():
     form = forms.RegisterForm()
@@ -91,6 +103,6 @@ def login():
                 return redirect(url_for("index"))
             else:
                 flash("Your email or password does not exist.")
-        return  render_template("login.html", form=form)
+        return render_template("login.html", form=form)
 
 
