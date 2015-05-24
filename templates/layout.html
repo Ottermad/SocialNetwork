@@ -3,12 +3,27 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>{%  block title %}{% endblock %}</title>
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- FONT -->
+	<link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href={{url_for('static', filename="css/normalize.css")}}>
+    <link rel="stylesheet" href={{url_for('static', filename="css/skeleton.css")}}>
+
+  	<!-- Favicon -->
+  	<link rel="icon" type="image/png" href={{url_for('static', filename="images/favicon.png")}}>
+
 </head>
 <body>
-    {% block content %}
-    {% endblock %}
-    {% for message in get_flashed_messages() %}
-        {{ message }}
-    {% endfor %}
+	<div class="container">
+		{% block content %}
+    	{% endblock %}
+    	<br>
+	    {% for message in get_flashed_messages() %}
+	        {{ message }}
+	    {% endfor %}
+	</div>
 </body>
 </html>

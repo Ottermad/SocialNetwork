@@ -1,4 +1,10 @@
 {% extends "layout.html" %}
 {% block content %}
-    <h1>This page is the user's landing page before they have logged in.</h1>
+	<h1>Welcome to Fakebook</h1>
+	<a href={{url_for("login")}}>
+	    <button>Log In</button>
+	</a>
+	<a href={{url_for("register")}}>
+		<button>Register</button>
+    </a>
 {% endblock %}
