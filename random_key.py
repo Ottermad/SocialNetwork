@@ -20,4 +20,4 @@ while c2 < number_amount:
     c2 += 1
 
 key = random.sample(random_key, length)
-open("key.txt").write("".join(str(e) for e in key))
+open("key.txt", "w").write("".join(str(e) for e in key))
