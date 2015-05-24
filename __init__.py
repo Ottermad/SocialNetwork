@@ -111,10 +111,18 @@ def login():
                 flash("Your email or password does not exist.")
     return render_template("login.html", form=form)
 
+@app.route("/logout")
+@login_required
+def logout():
+    logout_user()
+    flash("You have been logged out.")
+    return redirect(url_for("index"))
+
 try:
     models.initialise()
 except:
     None
+
 
 if "HEROKU" not in os.environ:
     if __name__ == "__main__":
