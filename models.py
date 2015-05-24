@@ -11,6 +11,7 @@ from peewee import (
     IntegrityError,
     ForeignKeyField,
     TextField,
+    DoesNotExist,
 
 )
 from flask.ext.login import (

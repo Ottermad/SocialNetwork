@@ -74,3 +74,23 @@ def register():
         flash("You have registered")
         return redirect(url_for("index"))
     return render_template("register.html", form=form)
+
+@app.route("/login", methods=("POST", "GET"))
+def login():
+    form = forms.LoginForm()
+
+    if form.validate_on_submit():
+        try:
+            user = models.User.get(models.User.email == form.email.data)
+        except models.DoesNotExists:
+            flash("Your email or password does not exist.")
+        else:
+            if check_password_hash(user.password, form.password.data):
+                login_user(user)
+                flash("You've been logged in.")
+                return redirect(url_for("index"))
+            else:
+                flash("Your email or password does not exist.")
+        return  render_template("login.html", form=form)
+
+
