@@ -23,4 +23,41 @@ from flask.ext.login import (
     current_user
 )
 
+import forms
+import models
+
+# Set up application - need a secret key for secure sessions
+app = Flask(__name__)
+app.secret_key = open("key.txt").readline()
+
+# Set up login manager
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = "login"
+
+# Login Manager Functions
+
+@login_manager.user_loader
+def load_user(userid):
+    try:
+        return models.User.get(models.User.id == userid)
+    except:
+        return None
+
+# Before and After request functions
+
+@app.before_request
+def before_request():
+    """Connect to database before each request"""
+    g.db = models.DATABASE
+    g.db.connect()
+    g.user = current_user
+
+@app.after_request
+def after_request(response):
+    """Close the database connection after each response"""
+    g.db.close()
+    return response
+
+# Routes
 
