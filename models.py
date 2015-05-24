@@ -97,3 +97,7 @@ class Comment(Model):
     post = ForeignKeyField(rel_model=Post)
     content = CharField()
 
+def initialise():
+    DATABASE.connect()
+    DATABASE.create_tables([User, Message, Post, Comment], safe=True)
+    DATABASE.close()
