@@ -32,7 +32,7 @@ class RegisterForm(Form):
     username = StringField(
         "Username",
         validators=[
-            DataRequired,
+            DataRequired(),
             Regexp(
                 r"^[a-zA-Z0-9_]+$",
                 message="Usernames should be one word, with letters, numbers and underscores only."
@@ -44,9 +44,9 @@ class RegisterForm(Form):
     email = StringField(
         "Email",
         validators=[
-            DataRequired,
+            DataRequired(),
             Email(),
-            email_exists()
+            email_exists
         ]
     )
 

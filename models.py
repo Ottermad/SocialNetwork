@@ -14,6 +14,7 @@ from peewee import (
     DoesNotExist,
 
 )
+from peewee import *
 from flask.ext.login import (
     UserMixin,
 )

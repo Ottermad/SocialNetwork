@@ -7,7 +7,7 @@
 <body>
     {% block content %}
     {% endblock %}
-    {% for message in get_flashed_messages %}
+    {% for message in get_flashed_messages() %}
         {{ message }}
     {% endfor %}
 </body>

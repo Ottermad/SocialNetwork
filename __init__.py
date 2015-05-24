@@ -23,8 +23,13 @@ from flask.ext.login import (
     current_user
 )
 
+from peewee import (
+    DoesNotExist
+)
+
 import forms
 import models
+import os
 
 # Set up application - need a secret key for secure sessions
 app = Flask(__name__)
@@ -78,6 +83,7 @@ def register():
     form = forms.RegisterForm()
 
     if form.validate_on_submit():
+        print("a")
         models.User.create_user(
             username=form.username.data,
             email=form.email.data,
@@ -94,7 +100,7 @@ def login():
     if form.validate_on_submit():
         try:
             user = models.User.get(models.User.email == form.email.data)
-        except models.DoesNotExists:
+        except DoesNotExist:
             flash("Your email or password does not exist.")
         else:
             if check_password_hash(user.password, form.password.data):
@@ -103,6 +109,13 @@ def login():
                 return redirect(url_for("index"))
             else:
                 flash("Your email or password does not exist.")
-        return render_template("login.html", form=form)
+    return render_template("login.html", form=form)
 
+try:
+    models.initialise()
+except:
+    None
 
+if "HEROKU" not in os.environ:
+    if __name__ == "__main__":
+        app.run(debug=True)
