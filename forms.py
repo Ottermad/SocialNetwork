@@ -28,7 +28,7 @@ def email_exists(form, field):
     if User.select().where(User.email == field.data).exists():
         raise ValidationError("Email already in use.")
 
-class SignUpForm(Form):
+class RegisterForm(Form):
     username = StringField(
         "Username",
         validators=[
