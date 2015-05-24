@@ -61,3 +61,16 @@ def after_request(response):
 
 # Routes
 
+@app.route("/register", methods=("POST", "GET"))
+def register():
+    form = forms.RegisterForm()
+
+    if form.validate_on_submit():
+        models.User.create_user(
+            username=form.username.data,
+            email=form.email.data,
+            password=form.password.data,
+        )
+        flash("You have registered")
+        return redirect(url_for("index"))
+    return render_template("register.html", form=form)
