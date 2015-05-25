@@ -63,6 +63,22 @@ class User(UserMixin, Model):
     class Meta:
         database = DATABASE
 
+    def get_messages(self):
+        query = Message.select().where((Message.recipient == self.id) | (Message.sender == self.id)).order_by(Message.timestamp.desc())
+        messages = {}
+        for message in query:
+            if message.sender != self.id:
+                if message.sender not in messages.keys():
+                    messages[message.sender] = [[message.content, message.timestamp]]
+                else:
+                    messages[message.sender].append([message.content, message.timestamp])
+            elif message.recipient != self.id:
+                if message.recipient not in messages.keys():
+                    messages[message.recipient] = [[message.content, message.timestamp]]
+                else:
+                    messages[message.recipient].append([message.content, message.timestamp])
+        return messages
+
     @classmethod
     def create_user(cls, username, email, password, is_admin=False):
         try:
@@ -84,7 +100,7 @@ class Message(Model):
         rel_model=User,
         related_name="sender"
     )
-    content=TextField()
+    content = TextField()
 
 class Post(Model):
     timestamp = DateTimeField(default=datetime.datetime.now)
