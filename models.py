@@ -67,7 +67,7 @@ class User(UserMixin, Model):
         query = Message.select().where((Message.recipient == self.id) | (Message.sender == self.id)).order_by(Message.timestamp.asc())
         messages = {}
         for message in query:
-            item = [message.content, message.timestamp.strftime("%H:%M %d:%m:%y")]
+            item = [message.content, message.timestamp.strftime("%H:%M %d/%m/%y")]
             if message.sender.id != self.id:
                 name = User.get(User.id == message.sender).username
                 item.append(False)
