@@ -149,6 +149,14 @@ def people():
     user = models.User.get(models.User.id == current_user.get_id())
     json_people = json.dumps(user.get_people())
     return json_people
+
+@app.route("/get-posts", methods=("POST", "GET"))
+@login_required
+def get_posts():
+    user = models.User.get(models.User.id == current_user.get_id())
+    posts = json.dumps(user.get_posts())
+    return posts
+
 try:
     models.initialise()
 except:
