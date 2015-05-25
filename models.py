@@ -64,19 +64,20 @@ class User(UserMixin, Model):
         database = DATABASE
 
     def get_messages(self):
-        query = Message.select().where((Message.recipient == self.id) | (Message.sender == self.id)).order_by(Message.timestamp.desc())
+        query = Message.select().where((Message.recipient == self.id) | (Message.sender == self.id)).order_by(Message.timestamp.asc())
         messages = {}
         for message in query:
-            if message.sender != self.id:
-                if message.sender not in messages.keys():
-                    messages[message.sender] = [[message.content, message.timestamp]]
-                else:
-                    messages[message.sender].append([message.content, message.timestamp])
-            elif message.recipient != self.id:
-                if message.recipient not in messages.keys():
-                    messages[message.recipient] = [[message.content, message.timestamp]]
-                else:
-                    messages[message.recipient].append([message.content, message.timestamp])
+            item = [message.content, message.timestamp.strftime("%H:%M %d:%m:%y")]
+            if message.sender.id != self.id:
+                name = User.get(User.id == message.sender).username
+                item.append(False)
+            elif message.recipient.id != self.id:
+                name = User.get(User.id == message.recipient).username
+                item.append(True)
+            if name not in messages.keys():
+                messages[name] = [item]
+            else:
+                messages[name].append(item)
         return messages
 
     def send_message(self, recipient_name, message_body):
