@@ -27,8 +27,18 @@
                 // Parse into JSON
                 json = JSON.parse(json);
 
-                console.log(json)
+                console.log(json);
 
+                var people = Object.keys(json);
+                var htmlString = "";
+                for (i = 0; i < people.length; i++) {
+                    var string = "<li><button>" + people[i] +"</button></li>";
+                    htmlString += string;
+                }
+                var peopleList = document.getElementById("people");
+                peopleList.innerHTML = htmlString;
+
+                
 
 
             }
