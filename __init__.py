@@ -142,7 +142,7 @@ def send_message():
         print(form.errors)
         return "Validation Error."
 
-@app.route("/people")
+@app.route("/people", methods=("POST", "GET"))
 @login_required
 def people():
     user = models.User.get(models.User.id == current_user.get_id())

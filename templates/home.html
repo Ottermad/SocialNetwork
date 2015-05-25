@@ -28,11 +28,11 @@
     {% include "get_messages.html" %}
 <script type="text/javascript">
     function auto_update () {
-        getMessages();
+
 
         setTimeout(auto_update, 10000);
     }
-
+    getPeople();
     auto_update();
 </script>
 

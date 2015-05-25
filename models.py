@@ -84,6 +84,7 @@ class User(UserMixin, Model):
         query = User.select()
         usernames = []
         for user in query:
+            print(user.id, self.id)
             if user.id != self.id:
                 usernames.append(user.username)
         return usernames

@@ -49,4 +49,52 @@
         getMessagesRequest.setRequestHeader("Content-type","application/x-www-form-urlencoded");
         getMessagesRequest.send();
     }*/
+
+    function getPeople() {
+        // Create a new variable to hold request
+        var getPeopleRequest;
+
+        // Check if XMLHttpRequest exists (modern browsers - IE7+, Firefox, Chrome, Opera, Safari)
+        if (window.XMLHttpRequest) {
+            // if it does create a XMLHttpRequest
+            getPeopleRequest = new XMLHttpRequest();
+        }
+        else {
+            // otherwise deal with IE6, IE5
+            getPeopleRequest=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+
+        // Call back function for request
+        getPeopleRequest.onreadystatechange=function() {
+
+            console.log(getPeopleRequest.status);
+
+            // Check if request was sent successfully.
+            if (getPeopleRequest.readyState==4 && getPeopleRequest.status==200) {
+
+                // Get response body
+                var json = getPeopleRequest.responseText;
+                // Parse into JSON
+                json = JSON.parse(json);
+
+
+                var htmlString = "";
+                for (i = 0; i < json.length; i++) {
+                    var string = "<li><a>" + json[i] +"</a></li>";
+                    htmlString += string;
+                }
+                var peopleList = document.getElementById("people");
+                peopleList.innerHTML = htmlString;
+
+
+
+
+            }
+        }
+
+        // Send a post request
+        getPeopleRequest.open("POST","{{ url_for("people") }}",true);
+        getPeopleRequest.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+        getPeopleRequest.send();
+    }
 </script>
