@@ -124,7 +124,8 @@ def logout():
 @login_required
 def get_messages():
     user = models.User.get(models.User.id == current_user.get_id())
-    json_messages = json.dumps(user.get_messages())
+    other = models.User.get(models.User.username == request.form["other"])
+    json_messages = json.dumps(user.get_messages(other))
     return json_messages
 
 @app.route("/send-message", methods=("POST", "GET"))
