@@ -3,4 +3,4 @@ key.txt
 *.db
 .idea/
 __pycache__/
-css/.sass-cache/
+*.scssc
