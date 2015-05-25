@@ -30,6 +30,7 @@ from peewee import (
 import forms
 import models
 import os
+import json
 
 # Set up application - need a secret key for secure sessions
 app = Flask(__name__)
@@ -75,7 +76,8 @@ def index():
 @app.route("/home")
 @login_required
 def home():
-    return render_template("home.html")
+    messaging_form = forms.MessagingForm()
+    return render_template("home.html", messaging_form=messaging_form)
 
 
 @app.route("/register", methods=("POST", "GET"))
@@ -117,6 +119,13 @@ def logout():
     logout_user()
     flash("You have been logged out.")
     return redirect(url_for("index"))
+
+@app.route("/get-messages")
+@login_required
+def get_messages():
+    user = models.User.get(models.User.id == current_user.get_id())
+    json_messages = json.dumps(user.get_messages())
+    return json_messages
 
 try:
     models.initialise()
