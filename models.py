@@ -79,6 +79,13 @@ class User(UserMixin, Model):
             else:
                 messages[name].append(item)
         return messages
+    
+    def get_people(self):
+        query = User.select()
+        usernames = []
+        for user in query:
+            usernames.append(user.username)
+        return usernames
 
     def send_message(self, recipient_name, message_body):
         recipient = User.get(User.username == recipient_name)
