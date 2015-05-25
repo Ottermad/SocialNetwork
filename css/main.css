@@ -18,4 +18,13 @@ body {
   text-align: center;
   font-style: italic; }
 
+#features .finished {
+  background: #01FF70; }
+#features .nearly {
+  background: #FFDC00; }
+#features .development {
+  background: #FF851B; }
+#features .notstarted {
+  background: #FF4136; }
+
 /*# sourceMappingURL=main.css.map */
