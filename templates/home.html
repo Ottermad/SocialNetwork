@@ -17,4 +17,15 @@
 {% endblock %}
 {% block ajax %}
     {% include "send_message.html" %}
+    {% include "get_messages.html" %}
+<script type="text/javascript">
+    function auto_update () {
+        getMessages();
+
+        setTimeout(auto_update, 10000);
+    }
+
+    auto_update();
+</script>
+
 {% endblock %}

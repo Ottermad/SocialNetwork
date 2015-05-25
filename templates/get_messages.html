@@ -1,0 +1,42 @@
+<script>
+   function getMessages () {
+
+        // Create a new variable to hold request
+        var getMessagesRequest;
+
+        // Check if XMLHttpRequest exists (modern browsers - IE7+, Firefox, Chrome, Opera, Safari)
+        if (window.XMLHttpRequest) {
+            // if it does create a XMLHttpRequest
+            getMessagesRequest = new XMLHttpRequest();
+        }
+        else {
+            // otherwise deal with IE6, IE5
+            getMessagesRequest=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+
+        // Call back function for request
+        getMessagesRequest.onreadystatechange=function() {
+
+            console.log(getMessagesRequest.status);
+
+            // Check if request was sent successfully.
+            if (getMessagesRequest.readyState==4 && getMessagesRequest.status==200) {
+
+                // Get response body
+                var json = getMessagesRequest.responseText;
+                // Parse into JSON
+                json = JSON.parse(json);
+
+                console.log(json)
+
+
+
+            }
+        }
+
+        // Send a post request
+        getMessagesRequest.open("POST","{{ url_for("get_messages") }}",true);
+        getMessagesRequest.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+        getMessagesRequest.send();
+    }
+</script>
