@@ -27,13 +27,21 @@
     {% include "send_message.html" %}
     {% include "get_messages.html" %}
 <script type="text/javascript">
+
+    var currentPerson = "";
     function auto_update () {
 
+        if (currentPerson != "") {
+            getConversation(currentPerson);
+        }
 
         setTimeout(auto_update, 10000);
     }
     getPeople();
     auto_update();
+
+
+
 </script>
 
 {% endblock %}
