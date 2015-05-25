@@ -12,9 +12,8 @@ from peewee import (
     ForeignKeyField,
     TextField,
     DoesNotExist,
-
 )
-from peewee import *
+#from peewee import *
 from flask.ext.login import (
     UserMixin,
 )

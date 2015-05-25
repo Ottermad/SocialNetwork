@@ -2,3 +2,4 @@
 venv/
 .idea/
 key.txt
+*.db
