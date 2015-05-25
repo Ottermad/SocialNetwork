@@ -63,21 +63,23 @@ class User(UserMixin, Model):
     class Meta:
         database = DATABASE
 
-    def get_messages(self):
-        query = Message.select().where((Message.recipient == self.id) | (Message.sender == self.id)).order_by(Message.timestamp.asc())
-        messages = {}
+    def get_messages(self, other):
+        query = Message.select().where(
+            (
+                (Message.recipient == self.id) | (Message.sender == self.id)
+            ) & (
+                (Message.recipient == other.id) | (Message.sender == other.id)
+            )
+        ).order_by(Message.timestamp.asc())
+        messages = []
         for message in query:
             item = [message.content, message.timestamp.strftime("%H:%M %d/%m/%y")]
             if message.sender.id != self.id:
-                name = User.get(User.id == message.sender).username
                 item.append(False)
             elif message.recipient.id != self.id:
-                name = User.get(User.id == message.recipient).username
                 item.append(True)
-            if name not in messages.keys():
-                messages[name] = [item]
-            else:
-                messages[name].append(item)
+
+            messages.append(item)
         return messages
 
     def get_people(self):
