@@ -4,3 +4,4 @@ key.txt
 .idea/
 __pycache__/
 *.scssc
+*.map
