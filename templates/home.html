@@ -1,7 +1,47 @@
+{% from "macros.html" import render_field %}
 {% extends "layout.html" %}
 {% block content %}
     <h1>You are logged in.</h1>
     <a href={{url_for("logout")}}>
 	    <button>Log Out</button>
 	</a>
+    <div id="messagingForm">
+        <form method="post">
+            {{ messaging_form.hidden_tag() }}
+            {% for field in messaging_form %}
+                {{ render_field(field) }}
+            {% endfor %}
+            <button type="button" id="send-message" onclick="sendMessage()">Send</button>
+        </form>
+    </div>
+    <div>
+        <ul id="people">
+
+        </ul>
+        <ul id="messages">
+
+        </ul>
+    </div>
+{% endblock %}
+{% block ajax %}
+    {% include "send_message.html" %}
+    {% include "get_messages.html" %}
+<script type="text/javascript">
+
+    var currentPerson = "";
+    function auto_update () {
+
+        if (currentPerson != "") {
+            getConversation(currentPerson);
+        }
+
+        setTimeout(auto_update, 10000);
+    }
+    getPeople();
+    auto_update();
+
+
+
+</script>
+
 {% endblock %}

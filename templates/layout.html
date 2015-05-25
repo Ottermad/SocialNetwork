@@ -25,5 +25,8 @@
 	        {{ message }}
 	    {% endfor %}
 	</div>
+    <script src="{{url_for('static', filename="js/jquery-1.11.3.js")}}"></script>
+	{% block ajax %}
+	{% endblock %}
 </body>
 </html>

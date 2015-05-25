@@ -63,6 +63,42 @@ class User(UserMixin, Model):
     class Meta:
         database = DATABASE
 
+    def get_messages(self, other):
+        query = Message.select().where(
+            (
+                (Message.recipient == self.id) | (Message.sender == self.id)
+            ) & (
+                (Message.recipient == other.id) | (Message.sender == other.id)
+            )
+        ).order_by(Message.timestamp.asc())
+        messages = []
+        for message in query:
+            item = [message.content, message.timestamp.strftime("%H:%M %d/%m/%y")]
+            if message.sender.id != self.id:
+                item.append(False)
+            elif message.recipient.id != self.id:
+                item.append(True)
+
+            messages.append(item)
+        return messages
+
+    def get_people(self):
+        query = User.select()
+        usernames = []
+        for user in query:
+            print(user.id, self.id)
+            if user.id != self.id:
+                usernames.append(user.username)
+        return usernames
+
+    def send_message(self, recipient_name, message_body):
+        recipient = User.get(User.username == recipient_name)
+        try:
+            Message.create(sender=self, recipient=recipient, content=message_body)
+            return "Message sent."
+        except:
+            return "There was an error sending the message."
+
     @classmethod
     def create_user(cls, username, email, password, is_admin=False):
         try:
@@ -84,7 +120,8 @@ class Message(Model):
         rel_model=User,
         related_name="sender"
     )
-    content=TextField()
+    content = TextField()
+
 
 class Post(Model):
     timestamp = DateTimeField(default=datetime.datetime.now)

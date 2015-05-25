@@ -30,6 +30,7 @@ from peewee import (
 import forms
 import models
 import os
+import json
 
 # Set up application - need a secret key for secure sessions
 app = Flask(__name__)
@@ -75,7 +76,8 @@ def index():
 @app.route("/home")
 @login_required
 def home():
-    return render_template("home.html")
+    messaging_form = forms.MessagingForm()
+    return render_template("home.html", messaging_form=messaging_form)
 
 
 @app.route("/register", methods=("POST", "GET"))
@@ -118,6 +120,35 @@ def logout():
     flash("You have been logged out.")
     return redirect(url_for("index"))
 
+@app.route("/get-messages", methods=("POST", "GET"))
+@login_required
+def get_messages():
+    user = models.User.get(models.User.id == current_user.get_id())
+    other = models.User.get(models.User.username == request.form["other"])
+    json_messages = json.dumps(user.get_messages(other))
+    return json_messages
+
+@app.route("/send-message", methods=("POST", "GET"))
+@login_required
+def send_message():
+    # get form
+    form = forms.MessagingForm(request.form)
+    if form.validate():
+        # Send message
+        print("sending")
+        user = models.User.get(models.User.id == current_user.get_id())
+        result = user.send_message(form.recipient.data, form.body.data)
+        return result
+    else:
+        print(form.errors)
+        return "Validation Error."
+
+@app.route("/people", methods=("POST", "GET"))
+@login_required
+def people():
+    user = models.User.get(models.User.id == current_user.get_id())
+    json_people = json.dumps(user.get_people())
+    return json_people
 try:
     models.initialise()
 except:

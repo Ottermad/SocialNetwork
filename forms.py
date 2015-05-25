@@ -5,6 +5,7 @@ from flask_wtf import (
 from wtforms import (
     StringField,
     PasswordField,
+    TextAreaField,
 )
 
 from wtforms.validators import (
@@ -20,13 +21,21 @@ from models import (
     User,
 )
 
+
 def username_exists(form, field):
+    if not User.select().where(User.username == field.data).exists():
+        raise ValidationError("User does not exist.")
+
+
+def username_in_use(form, field):
     if User.select().where(User.username == field.data).exists():
         raise ValidationError("Username already in use.")
+
 
 def email_exists(form, field):
     if User.select().where(User.email == field.data).exists():
         raise ValidationError("Email already in use.")
+
 
 class RegisterForm(Form):
     username = StringField(
@@ -37,7 +46,7 @@ class RegisterForm(Form):
                 r"^[a-zA-Z0-9_]+$",
                 message="Usernames should be one word, with letters, numbers and underscores only."
             ),
-            username_exists,
+            username_in_use,
         ]
     )
 
@@ -65,6 +74,12 @@ class RegisterForm(Form):
         ]
     )
 
+
 class LoginForm(Form):
     email = StringField("Email", validators=[DataRequired(), Email()])
     password = PasswordField("Password", validators=[DataRequired()])
+
+
+class MessagingForm(Form):
+    recipient = StringField("Recipient", validators=[DataRequired(), username_exists])
+    body = TextAreaField("Body", validators=[DataRequired()])
