@@ -1,0 +1,5 @@
+venv/
+key.txt
+*.db
+.idea/
+__pycache__/
