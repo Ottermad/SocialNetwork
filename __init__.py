@@ -142,7 +142,12 @@ def send_message():
         print(form.errors)
         return "Validation Error."
 
-
+@app.route("/people")
+@login_required
+def people():
+    user = models.User.get(models.User.id == current_user.get_id())
+    json_people = json.dumps(user.get_people())
+    return json_people
 try:
     models.initialise()
 except:
