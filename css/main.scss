@@ -1,0 +1,25 @@
+/* Variables */
+$olive: #3D9970;
+$white: #FFFFFF;
+
+body {
+    font-family: 'Comfortaa', cursive;
+}
+
+#title {
+    background: $olive;
+    color: $white;
+    text-align: center;
+    padding: 1em;
+    margin-bottom: 2em;
+    
+    h2 {
+        font-style: italic;
+    } 
+}
+
+#lead {
+    font-size: 1.25em;
+    text-align: center;
+    font-style: italic;
+}

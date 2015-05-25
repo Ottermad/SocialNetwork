@@ -1,0 +1,19 @@
+/* Variables */
+body {
+  font-family: 'Comfortaa', cursive; }
+
+#title {
+  background: #3D9970;
+  color: #FFFFFF;
+  text-align: center;
+  padding: 1em;
+  margin-bottom: 2em; }
+  #title h2 {
+    font-style: italic; }
+
+#lead {
+  font-size: 1.25em;
+  text-align: center;
+  font-style: italic; }
+
+/*# sourceMappingURL=main.css.map */
