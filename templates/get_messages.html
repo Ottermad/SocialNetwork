@@ -81,11 +81,15 @@
                 // Parse into JSON
                 json = JSON.parse(json);
 
-                console.log(json);
                 var htmlString = "";
                 for (i = 0; i < json.length; i++) {
-                    var string = "<li>" + json[i] +"</li>";
-                    htmlString += string;
+                    var color = "blue";
+                    if (json[i][2]) {
+                        color = "red";
+                    }
+                    var string = "<li style='color:" + color + "'>" + json[i][0] + " " + json[i][1] +"</li>";
+                    console.log(string);
+                    htmlString = htmlString + string;
                 }
                 var peopleList = document.getElementById("messages");
                 peopleList.innerHTML = htmlString;
