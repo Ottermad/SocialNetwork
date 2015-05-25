@@ -127,18 +127,19 @@ def get_messages():
     json_messages = json.dumps(user.get_messages())
     return json_messages
 
-@app.route("/send-message", methods="POST")
+@app.route("/send-message", methods=("POST", "GET"))
 @login_required
 def send_message():
-    form = forms.MessagingForm()
-    form.recipient = request.form["recipient"]
-    form.body = request.form["body"]
+    # get form
+    form = forms.MessagingForm(request.form)
     if form.validate():
         # Send message
-        user = models.User.get(models.User.username == current_user.get_id())
-        result = user.send_message(form.recipient, form.body)
+        print("sending")
+        user = models.User.get(models.User.id == current_user.get_id())
+        result = user.send_message(form.recipient.data, form.body.data)
         return result
     else:
+        print(form.errors)
         return "Validation Error."
 
 

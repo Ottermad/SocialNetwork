@@ -6,12 +6,15 @@
 	    <button>Log Out</button>
 	</a>
     <div id="messagingForm">
-        <form>
+        <form method="post">
             {{ messaging_form.hidden_tag() }}
             {% for field in messaging_form %}
                 {{ render_field(field) }}
             {% endfor %}
-            <button type="submit" id="submit">Send</button>
+            <button type="button" id="send-message" onclick="sendMessage()">Send</button>
         </form>
     </div>
+{% endblock %}
+{% block ajax %}
+    {% include "send_message.html" %}
 {% endblock %}
