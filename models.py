@@ -79,6 +79,14 @@ class User(UserMixin, Model):
                     messages[message.recipient].append([message.content, message.timestamp])
         return messages
 
+    def send_message(self, recipient_name, message_body):
+        recipient = User.get(User.username == recipient_name)
+        try:
+            Message.create(sender=self, recipient=recipient, content=message_body)
+            return "Message sent."
+        except:
+            return "There was an error sending the message."
+
     @classmethod
     def create_user(cls, username, email, password, is_admin=False):
         try:
@@ -101,6 +109,7 @@ class Message(Model):
         related_name="sender"
     )
     content = TextField()
+
 
 class Post(Model):
     timestamp = DateTimeField(default=datetime.datetime.now)
