@@ -99,6 +99,19 @@ class User(UserMixin, Model):
         except:
             return "There was an error sending the message."
 
+    def get_posts(self):
+        query = Post.select().order_by(Post.timestamp.desc())
+        posts = []
+        for post in query:
+            data = [post.user.username, post.timestamp.strftime("%H:%M %d/%m/%y"), post.content]
+            comment_query = Comment.select().where(Comment.post.id == post.id).order_by(Comment.timestamp.asc())
+            comments = []
+            for comment in comment_query:
+                comment_data = [comment.user, comment.timestamp.strftime("%H:%M %d/%m/%y"), comment.content]
+                comments.append(comment_data)
+            data.append(comments)
+            posts.append(data)
+
     @classmethod
     def create_user(cls, username, email, password, is_admin=False):
         try:
