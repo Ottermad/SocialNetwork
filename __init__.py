@@ -120,12 +120,27 @@ def logout():
     flash("You have been logged out.")
     return redirect(url_for("index"))
 
-@app.route("/get-messages")
+@app.route("/get-messages", methods=("POST", "GET"))
 @login_required
 def get_messages():
     user = models.User.get(models.User.id == current_user.get_id())
     json_messages = json.dumps(user.get_messages())
     return json_messages
+
+@app.route("/send-message", methods="POST")
+@login_required
+def send_message():
+    form = forms.MessagingForm()
+    form.recipient = request.form["recipient"]
+    form.body = request.form["body"]
+    if form.validate():
+        # Send message
+        user = models.User.get(models.User.username == current_user.get_id())
+        result = user.send_message(form.recipient, form.body)
+        return result
+    else:
+        return "Validation Error."
+
 
 try:
     models.initialise()
