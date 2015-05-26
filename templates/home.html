@@ -53,7 +53,7 @@
             <div class="post">
                 <p class="name">{{ post[0] }}</p>
                 <p class="timestamp">{{ post[1] }}</p>
-                <div class="content">{{ post[2] }}</div>
+                <div class="content">{{ post[2] | safe }}</div>
                 <div>
                     <ul>
                         {% for comment in post[3] %}
