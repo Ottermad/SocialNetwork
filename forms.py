@@ -6,6 +6,7 @@ from wtforms import (
     StringField,
     PasswordField,
     TextAreaField,
+    IntegerField,
 )
 
 from wtforms.validators import (
@@ -89,3 +90,4 @@ class PostForm(Form):
 
 class CommentForm(Form):
     comment = StringField("comment", validators=[DataRequired()])
+    post_id = IntegerField("postid", validators=[DataRequired()])
