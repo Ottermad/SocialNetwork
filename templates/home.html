@@ -2,6 +2,7 @@
 {% extends "layout.html" %}
 {% block css %}
     <link rel="stylesheet" type="text/css" href="{{ url_for("static", filename="css/wmd.css") }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for("static", filename="css/posts.css") }}">
 {% endblock %}
 {% block content %}
 
@@ -46,16 +47,18 @@
             </form>
             <div id="wmd-preview" class="theme-font theme-box pad-5"></div>
         </div>
-        <div id="posts">
+
+        <!-- List all of the posts -->
+        <div id="posts" class="theme-font">
             {% for post in posts %}
-                <div class="post">
-                    <p class="name">{{ post[0] }}</p>
-                    <p class="timestamp">{{ post[1] }}</p>
+                <div class="post theme-box">
+                    <p class="name dark-gray">By {{ post[0] }} at <span class="timestamp">{{ post[1] }}</span></p>
                     <div class="content">{{ post[2] | safe }}</div>
+                    <hr> <!-- Comment and post divider -->
                     <div>
                         <ul>
                             {% for comment in post[3] %}
-                                <li>{{ comment[0] }}: {{ comment[2] }} @ {{ comment[1] }}</li>
+                                <li class="comment">{{ comment[0] }}: {{ comment[2] }} @  <span class="date">{{ comment[1] }}</span></li>
                             {%  endfor %}
                         </ul>
                     </div>
@@ -93,8 +96,6 @@
         }
         getPeople();
         auto_update();
-
-
 
     </script>
 
