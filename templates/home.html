@@ -54,27 +54,30 @@
     </div>
 {% endblock %}
 {% block ajax %}
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pagedown/1.0/Markdown.Converter.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pagedown/1.0/Markdown.Editor.js"></script>
+    <script type="text/javascript" src="js/markdown-editor-widget.js"></script>
     {% include "send_message.html" %}
     {% include "get_messages.html" %}
     {% include "send_post.html" %}
     {% include "get_posts.html" %}
     {% include "add_comment.html" %}
-<script type="text/javascript">
+    <script type="text/javascript">
 
-    var currentPerson = "";
-    function auto_update () {
+        var currentPerson = "";
+        function auto_update () {
 
-        if (currentPerson != "") {
-            getConversation(currentPerson);
+            if (currentPerson != "") {
+                getConversation(currentPerson);
+            }
+
+            setTimeout(auto_update, 10000);
         }
-
-        setTimeout(auto_update, 10000);
-    }
-    getPeople();
-    auto_update();
+        getPeople();
+        auto_update();
 
 
 
-</script>
+    </script>
 
 {% endblock %}

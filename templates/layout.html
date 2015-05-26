@@ -16,12 +16,24 @@
 	{% block css %}
 	{% endblock %}
 
+
   	<!-- Favicon -->
   	<link rel="icon" type="image/png" href={{url_for('static', filename="images/favicon.png")}}>
 
 
 </head>
-<body>
+<body class="no-pm">
+	<!-- Title bar -->
+	<div class='bg-olive no-m' id="Titlebar">
+		<h1 class="no-m white theme-font" id="title">Fakebook</h1>
+		<div id="ButtonContainer">
+			<!--Change to logout button if user is logged in -->
+			<button class="theme-btn right marg-5 pad-5 theme-font">Logout</button>
+            <!--Change to logout button if user is not logged in -->
+			<button class="theme-btn right marg-5 pad-5 theme-font">Login</button>
+			<button class="theme-btn right marg-5 pad-5 theme-font">Register</button>
+		</div>
+	</div>
 	<div class="container">
 		{% block content %}
     	{% endblock %}
