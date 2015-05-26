@@ -31,6 +31,8 @@ import forms
 import models
 import os
 import json
+import re
+import markdown
 
 # Set up application - need a secret key for secure sessions
 app = Flask(__name__)
@@ -40,6 +42,12 @@ app.secret_key = open("key.txt").readline()
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = "login"
+
+# Functions
+def clean_markdown(raw_md):
+    cleanr = re.compile("<.*?>")
+    cleaned_md = re.sub(cleanr, "", raw_md)
+    return cleaned_md
 
 # Login Manager Functions
 
@@ -157,6 +165,20 @@ def get_posts():
     user = models.User.get(models.User.id == current_user.get_id())
     posts = json.dumps(user.get_posts())
     return posts
+
+@app.route("/add-post", methods=("POST", "GET"))
+@login_required
+def add_post():
+    form = forms.PostForm(request.form)
+    if form.validate():
+        user = models.User.get(models.User.id == current_user.get_id())
+        markdown = form.post.data
+        cleaned_markdown = clean_markdown(markdown)
+        html = markdown.markdown(cleaned_markdown)
+        result = user.create_post(html)
+        return result
+    else:
+        return form.errors
 
 try:
     models.initialise()
