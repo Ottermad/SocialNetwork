@@ -8,6 +8,15 @@
 	border-color: #D4D4D4;
 }
 
+.comment-list {
+	list-style-type: none;
+	padding: 0px;
+}
+
+.comment-name {
+	font-weight: bold;
+}
+
 hr {
 	border-style: solid;
 	border-color: #303030;

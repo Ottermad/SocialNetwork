@@ -54,11 +54,12 @@
                 <div class="post theme-box">
                     <p class="name dark-gray">By {{ post[0] }} at <span class="timestamp">{{ post[1] }}</span></p>
                     <div class="content">{{ post[2] | safe }}</div>
-                    <hr class="comment-seperator"> <!-- Comment and post divider -->
                     <div>
-                        <ul>
+                        <h2 class="comment-header">Comments:</h2>
+                        <hr class="comment-seperator"> <!-- Comment and post divider -->
+                        <ul class="comment-list">
                             {% for comment in post[3] %}
-                                <li class="comment">{{ comment[0] }}: {{ comment[2] }} @  <span class="date">{{ comment[1] }}</span></li>
+                                <li class="comment"><span class="comment-name">{{ comment[0] }}</span>: {{ comment[2] }} <span class="date right">{{ comment[1] }}</span></li>
                                 <hr class="comment-seperator">
                             {%  endfor %}
                         </ul>
