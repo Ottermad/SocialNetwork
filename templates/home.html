@@ -56,7 +56,7 @@
                     <div class="content">{{ post[2] | safe }}</div>
                     <div>
                         <h2 class="comment-header">Comments:</h2>
-                        <hr class="comment-seperator"> <!-- Comment and post divider -->
+                        <hr class="comment-section-seperator"> <!-- Comment and post divider -->
                         <ul class="comment-list">
                             {% for comment in post[3] %}
                                 <li class="comment"><span class="comment-name">{{ comment[0] }}</span>: {{ comment[2] }} <span class="date right">{{ comment[1] }}</span></li>
@@ -68,7 +68,7 @@
                         <input class="input{{ post[4] }}" name="comment" type="text">
                         <button type="button" id="{{ post[4] }}" class="comment-button">Comment</button>
                     </form>
-                    <hr class="comment-seperator">
+                    <hr class="comment-section-seperator">
                 </div>
             {% endfor %}
             <button type="button" id="load-posts" onclick="getPosts()">Load More</button>
