@@ -16,7 +16,7 @@
     </div>
     <div id="posts">
         {% for post in posts %}
-            <div class="post" id="{{ post[4] }}">
+            <div class="post">
                 <p class="name">{{ post[0] }}</p>
                 <p class="timestamp">{{ post[1] }}</p>
                 <div class="content">{{ post[2] }}</div>
@@ -29,7 +29,7 @@
                 </div>
                 <form>
                     <input id="comment" name="comment" type="text">
-                    <button type="button">Comment</button>
+                    <button type="button" id="{{ post[4] }}" class="comment-button">Comment</button>
                 </form>
             </div>
         {% endfor %}
@@ -58,6 +58,7 @@
     {% include "get_messages.html" %}
     {% include "send_post.html" %}
     {% include "get_posts.html" %}
+    {% include "add_comment.html" %}
 <script type="text/javascript">
 
     var currentPerson = "";

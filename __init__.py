@@ -183,6 +183,18 @@ def add_post():
     else:
         return form.errors
 
+@app.route("/comment", methods=("POST", "GET"))
+@login_required
+def comment():
+    form = forms.CommentForm(request.form)
+    if form.validate():
+        user = models.User.get(models.User.id == current_user.get_id())
+        comment_text = form.comment.data
+        post_id = form.post_id.data
+        result = user.comment(post_id, comment_text)
+        return result
+    return form.errors
+
 try:
     models.initialise()
 except:
