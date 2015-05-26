@@ -86,3 +86,6 @@ class MessagingForm(Form):
 
 class PostForm(Form):
     post = TextAreaField("post", id="wmd-input", validators=[DataRequired()])
+
+class CommentForm(Form):
+    comment = StringField("comment", validators=[DataRequired()])

@@ -27,6 +27,10 @@
                         {%  endfor %}
                     </ul>
                 </div>
+                <form>
+                    <input id="comment" name="comment" type="text">
+                    <button type="button">Comment</button>
+                </form>
             </div>
         {% endfor %}
         <button type="button" id="load-posts" onclick="getPosts()">Load More</button>
