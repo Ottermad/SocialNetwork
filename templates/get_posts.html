@@ -19,15 +19,18 @@
                 for (var i = 0; i < extra.length; i++) {
                     console.log(postHTML);
                     postHTML += '<div class="post theme-box" id=' + extra[i][4] +'>';
-                    postHTML += '<p class="name">' + extra[i][0] + '</p>';
-                    postHTML += '<p class="timestamp">' + extra[i][1] + '</p>';
+                    postHTML += '<p class="name dark-gray">' + 'By ' + extra[i][0] + 'at </p>';
+                    postHTML += '<span class="timestamp">' + extra[i][1] + '</span>';
                     postHTML += '<p class="content">' + extra[i][2] + '</p>';
                     postHTML += '<div>';
-                    postHTML += '<ul>';
+                    postHTML += '<h2 class="comment-header">Comments:</h2>'; 
+                    postHTML += '<hr class="comment-section-seperator">';
+                    postHTML += '<ul class="comment-list">';
                     for(var c = 0; c < extra[i][3].length; c++) {
-                        postHTML += '<li>' + extra[i][3][c][0] + ': ' + extra[i][3][c][2] + ' @ ' +  extra[i][3][c][1] + '</li>';
+                        postHTML += '<li class="comment"><span class="comment-name">' + extra[i][3][c][0] + '</span>: ' + extra[i][3][c][2] + ' <span class="data right">' +  extra[i][3][c][1] + '</span></li>';
+                        postHTML += '<hr class="comment-seperator">';
                     }
-                    postHTML += ' </ul>';
+                    postHTML += '</ul>';
                     postHTML += '</div>';
 
                     postHTML += '<form>';
