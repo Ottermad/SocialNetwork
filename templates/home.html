@@ -1,10 +1,60 @@
 {% from "macros.html" import render_field %}
 {% extends "layout.html" %}
 {% block content %}
-    <h1>You are logged in.</h1>
-    <a href="{{url_for("logout")}}">
-	    <button>Log Out</button>
-	</a>
+
+    <div class="right friends-bar theme-box">
+        <h1 class="theme-font">Friends: </h1>
+        <ul class="friends-list" id="people">
+
+        </ul>
+        <div class="conversation bg-white" id="Bill">
+            <h3>Bill</h3>
+            <div class="messages-box">
+                <div class="message"> <span class="date">26/05/15: 13:05</span> - Test Message </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            //Handle messages
+            //assuming messages are requested per 'friend'
+            /*
+            var janeMessages = {
+                messages = [
+                    {
+                        date
+                    }
+                ]
+            };*/
+        </script>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <div id="postForm">
         <form method="post">
             {{ post_form.hidden_tag() }}

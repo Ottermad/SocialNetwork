@@ -30,7 +30,7 @@
 
                 var htmlString = "";
                 for (i = 0; i < json.length; i++) {
-                    var string = "<li>" + json[i] +"</li>";
+                    var string = "<li class='friend-item'>" + json[i] +"<button class='bg-red theme-btn-small'>Message</button></li>";
                     htmlString += string;
                 }
                 var peopleList = document.getElementById("people");
