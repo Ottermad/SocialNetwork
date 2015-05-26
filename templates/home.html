@@ -10,60 +10,41 @@
         <div class="conversation bg-white" id="Bill">
             <h3>Bill</h3>
             <div class="messages-box">
-                <div class="message"> <span class="date">26/05/15: 13:05</span> - Test Message </div>
+                <ul id="messages">
+
+                </ul>
+            </div>
+            <div id="messagingForm">
+                <form method="post">
+                    {{ messaging_form.hidden_tag() }}
+                    {% for field in messaging_form %}
+                        {{ render_field(field) }}
+                    {% endfor %}
+                    <button type="button" id="send-message" onclick="sendMessage()">Send</button>
+                </form>
             </div>
         </div>
-        <script type="text/javascript">
-            //Handle messages
-            //assuming messages are requested per 'friend'
-            /*
-            var janeMessages = {
-                messages = [
-                    {
-                        date
-                    }
-                ]
-            };*/
-        </script>
-
     </div>
 
+    <div class="left main-content">
+        <h1 class="theme-font" style="font-weight: 700;">Welcome to Fakebook</h1>
+        <h2 class="theme-font"> Make a new post: </h2>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <div id="postForm">
-        <form method="post">
-            {{ post_form.hidden_tag() }}
-            {% for field in post_form %}
-                {{ render_field(field) }}
-            {% endfor %}
-            <button type="button" id="submit-post" onclick="sendPost()">Submit Post</button>
-        </form>
+        <!--Editor Widget-->
+        <div class="pad-5">
+            <div id="wmd-button-bar"></div>
+            <button id="preview-toggle">Toggle Preview</button>
+            <form method="post">
+                {{ post_form.hidden_tag() }}
+                {% for field in post_form %}
+                    {{ render_field(field) }}
+                {% endfor %}
+                <button type="button" id="submit-post" onclick="sendPost()">Submit Post</button>
+            </form>
+            <div id="wmd-preview" class="theme-font theme-box pad-5"></div>
+        </div>
     </div>
+
     <div id="posts">
         {% for post in posts %}
             <div class="post">
@@ -85,23 +66,36 @@
         {% endfor %}
         <button type="button" id="load-posts" onclick="getPosts()">Load More</button>
     </div>
-    <div id="messagingForm">
-        <form method="post">
-            {{ messaging_form.hidden_tag() }}
-            {% for field in messaging_form %}
-                {{ render_field(field) }}
-            {% endfor %}
-            <button type="button" id="send-message" onclick="sendMessage()">Send</button>
-        </form>
-    </div>
-    <div>
-        <ul id="people">
 
-        </ul>
-        <ul id="messages">
 
-        </ul>
-    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 {% endblock %}
 {% block ajax %}
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pagedown/1.0/Markdown.Converter.js"></script>
