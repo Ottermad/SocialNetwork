@@ -124,6 +124,17 @@ class User(UserMixin, Model):
         except:
             return "There was an error posting your post."
 
+    def comment(self, post_id, comment_text):
+        post = Post.get(Post.id == post_id)
+        try:
+            Comment.create(
+                user=self,
+                post=post,
+                content=comment_text
+            )
+            return "Commented."
+        except:
+            return "Error commenting."
 
 
     @classmethod
