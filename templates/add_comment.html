@@ -1,7 +1,7 @@
 <script>
     $(".comment-button").on("click", function() {
         var id = $(this).attr("id");
-        var comment = $("#" + id + " + input").val();
+        var comment = $(".input" + id ).val();
         var csrfToken = document.getElementById("csrf_token").value;
 
         // Create a new variable to hold request

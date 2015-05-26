@@ -107,7 +107,9 @@ class User(UserMixin, Model):
             comment_query = Comment.select().where(Comment.post == post).order_by(Comment.timestamp.asc())
             comments = []
             for comment in comment_query:
-                comment_data = [comment.user, comment.timestamp.strftime("%H:%M %d/%m/%y"), comment.content]
+                print(comment.__dict__)
+                commenter = User.get(User.id == comment.user)
+                comment_data = [commenter.username, comment.timestamp.strftime("%H:%M %d/%m/%y"), comment.content]
                 comments.append(comment_data)
             data.append(comments)
             data.append(post.id)
@@ -126,6 +128,7 @@ class User(UserMixin, Model):
 
     def comment(self, post_id, comment_text):
         post = Post.get(Post.id == post_id)
+        print(comment_text)
         try:
             Comment.create(
                 user=self,

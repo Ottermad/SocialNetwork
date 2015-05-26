@@ -187,6 +187,7 @@ def add_post():
 @login_required
 def comment():
     form = forms.CommentForm(request.form)
+    print(request.form)
     if form.validate():
         user = models.User.get(models.User.id == current_user.get_id())
         comment_text = form.comment.data
