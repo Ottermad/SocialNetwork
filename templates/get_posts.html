@@ -15,9 +15,10 @@
             if (getPostsRequest.readyState == 4 & getPostsRequest.status == 200) {
                 var extra = getPostsRequest.responseText;
                 var extra = JSON.parse(extra);
-
+                var postHTML = "";
                 for (var i = 0; i < extra.length; i++) {
-                    var postHTML = '<div class="post theme-box" id=' + extra[i][4] +'>';
+                    console.log(postHTML);
+                    postHTML += '<div class="post theme-box" id=' + extra[i][4] +'>';
                     postHTML += '<p class="name">' + extra[i][0] + '</p>';
                     postHTML += '<p class="timestamp">' + extra[i][1] + '</p>';
                     postHTML += '<p class="content">' + extra[i][2] + '</p>';
@@ -34,6 +35,7 @@
                     postHTML +='<button type="button" id="' + extra[i][4] + '" class="comment-button">Comment</button>';
                     postHTML += '</form>';
                     postHTML += '</div>';
+                    console.log(postHTML);
                 }
 
                 $("#posts").append(postHTML);
