@@ -59,6 +59,7 @@
                         <ul>
                             {% for comment in post[3] %}
                                 <li class="comment">{{ comment[0] }}: {{ comment[2] }} @  <span class="date">{{ comment[1] }}</span></li>
+                                <hr class="comment-seperator">
                             {%  endfor %}
                         </ul>
                     </div>
@@ -66,6 +67,7 @@
                         <input class="input{{ post[4] }}" name="comment" type="text">
                         <button type="button" id="{{ post[4] }}" class="comment-button">Comment</button>
                     </form>
+                    <hr class="comment-seperator">
                 </div>
             {% endfor %}
             <button type="button" id="load-posts" onclick="getPosts()">Load More</button>
