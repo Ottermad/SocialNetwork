@@ -163,17 +163,26 @@ class Message(Model):
     )
     content = TextField()
 
+    class Meta:
+        database = DATABASE
+
 
 class Post(Model):
     timestamp = DateTimeField(default=datetime.datetime.now)
     user = ForeignKeyField(rel_model=User)
     content = TextField()
 
+    class Meta:
+        database = DATABASE
+
 class Comment(Model):
     timestamp = DateTimeField(default=datetime.datetime.now)
     user = ForeignKeyField(rel_model=User)
     post = ForeignKeyField(rel_model=Post)
     content = CharField()
+
+    class Meta:
+        database = DATABASE
 
 def initialise():
     DATABASE.connect()
