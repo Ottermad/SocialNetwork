@@ -164,8 +164,9 @@ def people():
 @app.route("/get-posts", methods=("POST", "GET"))
 @login_required
 def get_posts():
+    offset = request.form["offset"]
     user = models.User.get(models.User.id == current_user.get_id())
-    posts = json.dumps(user.get_posts())
+    posts = json.dumps(user.get_posts(offset=int(offset)))
     return posts
 
 @app.route("/add-post", methods=("POST", "GET"))
