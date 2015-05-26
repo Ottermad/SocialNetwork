@@ -196,6 +196,14 @@ def comment():
         return result
     return form.errors
 
+@app.route("/get-post", methods=("POST", "GET"))
+@login_required
+def get_post():
+    id = request.form["id"]
+    post = models.Post.get_post(id)
+    post = json.dumps(post)
+    return post
+
 try:
     models.initialise()
 except:
