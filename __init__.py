@@ -172,8 +172,8 @@ def add_post():
     form = forms.PostForm(request.form)
     if form.validate():
         user = models.User.get(models.User.id == current_user.get_id())
-        markdown = form.post.data
-        cleaned_markdown = clean_markdown(markdown)
+        md = form.post.data
+        cleaned_markdown = clean_markdown(md)
         html = markdown.markdown(cleaned_markdown)
         result = user.create_post(html)
         return result

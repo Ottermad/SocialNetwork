@@ -104,13 +104,14 @@ class User(UserMixin, Model):
         posts = []
         for post in query:
             data = [post.user.username, post.timestamp.strftime("%H:%M %d/%m/%y"), post.content]
-            comment_query = Comment.select().where(Comment.post.id == post.id).order_by(Comment.timestamp.asc())
+            comment_query = Comment.select().where(Comment.post == post).order_by(Comment.timestamp.asc())
             comments = []
             for comment in comment_query:
                 comment_data = [comment.user, comment.timestamp.strftime("%H:%M %d/%m/%y"), comment.content]
                 comments.append(comment_data)
             data.append(comments)
             posts.append(data)
+        return posts
 
     def create_post(self, content):
         try:

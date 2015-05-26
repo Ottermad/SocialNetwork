@@ -11,7 +11,7 @@
             {% for field in post_form %}
                 {{ render_field(field) }}
             {% endfor %}
-            <button type="button" id="submit-post" onclick="">Submit Post</button>
+            <button type="button" id="submit-post" onclick="sendPost()">Submit Post</button>
         </form>
     </div>
     <div id="messagingForm">
@@ -35,6 +35,7 @@
 {% block ajax %}
     {% include "send_message.html" %}
     {% include "get_messages.html" %}
+    {% include "send_post.html" %}
 <script type="text/javascript">
 
     var currentPerson = "";
