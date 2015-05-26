@@ -1,0 +1,45 @@
+<script>
+
+    function getPosts() {
+        var count = $("#posts .post").length;
+
+        var getPostsRequest;
+
+        if (window.XMLHttpRequest) {
+            getPostsRequest = new XMLHttpRequest();
+        } else {
+            getPostsRequest = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+
+        getPostsRequest.onreadystatechange = function () {
+            if (getPostsRequest.readyState == 4 & getPostsRequest.status == 200) {
+                var extra = getPostsRequest.responseText;
+                var extra = JSON.parse(extra);
+
+                for (var i = 0; i < extra.length; i++) {
+                    var postHTML = '<div class="post" id=' + extra[i][4] +'>';
+                    postHTML += '<p class="name">' + extra[i][0] + '</p>';
+                    postHTML += '<p class="timestamp">' + extra[i][1] + '</p>';
+                    postHTML += '<p class="content">' + extra[i][2] + '</p>';
+                    postHTML += '<div>';
+                    postHTML += '<ul>';
+                    for(var c = 0; c < extra[i][3].length; c++) {
+                        postHTML += '<li>' + extra[i][3][c][0] + ': ' + extra[i][3][c][2] + ' @ ' +  extra[i][3][c][1] + '</li>';
+                    }
+                    postHTML += ' </ul>';
+                    postHTML += '</div>';
+                    postHTML += '</div>';
+                }
+
+                $("#posts").append(postHTML);
+
+            }
+        }
+
+        getPostsRequest.open("POST", "{{ url_for("get_posts") }}", true)
+        getPostsRequest.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+        getPostsRequest.send("offset=" + count);
+
+    }
+
+</script>

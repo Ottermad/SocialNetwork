@@ -31,6 +31,8 @@ import forms
 import models
 import os
 import json
+import re
+import markdown
 
 # Set up application - need a secret key for secure sessions
 app = Flask(__name__)
@@ -40,6 +42,12 @@ app.secret_key = open("key.txt").readline()
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = "login"
+
+# Functions
+def clean_markdown(raw_md):
+    cleanr = re.compile("<.*?>")
+    cleaned_md = re.sub(cleanr, "", raw_md)
+    return cleaned_md
 
 # Login Manager Functions
 
@@ -77,7 +85,10 @@ def index():
 @login_required
 def home():
     messaging_form = forms.MessagingForm()
-    return render_template("home.html", messaging_form=messaging_form)
+    post_form = forms.PostForm()
+    user = models.User.get(models.User.id == current_user.get_id())
+    posts = user.get_posts()
+    return render_template("home.html", messaging_form=messaging_form, post_form=post_form, posts=posts)
 
 
 @app.route("/register", methods=("POST", "GET"))
@@ -149,6 +160,42 @@ def people():
     user = models.User.get(models.User.id == current_user.get_id())
     json_people = json.dumps(user.get_people())
     return json_people
+
+@app.route("/get-posts", methods=("POST", "GET"))
+@login_required
+def get_posts():
+    offset = request.form["offset"]
+    user = models.User.get(models.User.id == current_user.get_id())
+    posts = json.dumps(user.get_posts(offset=int(offset)))
+    return posts
+
+@app.route("/add-post", methods=("POST", "GET"))
+@login_required
+def add_post():
+    form = forms.PostForm(request.form)
+    if form.validate():
+        user = models.User.get(models.User.id == current_user.get_id())
+        md = form.post.data
+        cleaned_markdown = clean_markdown(md)
+        html = markdown.markdown(cleaned_markdown)
+        result = user.create_post(html)
+        return result
+    else:
+        return form.errors
+
+@app.route("/comment", methods=("POST", "GET"))
+@login_required
+def comment():
+    form = forms.CommentForm(request.form)
+    print(request.form)
+    if form.validate():
+        user = models.User.get(models.User.id == current_user.get_id())
+        comment_text = form.comment.data
+        post_id = form.post_id.data
+        result = user.comment(post_id, comment_text)
+        return result
+    return form.errors
+
 try:
     models.initialise()
 except:

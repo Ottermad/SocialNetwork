@@ -6,6 +6,7 @@ from wtforms import (
     StringField,
     PasswordField,
     TextAreaField,
+    IntegerField,
 )
 
 from wtforms.validators import (
@@ -83,3 +84,10 @@ class LoginForm(Form):
 class MessagingForm(Form):
     recipient = StringField("Recipient", validators=[DataRequired(), username_exists])
     body = TextAreaField("Body", validators=[DataRequired()])
+
+class PostForm(Form):
+    post = TextAreaField("post", id="wmd-input", validators=[DataRequired()])
+
+class CommentForm(Form):
+    comment = StringField("comment", validators=[DataRequired()])
+    post_id = IntegerField("postid", validators=[DataRequired()])

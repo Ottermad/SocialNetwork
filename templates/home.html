@@ -2,9 +2,39 @@
 {% extends "layout.html" %}
 {% block content %}
     <h1>You are logged in.</h1>
-    <a href={{url_for("logout")}}>
+    <a href="{{url_for("logout")}}">
 	    <button>Log Out</button>
 	</a>
+    <div id="postForm">
+        <form method="post">
+            {{ post_form.hidden_tag() }}
+            {% for field in post_form %}
+                {{ render_field(field) }}
+            {% endfor %}
+            <button type="button" id="submit-post" onclick="sendPost()">Submit Post</button>
+        </form>
+    </div>
+    <div id="posts">
+        {% for post in posts %}
+            <div class="post">
+                <p class="name">{{ post[0] }}</p>
+                <p class="timestamp">{{ post[1] }}</p>
+                <div class="content">{{ post[2] }}</div>
+                <div>
+                    <ul>
+                        {% for comment in post[3] %}
+                            <li>{{ comment[0] }}: {{ comment[2] }} @ {{ comment[1] }}</li>
+                        {%  endfor %}
+                    </ul>
+                </div>
+                <form>
+                    <input class="input{{ post[4] }}" name="comment" type="text">
+                    <button type="button" id="{{ post[4] }}" class="comment-button">Comment</button>
+                </form>
+            </div>
+        {% endfor %}
+        <button type="button" id="load-posts" onclick="getPosts()">Load More</button>
+    </div>
     <div id="messagingForm">
         <form method="post">
             {{ messaging_form.hidden_tag() }}
@@ -26,6 +56,9 @@
 {% block ajax %}
     {% include "send_message.html" %}
     {% include "get_messages.html" %}
+    {% include "send_post.html" %}
+    {% include "get_posts.html" %}
+    {% include "add_comment.html" %}
 <script type="text/javascript">
 
     var currentPerson = "";

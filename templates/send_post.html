@@ -1,0 +1,30 @@
+<script>
+    function sendPost() {
+        console.log("in function");
+        var sendPostRequest;
+
+        // Get content from textbox
+        var content = document.getElementById("wmd-input").value;
+        var csrfToken = document.getElementById("csrf_token").value;
+
+        // Setup request
+        if (window.XMLHttpRequest) {
+            sendPostRequest = new XMLHttpRequest();
+        } else {
+            sendPostRequest = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+
+        sendPostRequest.onreadystatechange = function () {
+
+            if (sendPostRequest.readyState == 4 && sendPostRequest.status == 200) {
+                var response = sendPostRequest.responseText;
+                alert(response);
+                $("#wmd-input").val("");
+            }
+        }
+
+        sendPostRequest.open("POST", "{{ url_for("add_post") }}", true);
+        sendPostRequest.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+        sendPostRequest.send("&post=" + content + "&csrf_token=" + csrfToken);
+    }
+</script>
