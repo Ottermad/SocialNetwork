@@ -112,6 +112,18 @@ class User(UserMixin, Model):
             data.append(comments)
             posts.append(data)
 
+    def create_post(self, content):
+        try:
+            Post.create(
+                user=self,
+                content=content
+            )
+            return "Posted!"
+        except:
+            return "There was an error posting your post."
+
+
+
     @classmethod
     def create_user(cls, username, email, password, is_admin=False):
         try:
