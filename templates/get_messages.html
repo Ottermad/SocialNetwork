@@ -39,6 +39,7 @@
                 $("#people li").on('click', function() {
                     currentPerson = $(this).attr("id");
                     $("#name").text(currentPerson);
+                    $("#recipient").val(currentPerson);
                     getConversation(currentPerson);
                 });
 
