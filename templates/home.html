@@ -54,7 +54,7 @@
                 <div class="post theme-box">
                     <p class="name dark-gray">By {{ post[0] }} at <span class="timestamp">{{ post[1] }}</span></p>
                     <div class="content">{{ post[2] | safe }}</div>
-                    <hr> <!-- Comment and post divider -->
+                    <hr class="comment-seperator"> <!-- Comment and post divider -->
                     <div>
                         <ul>
                             {% for comment in post[3] %}
