@@ -1,5 +1,8 @@
 {% from "macros.html" import render_field %}
 {% extends "layout.html" %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for("static", filename="css/wmd.css") }}">
+{% endblock %}
 {% block content %}
 
     <div class="right friends-bar theme-box">
@@ -66,41 +69,11 @@
         {% endfor %}
         <button type="button" id="load-posts" onclick="getPosts()">Load More</button>
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 {% endblock %}
 {% block ajax %}
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pagedown/1.0/Markdown.Converter.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pagedown/1.0/Markdown.Editor.js"></script>
-    <script type="text/javascript" src="js/markdown-editor-widget.js"></script>
+    <script type="text/javascript" src="{{ url_for("static", filename="js/markdown-editor-widget.js") }}"></script>
     {% include "send_message.html" %}
     {% include "get_messages.html" %}
     {% include "send_post.html" %}

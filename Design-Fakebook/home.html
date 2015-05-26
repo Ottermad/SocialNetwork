@@ -5,9 +5,9 @@
 	    <title>Fakebook</title>
 	    <link href='http://fonts.googleapis.com/css?family=Comfortaa:400,700' rel='stylesheet' type='text/css'>
 	    <meta charset="utf8">
-	    <link href="css/main.css" rel="stylesheet" type="text/css">
-	    <link href="css/colors.css" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" type="text/css" href="css/wmd.css">
+	    <link href="{{ url_for("static", filename="css/main.css") }}" rel="stylesheet" type="text/css">
+	    <link href="{{ url_for("static", filename="css/colors.css") }}" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" type="text/css" href="{{ url_for("static", filename="css/wmd.css") }}">
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pagedown/1.0/Markdown.Converter.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pagedown/1.0/Markdown.Editor.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
