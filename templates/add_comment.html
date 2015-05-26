@@ -28,6 +28,7 @@
                 // Get response body
                 var response = commentRequest.responseText;
                 alert(response);
+                getSinglePost(id);
             }
         }
 
@@ -68,7 +69,7 @@
                 postHTML += '<p class="content">' + json[2] + '</p>';
                 postHTML += '<div>';
                 postHTML += '<ul>';
-                for(var c = 0; c < extra[3].length; c++) {
+                for(var c = 0; c < json[3].length; c++) {
                     postHTML += '<li>' + json[3][c][0] + ': ' + json[3][c][2] + ' @ ' +  json[3][c][1] + '</li>';
                 }
                 postHTML += ' </ul>';
@@ -78,7 +79,7 @@
                 postHTML += '<input class="input' + json[4] + '" name="comment" type="text">';
                 postHTML +='<button type="button" id="' + json[4] + '" class="comment-button">Comment</button>';
                 postHTML += '</form>';
-                $("#div" + id).innerHTML = postHTML;
+                $("#div" + id).html(postHTML);
             }
         }
 
