@@ -110,6 +110,7 @@ class User(UserMixin, Model):
                 comment_data = [comment.user, comment.timestamp.strftime("%H:%M %d/%m/%y"), comment.content]
                 comments.append(comment_data)
             data.append(comments)
+            data.append(post.id)
             posts.append(data)
         return posts
 

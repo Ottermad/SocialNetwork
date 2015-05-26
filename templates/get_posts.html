@@ -17,7 +17,7 @@
                 var extra = JSON.parse(extra);
 
                 for (var i = 0; i < extra.length; i++) {
-                    var postHTML = '<div class="post">';
+                    var postHTML = '<div class="post" id=' + extra[i][4] +'>';
                     postHTML += '<p class="name">' + extra[i][0] + '</p>';
                     postHTML += '<p class="timestamp">' + extra[i][1] + '</p>';
                     postHTML += '<p class="content">' + extra[i][2] + '</p>';
