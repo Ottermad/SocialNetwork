@@ -77,7 +77,8 @@ def index():
 @login_required
 def home():
     messaging_form = forms.MessagingForm()
-    return render_template("home.html", messaging_form=messaging_form)
+    post_form = forms.PostForm()
+    return render_template("home.html", messaging_form=messaging_form, post_form=post_form)
 
 
 @app.route("/register", methods=("POST", "GET"))

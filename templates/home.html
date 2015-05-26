@@ -2,9 +2,17 @@
 {% extends "layout.html" %}
 {% block content %}
     <h1>You are logged in.</h1>
-    <a href={{url_for("logout")}}>
+    <a href="{{url_for("logout")}}">
 	    <button>Log Out</button>
 	</a>
+    <div id="postForm">
+        <form method="post">
+            {{ post_form.hidden_tag() }}
+            {% for field in post_form %}
+                {{ render_field(field) }}
+            {% endfor %}
+        </form>
+    </div>
     <div id="messagingForm">
         <form method="post">
             {{ messaging_form.hidden_tag() }}
