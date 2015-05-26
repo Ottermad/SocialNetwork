@@ -1,0 +1,130 @@
+.no-pm {
+	padding: 0px;
+	margin: 0px;
+}
+
+.no-p {
+	padding: 0px;
+}
+
+.no-m {
+	margin: 0px;
+}
+
+.theme-font {
+	font-family: 'Comfortaa', cursive;
+}
+
+.bg-theme {
+	background-color: #3D9970;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  padding: 0px 1%;
+  box-sizing: border-box; 
+}
+
+.theme-box {
+	background-color: #E6E6E6;
+	border-radius: 5px;
+}
+
+.theme-btn {
+	color: white;
+	background-color: #3A8362;
+	display: inline-block;
+	font-size: 2.5em;
+	border: none;
+	border-radius: 5px;
+}
+
+.theme-btn-small {
+	color: white;
+	background-color: #3A8362;
+	display: inline-block;
+	border: none;
+	border-radius: 5px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+}
+
+.marg-5 {
+	margin: 5px;
+}
+
+.pad-5 {
+	padding: 5px 10px;
+}
+
+.right {
+	float: right;
+}
+
+.left {
+	float: left;
+}
+
+#title {
+	padding-left: 10px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	letter-spacing: 4px;
+	display: inline-block;
+	font-size:3.5em;
+	font-weight: 700;
+}
+
+#ButtonContainer {
+	display: inline;
+}
+
+.friends-bar {
+	width: 20%;
+	margin: 1%;
+	margin-top: 20px;
+	padding: 2%;
+	padding-top: 0px;
+}
+
+.friends-list {
+	list-style-type: none;
+	padding: 0;
+	margin: 0px;
+	line-height: 1.5em;
+}
+
+.friend-item {
+	margin: 4px;
+}
+
+.main-content {
+	width: 71%;
+}
+
+@media (max-width: 620px) {
+	#Titlebar{
+		text-align: center;
+	}
+
+	#ButtonContainer {
+		display: block;
+		text-align: center;
+	}
+
+	.right {
+		float: none;
+	}
+
+	.left {
+		float: none;
+	}
+
+	.friends-bar {
+		width: 94%;
+		padding-top: 1px;
+		padding-bottom: 10px;
+	}
+	
+}
