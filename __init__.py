@@ -86,7 +86,9 @@ def index():
 def home():
     messaging_form = forms.MessagingForm()
     post_form = forms.PostForm()
-    return render_template("home.html", messaging_form=messaging_form, post_form=post_form)
+    user = models.User.get(models.User.id == current_user.get_id())
+    posts = user.get_posts()
+    return render_template("home.html", messaging_form=messaging_form, post_form=post_form, posts=posts)
 
 
 @app.route("/register", methods=("POST", "GET"))

@@ -14,6 +14,20 @@
             <button type="button" id="submit-post" onclick="sendPost()">Submit Post</button>
         </form>
     </div>
+    <div id="posts">
+        {% for post in posts %}
+            <div>
+                <p class="name">{{ post[0] }}</p>
+                <p class="timestamp">{{ post[1] }}</p>
+                <p class="content">{{ post[2] }}</p>
+                <div>
+                    {% for comment in post[3] %}
+                        <li>{{ comment[0] }}: {{ comment[2] }} @ {{ comment[1] }}</li>
+                    {%  endfor %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
     <div id="messagingForm">
         <form method="post">
             {{ messaging_form.hidden_tag() }}

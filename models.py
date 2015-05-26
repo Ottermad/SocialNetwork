@@ -99,8 +99,8 @@ class User(UserMixin, Model):
         except:
             return "There was an error sending the message."
 
-    def get_posts(self):
-        query = Post.select().order_by(Post.timestamp.desc())
+    def get_posts(self, number=10, offset=0):
+        query = Post.select().order_by(Post.timestamp.desc()).limit(number).offset(offset)
         posts = []
         for post in query:
             data = [post.user.username, post.timestamp.strftime("%H:%M %d/%m/%y"), post.content]
