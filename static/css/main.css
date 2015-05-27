@@ -19,6 +19,10 @@
 	background-color: #3D9970;
 }
 
+label {
+	display: none;
+}
+
 .container {
   position: relative;
   width: 100%;
