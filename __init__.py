@@ -210,6 +210,14 @@ def user(username):
     data = models.User.view_user(username)
     return render_template("user.html", user=data)
 
+@app.route("/friend-request")
+@login_required
+def friend_request():
+    username = request.form["username"]
+    user = models.User.get(models.User.id == current_user.get_id())
+    response = user.friend_request(username)
+    return response
+
 try:
     models.initialise()
 except:
