@@ -200,6 +200,11 @@ class Comment(Model):
     class Meta:
         database = DATABASE
 
+class Friends(Model):
+    user1 = ForeignKeyField(rel_model=User, related_name="user1")
+    user2 = ForeignKeyField(rel_model=User, related_name="user2")
+    confirmed = BooleanField(default=False)
+
 def initialise():
     DATABASE.connect()
     DATABASE.create_tables([User, Message, Post, Comment], safe=True)
