@@ -51,4 +51,53 @@
 
     }
 
+    function getLatestPosts() {
+        var getPostsRequest;
+
+        if (window.XMLHttpRequest) {
+            getPostsRequest = new XMLHttpRequest();
+        } else {
+            getPostsRequest = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+
+        getPostsRequest.onreadystatechange = function () {
+            if (getPostsRequest.readyState == 4 & getPostsRequest.status == 200) {
+                var extra = getPostsRequest.responseText;
+                var extra = JSON.parse(extra);
+                var postHTML = "";
+                for (var i = 0; i < extra.length; i++) {
+                    postHTML += '<div class="post theme-box" id=' + extra[i][4] +'>';
+                    postHTML += '<p class="name dark-gray">' + 'By ' + extra[i][0] + 'at </p>';
+                    postHTML += '<span class="timestamp">' + extra[i][1] + '</span>';
+                    postHTML += '<p class="content">' + extra[i][2] + '</p>';
+                    postHTML += '<div>';
+                    postHTML += '<h2 class="comment-header">Comments:</h2>';
+                    postHTML += '<hr class="comment-section-seperator">';
+                    postHTML += '<ul class="comment-list">';
+                    for(var c = 0; c < extra[i][3].length; c++) {
+                        postHTML += '<li class="comment"><span class="comment-name">' + extra[i][3][c][0] + '</span>: ' + extra[i][3][c][2] + ' <span class="data right">' +  extra[i][3][c][1] + '</span></li>';
+                        postHTML += '<hr class="comment-seperator">';
+                    }
+                    postHTML += '</ul>';
+                    postHTML += '</div>';
+
+                    postHTML += '<form>';
+                    postHTML += '<input class="input' + extra[i][4] + '" name="comment" type="text">';
+                    postHTML +='<button type="button" id="' + extra[i][4] + '" class="comment-button">Comment</button>';
+                    postHTML += '</form>';
+                    postHTML += '</div>';
+                }
+
+                $("#posts").append(postHTML);
+                console.log("Updated");
+
+            }
+        }
+
+        getPostsRequest.open("POST", "{{ url_for("get_posts") }}", true)
+        getPostsRequest.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+        getPostsRequest.send("offset=" + 0);
+
+    }
+
 </script>
