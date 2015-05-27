@@ -37,35 +37,36 @@
 
         <!--Editor Widget-->
         <div class="pad-5">
-            <button id="preview-toggle">Toggle Preview</button>
             <div id="button-bar-overlay">
-                <i class="fa fa-bold fa-2x" emulate="#wmd-bold-button"></i> 
+                <i class="fa fa-bold fa-2x" emulate="#wmd-bold-button" title="Bold"></i> 
                 <i class="fa fa-5x"></i>
-                <i class="fa fa-italic fa-2x"></i>
+                <i class="fa fa-italic fa-2x" emulate="#wmd-italic-button"></i>
                 <i class="fa fa-5x"></i> <i class="fa fa-5x"></i> <i class="fa fa-5x"></i><!--Seperator -->
                 <i class="fa fa-5x"></i> <i class="fa fa-5x"></i> <i class="fa fa-5x"></i><!--Seperator -->
-                <i class="fa fa-link fa-2x"></i>
+                <i class="fa fa-link fa-2x" emulate="#wmd-link-button"></i>
                 <i class="fa fa-5x"></i>
-                <i class="fa fa-quote-left fa-2x"></i>
+                <i class="fa fa-quote-left fa-2x" emulate="#wmd-quote-button"></i>
                 <i class="fa fa-5x"></i>
-                <i class="fa fa-code fa-2x"></i>
+                <i class="fa fa-code fa-2x" emulate="#wmd-code-button"></i>
                 <i class="fa fa-5x"></i>
-                <i class="fa fa-picture-o fa-2x"></i>
+                <i class="fa fa-picture-o fa-2x" emulate="#wmd-picture-button"></i>
                 <i class="fa fa-5x"></i> <i class="fa fa-5x"></i> <i class="fa fa-5x"></i><!--Seperator -->
                 <i class="fa fa-5x"></i> <i class="fa fa-5x"></i> <i class="fa fa-5x"></i><!--Seperator -->
-                <i class="fa fa-list-ol fa-2x"></i>
+                <i class="fa fa-list-ol fa-2x" emulate="#wmd-olist-button"></i>
                 <i class="fa fa-5x"></i>
-                <i class="fa fa-list-ul fa-2x"></i>
+                <i class="fa fa-list-ul fa-2x" emulate="#wmd-ulist-button"></i>
                 <i class="fa fa-5x"></i>
-                <i class="fa fa-header fa-2x"></i>
+                <i class="fa fa-header fa-2x" emulate="#wmd-header-button"></i>
                 <i class="fa fa-5x"></i>
-                <i class="fa fa-minus fa-2x"></i>
+                <i class="fa fa-minus fa-2x" emulate="#wmd-hr-button"></i>
                 <i class="fa fa-5x"></i> <i class="fa fa-5x"></i> <i class="fa fa-5x"></i><!--Seperator -->
                 <i class="fa fa-5x"></i> <i class="fa fa-5x"></i> <i class="fa fa-5x"></i><!--Seperator -->
                 <i class="fa fa-5x"></i>
-                <i class="fa fa-undo fa-2x"></i>
+                <i class="fa fa-undo fa-2x" emulate="#wmd-undo-button"></i>
                 <i class="fa fa-5x"></i>
-                <i class="fa fa-repeat fa-2x"></i>
+                <i class="fa fa-repeat fa-2x" emulate="#wmd-redo-button"></i>
+                <!--preveiw button-->
+                <i class="fa fa-eye fa-2x right" id="preview-toggle" title="Toggle preview"></i>
             </div>
 
             <div id="wmd-button-bar"></div>
@@ -123,7 +124,7 @@
                         }
                     });
                 });
-            </script>
+            </script>git 
     {% include "send_message.html" %}
     {% include "get_messages.html" %}
     {% include "send_post.html" %}

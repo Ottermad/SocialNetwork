@@ -17,5 +17,13 @@ jQuery(document).ready(function($) {
 
     $("#preview-toggle").click(function(event) {
         $("#wmd-preview").slideToggle(400);
+        if ($(this).hasClass('fa-eye')) {
+        	$(this).removeClass('fa-eye');
+        	$(this).addClass('fa-eye-slash');
+        }
+        else if ($(this).hasClass('fa-eye-slash')) {
+        	$(this).removeClass('fa-eye-slash');
+        	$(this).addClass('fa-eye');
+        }
     });
 });
