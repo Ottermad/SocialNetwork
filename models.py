@@ -165,7 +165,9 @@ class User(UserMixin, Model):
             ) & (
                 Friends.confirmed == 1
             )
-        )
+        ).exists()
+        return is_friend
+
 
     @classmethod
     def confirm_friend_request(cls, id, answer):
