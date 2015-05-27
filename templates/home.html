@@ -38,9 +38,9 @@
         <!--Editor Widget-->
         <div class="pad-5">
             <div id="button-bar-overlay">
-                <i class="fa fa-bold fa-2x" emulate="#wmd-bold-button" title="Bold"></i> 
+                <i class="fa fa-bold fa-2x" emulate="#wmd-bold-button" title="Bold"></i> <!--Bold -->
                 <i class="fa fa-5x"></i>
-                <i class="fa fa-italic fa-2x" emulate="#wmd-italic-button"></i>
+                <i class="fa fa-italic fa-2x" emulate="#wmd-italic-button"></i><!--Italic-->
                 <i class="fa fa-5x"></i> <i class="fa fa-5x"></i> <i class="fa fa-5x"></i><!--Seperator -->
                 <i class="fa fa-5x"></i> <i class="fa fa-5x"></i> <i class="fa fa-5x"></i><!--Seperator -->
                 <i class="fa fa-link fa-2x" emulate="#wmd-link-button"></i>
@@ -65,6 +65,9 @@
                 <i class="fa fa-undo fa-2x" emulate="#wmd-undo-button"></i>
                 <i class="fa fa-5x"></i>
                 <i class="fa fa-repeat fa-2x" emulate="#wmd-redo-button"></i>
+                <!--Send button -->
+                <i class="fa fa-paper-plane fa-2x right" id="submit-post" onclick="sendPost()"> Post</i>
+                <i class="fa fa-5x right pad-5"></i>
                 <!--preveiw button-->
                 <i class="fa fa-eye fa-2x right" id="preview-toggle" title="Toggle preview"></i>
             </div>
@@ -75,7 +78,6 @@
                 {% for field in post_form %}
                     {{ render_field(field) }}
                 {% endfor %}
-                <button type="button" id="submit-post" onclick="sendPost()">Submit Post</button>
             </form>
             <div id="wmd-preview" class="theme-font theme-box pad-5"></div>
         </div>
