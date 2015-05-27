@@ -33,6 +33,7 @@ import os
 import json
 import re
 import markdown
+import hashlib
 
 # Set up application - need a secret key for secure sessions
 app = Flask(__name__)
@@ -48,6 +49,13 @@ def clean_markdown(raw_md):
     cleanr = re.compile("<.*?>")
     cleaned_md = re.sub(cleanr, "", raw_md)
     return cleaned_md
+
+def gravatar_hash(email):
+    email = email.strip()
+    email = email.lower()
+    email = email.encode()
+    email_hash = hashlib.md5(email).hexdigest()
+    return email_hash
 
 # Login Manager Functions
 
