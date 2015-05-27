@@ -17,7 +17,6 @@
                 var extra = JSON.parse(extra);
                 var postHTML = "";
                 for (var i = 0; i < extra.length; i++) {
-                    console.log(postHTML);
                     postHTML += '<div class="post theme-box" id=' + extra[i][4] +'>';
                     postHTML += '<p class="name dark-gray">' + 'By ' + extra[i][0] + 'at </p>';
                     postHTML += '<span class="timestamp">' + extra[i][1] + '</span>';
@@ -38,10 +37,10 @@
                     postHTML +='<button type="button" id="' + extra[i][4] + '" class="comment-button">Comment</button>';
                     postHTML += '</form>';
                     postHTML += '</div>';
-                    console.log(postHTML);
                 }
 
                 $("#posts").append(postHTML);
+                console.log("Updated");
 
             }
         }

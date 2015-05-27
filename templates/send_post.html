@@ -19,6 +19,7 @@
             if (sendPostRequest.readyState == 4 && sendPostRequest.status == 200) {
                 var response = sendPostRequest.responseText;
                 alert(response);
+                console.log(response);
                 $("#wmd-input").val("");
             }
         }
