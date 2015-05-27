@@ -224,7 +224,14 @@ def friend_request():
 def view_friend_requests():
     user = models.User.get(models.User.id == current_user.get_id())
     requests = user.get_friend_requests()
-    return render_template("view_friend_requests.html")
+    return render_template("view_friend_requests.html", requests=requests)
+
+@app.route("/get-friend-requests")
+@login_required
+def get_friend_requests():
+    user = models.User.get(models.User.id == current_user.get_id())
+    requests = user.get_friend_requests()
+    return json.dumps(requests)
 
 try:
     models.initialise()
