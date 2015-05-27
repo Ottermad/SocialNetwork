@@ -2,7 +2,7 @@
 {% block content %}
     <ul>
         {% for request in requests %}
-            <li>{{ request[0] }} - <button id="{{ request[0] }}" class="confirm-request-button">CONFIRM</button></li>
+            <li>{{ request[0] }} - <button id="{{ request[1] }}" class="confirm-request-button">CONFIRM</button></li>
         {% endfor %}
     </ul>
 {% endblock %}
