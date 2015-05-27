@@ -152,7 +152,7 @@ class User(UserMixin, Model):
         requests = []
         for request in query:
             other = User.get(User.id == request.user1.id)
-            data = [other.username]
+            data = [other.username, request.id]
             requests.append(data)
         return requests
 
