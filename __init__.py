@@ -215,7 +215,7 @@ def user(username):
         own_page = True
     else:
         own_page = False
-    return render_template("user.html", user=data, is_friend=is_friend, is_pending=is_pending, own_page)
+    return render_template("user.html", user=data, is_friend=is_friend, is_pending=is_pending, own_page=own_page)
 
 @app.route("/friend-request", methods=("POST", "GET"))
 @login_required
