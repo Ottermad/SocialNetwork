@@ -1,3 +1,5 @@
-{% extends layout.html %}
+{% extends "layout.html" %}
 {% block content %}
+    <h1>{{ user["username"] }}</h1>
+    <button type="button" id="{{ user["id"] }}">Send Friend Request</button>
 {% endblock %}
