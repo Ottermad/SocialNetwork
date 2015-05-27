@@ -1,8 +1,11 @@
 {% extends "layout.html" %}
 {% block content %}
-    <ul>
+    <ul id="friend-requests">
         {% for request in requests %}
-            <li>{{ request[0] }} - <button id="{{ request[1] }}" class="confirm-request-button">CONFIRM</button></li>
+            <li>{{ request[0] }} - <button id="{{ request[1] }}" class="confirm-request-button">CONFIRM</button><button id="{{ request[1] }}" class="decline-request-button">DECLINE</button></li>
         {% endfor %}
     </ul>
+{% endblock %}
+{% block ajax %}
+    {% include "confirm_request.html" %}
 {% endblock %}
