@@ -147,7 +147,14 @@ class User(UserMixin, Model):
         )
         return "Sent."
 
-
+    def get_friend_requests(self):
+        query = Friends.select().where(Friends.user2 == self)
+        requests = []
+        for request in query:
+            other = User.get(User.id == request.user1.id)
+            data = [other.username]
+            requests.append(data)
+        return requests
 
 
     @classmethod
