@@ -3,6 +3,7 @@
 {% block css %}
     <link rel="stylesheet" type="text/css" href="{{ url_for("static", filename="css/wmd.css") }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for("static", filename="css/posts.css") }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for("static", filename="css/font-awesome.css") }}">
 {% endblock %}
 {% block content %}
 
@@ -36,8 +37,38 @@
 
         <!--Editor Widget-->
         <div class="pad-5">
-            <div id="wmd-button-bar"></div>
             <button id="preview-toggle">Toggle Preview</button>
+            <div id="button-bar-overlay">
+                <i class="fa fa-bold fa-2x" emulate="#wmd-bold-button"></i> 
+                <i class="fa fa-5x"></i>
+                <i class="fa fa-italic fa-2x"></i>
+                <i class="fa fa-5x"></i> <i class="fa fa-5x"></i> <i class="fa fa-5x"></i><!--Seperator -->
+                <i class="fa fa-5x"></i> <i class="fa fa-5x"></i> <i class="fa fa-5x"></i><!--Seperator -->
+                <i class="fa fa-link fa-2x"></i>
+                <i class="fa fa-5x"></i>
+                <i class="fa fa-quote-left fa-2x"></i>
+                <i class="fa fa-5x"></i>
+                <i class="fa fa-code fa-2x"></i>
+                <i class="fa fa-5x"></i>
+                <i class="fa fa-picture-o fa-2x"></i>
+                <i class="fa fa-5x"></i> <i class="fa fa-5x"></i> <i class="fa fa-5x"></i><!--Seperator -->
+                <i class="fa fa-5x"></i> <i class="fa fa-5x"></i> <i class="fa fa-5x"></i><!--Seperator -->
+                <i class="fa fa-list-ol fa-2x"></i>
+                <i class="fa fa-5x"></i>
+                <i class="fa fa-list-ul fa-2x"></i>
+                <i class="fa fa-5x"></i>
+                <i class="fa fa-header fa-2x"></i>
+                <i class="fa fa-5x"></i>
+                <i class="fa fa-minus fa-2x"></i>
+                <i class="fa fa-5x"></i> <i class="fa fa-5x"></i> <i class="fa fa-5x"></i><!--Seperator -->
+                <i class="fa fa-5x"></i> <i class="fa fa-5x"></i> <i class="fa fa-5x"></i><!--Seperator -->
+                <i class="fa fa-5x"></i>
+                <i class="fa fa-undo fa-2x"></i>
+                <i class="fa fa-5x"></i>
+                <i class="fa fa-repeat fa-2x"></i>
+            </div>
+
+            <div id="wmd-button-bar"></div>
             <form method="post">
                 {{ post_form.hidden_tag() }}
                 {% for field in post_form %}
@@ -81,6 +112,18 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pagedown/1.0/Markdown.Converter.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pagedown/1.0/Markdown.Editor.js"></script>
     <script type="text/javascript" src="{{ url_for("static", filename="js/markdown-editor-widget.js") }}"></script>
+    <script type="text/javascript">
+                jQuery(document).ready(function($) {
+                    $('.fa').click(function(event) {
+                        //event.preventDefault();
+                        var emulateIdentitifier = $(this).attr('emulate');
+                        console.log(emulateIdentitifier);
+                        if ($(emulateIdentitifier)) {
+                            $(emulateIdentitifier).click();
+                        }
+                    });
+                });
+            </script>
     {% include "send_message.html" %}
     {% include "get_messages.html" %}
     {% include "send_post.html" %}

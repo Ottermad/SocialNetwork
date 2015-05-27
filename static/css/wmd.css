@@ -69,3 +69,7 @@
     resize: vertical;
     min-height: 200px;
 }
+
+#button-bar-overlay {
+    margin: 5px;
+}
