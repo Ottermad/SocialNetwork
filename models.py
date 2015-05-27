@@ -168,6 +168,17 @@ class User(UserMixin, Model):
         ).exists()
         return is_friend
 
+    def is_pending(self, username):
+        other = User.get(User.username == username)
+        is_friend = Friends.select().where(
+            (
+                (Friends.user1 == self & Friends.user2 == other) | (Friends.user1 == other & Friends.user2 == self)
+            ) & (
+                Friends.confirmed == -1
+            )
+        ).exists()
+        return is_friend
+
 
     @classmethod
     def confirm_friend_request(cls, id, answer):
