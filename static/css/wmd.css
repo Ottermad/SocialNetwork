@@ -24,7 +24,8 @@
 }
 
 .wmd-button > span {
-    background-image: url("http://pagedown.googlecode.com/hg/wmd-buttons.png");
+    /*background-image: url("http://pagedown.googlecode.com/hg/wmd-buttons.png");*/
+    background-image: url("images/wmd-buttons-test.png");
     background-repeat: no-repeat;
     background-position: 0px 0px;
     width: 20px;
