@@ -157,6 +157,16 @@ class User(UserMixin, Model):
             requests.append(data)
         return requests
 
+    def is_friend(self, username):
+        other = User.get(User.username == username)
+        is_friend = Friends.select().where(
+            (
+                (Friends.user1 == self & Friends.user2 == other) | (Friends.user1 == other & Friends.user2 == self)
+            ) & (
+                Friends.confirmed == 1
+            )
+        )
+
     @classmethod
     def confirm_friend_request(cls, id, answer):
         try:
