@@ -216,6 +216,9 @@ def get_post():
 @login_required
 def user(username):
     user = models.User.get(models.User.id == current_user.get_id())
+    user_email = user.email
+    user_email_hash = gravatar_hash(user_email)
+    gravatar = "http://www.gravatar.com/avatar/{}".format(user_email_hash)
     data = models.User.view_user(username)
     is_pending = user.is_pending(username)
     is_friend = user.is_friend(username)
@@ -223,7 +226,7 @@ def user(username):
         own_page = True
     else:
         own_page = False
-    return render_template("user.html", user=data, is_friend=is_friend, is_pending=is_pending, own_page=own_page)
+    return render_template("user.html", user=data, is_friend=is_friend, is_pending=is_pending, own_page=own_page, gravatar=gravatar)
 
 @app.route("/friend-request", methods=("POST", "GET"))
 @login_required
