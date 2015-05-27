@@ -1,5 +1,5 @@
-.wmd-button-bar {
-    width: 100%;
+#wmd-button-bar {
+    display: none;
 }
 
 .wmd-button-row {
@@ -65,7 +65,7 @@
 }
 
 #wmd-input {
-    width: 98%;
+    width: 100%;
     resize: vertical;
     min-height: 200px;
 }
