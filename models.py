@@ -154,8 +154,7 @@ class User(UserMixin, Model):
     @classmethod
     def view_user(cls, username):
         user = User.get(User.username == username)
-        data = []
-        data.append(user.username)
+        data = {"username": user.username}
         return data
 
 class Message(Model):
