@@ -30,6 +30,8 @@
             {% if current_user.is_authenticated() %}
 				<!--Change to logout button if user is logged in -->
 				<button class="theme-btn right marg-5 pad-5 theme-font"><a href="{{url_for("logout")}}">Logout</a></button>
+				<button class="theme-btn right marg-5 pad-5 theme-font"><a href="{{url_for("view_friend_requests")}}">Friend Requests</a></button>
+                <button class="theme-btn right marg-5 pad-5 theme-font"><a href="{{url_for("user_listing")}}">User Listing</a></button>
             {% else %}
             	<!--Change to logout button if user is not logged in -->
 				<button class="theme-btn right marg-5 pad-5 theme-font"><a href="{{url_for("login")}}">Login</a></button>
