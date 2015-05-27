@@ -233,6 +233,17 @@ def get_friend_requests():
     requests = user.get_friend_requests()
     return json.dumps(requests)
 
+@app.route("/confirm-friend-request", methods=("POST", "GET"))
+@login_required
+def confirm_friend_request():
+    id = request.form["id"]
+    if request.form["result"] == "True":
+        result = True
+    else:
+        result = False
+    response = models.User.confirm_friend_request(id, result)
+    return response
+
 try:
     models.initialise()
 except:

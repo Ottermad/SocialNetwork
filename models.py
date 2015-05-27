@@ -157,13 +157,18 @@ class User(UserMixin, Model):
             requests.append(data)
         return requests
 
-    def confirm_friend_request(self, id, answer):
-        request = Friends.get(Friends.id == id)
-        if answer is True:
-            request.confirmed = 1
-        else:
-            request.confirmed = 0
-        request.save()
+    @classmethod
+    def confirm_friend_request(cls, id, answer):
+        try:
+            request = Friends.get(Friends.id == id)
+            if answer is True:
+                request.confirmed = 1
+            else:
+                request.confirmed = 0
+            request.save()
+            return "Done."
+        except:
+            return "Error"
 
     @classmethod
     def create_user(cls, username, email, password, is_admin=False):
