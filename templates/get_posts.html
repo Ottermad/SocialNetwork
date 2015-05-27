@@ -18,7 +18,7 @@
                 var postHTML = "";
                 for (var i = 0; i < extra.length; i++) {
                     postHTML += '<div class="post theme-box" id=' + extra[i][4] +'>';
-                    postHTML += '<p class="name dark-gray">' + 'By ' + extra[i][0] + ' at a fucking cunt face';
+                    postHTML += '<p class="name dark-gray">' + 'By ' + extra[i][0] + ' at ';
                     postHTML += '<span class="timestamp">' + extra[i][1] + '</span> </p>';
                     postHTML += '<p class="content">' + extra[i][2] + '</p>';
                     postHTML += '<div>';
@@ -94,7 +94,7 @@
             }
         }
 
-        getPostsRequest.open("POST", "{{ url_for("get_posts") }}", true)
+        getPostsRequest.open("POST", "{{ url_for("get_posts") }}", true);
         getPostsRequest.setRequestHeader("Content-type","application/x-www-form-urlencoded");
         getPostsRequest.send("offset=" + 0);
 
