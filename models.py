@@ -221,6 +221,9 @@ class Friends(Model):
     user2 = ForeignKeyField(rel_model=User, related_name="user2")
     confirmed = BooleanField(default=False)
 
+    class Meta:
+        database = DATABASE
+
 def initialise():
     DATABASE.connect()
     DATABASE.create_tables([User, Message, Post, Comment, Friends], safe=True)
