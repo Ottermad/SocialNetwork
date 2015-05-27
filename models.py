@@ -210,6 +210,14 @@ class User(UserMixin, Model):
         data = {"id": user.id, "username": user.username}
         return data
 
+    @classmethod
+    def get_all_users(cls):
+        query = User.select()
+        data = []
+        for user in query:
+            data.append(user.username)
+        return data
+
 class Message(Model):
     timestamp = DateTimeField(default=datetime.datetime.now)
     recipient = ForeignKeyField(
