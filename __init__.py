@@ -211,7 +211,11 @@ def user(username):
     data = models.User.view_user(username)
     is_pending = user.is_pending(username)
     is_friend = user.is_friend(username)
-    return render_template("user.html", user=data, is_friend=is_friend, is_pending=is_pending)
+    if user.username == username:
+        own_page = True
+    else:
+        own_page = False
+    return render_template("user.html", user=data, is_friend=is_friend, is_pending=is_pending, own_page)
 
 @app.route("/friend-request", methods=("POST", "GET"))
 @login_required
