@@ -207,8 +207,11 @@ def get_post():
 @app.route("/user/<username>")
 @login_required
 def user(username):
+    user = models.User.get(models.User.id == current_user.get_id())
     data = models.User.view_user(username)
-    return render_template("user.html", user=data)
+    is_pending = user.is_pending(username)
+    is_friend = user.is_friend(username)
+    return render_template("user.html", user=data, is_friend=is_friend, is_pending=is_pending)
 
 @app.route("/friend-request", methods=("POST", "GET"))
 @login_required
