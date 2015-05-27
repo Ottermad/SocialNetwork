@@ -151,6 +151,13 @@ class User(UserMixin, Model):
         except IntegrityError:
             raise ValueError("User already exists.")
 
+    @classmethod
+    def view_user(cls, username):
+        user = User.get(User.username == username)
+        data = []
+        data.append(user.username)
+        return data
+
 class Message(Model):
     timestamp = DateTimeField(default=datetime.datetime.now)
     recipient = ForeignKeyField(
