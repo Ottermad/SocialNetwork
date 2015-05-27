@@ -226,7 +226,7 @@ def view_friend_requests():
     requests = user.get_friend_requests()
     return render_template("view_friend_requests.html", requests=requests)
 
-@app.route("/get-friend-requests")
+@app.route("/get-friend-requests", methods=("POST", "GET"))
 @login_required
 def get_friend_requests():
     user = models.User.get(models.User.id == current_user.get_id())
