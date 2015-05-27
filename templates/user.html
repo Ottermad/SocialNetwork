@@ -1,5 +1,8 @@
 {% extends "layout.html" %}
 {% block content %}
-    <h1>{{ user["username"] }}</h1>
-    <button type="button" id="{{ user["id"] }}">Send Friend Request</button>
+    <h1 id="name">{{ user["username"] }}</h1>
+    <button type="button" class="friend-request-button" onclick="sendFriendRequest()">Send Friend Request</button>
+{% endblock %}
+{% block ajax %}
+    {% include "send_request.html" %}
 {% endblock %}

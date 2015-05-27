@@ -210,7 +210,7 @@ def user(username):
     data = models.User.view_user(username)
     return render_template("user.html", user=data)
 
-@app.route("/friend-request")
+@app.route("/friend-request", methods=("POST", "GET"))
 @login_required
 def friend_request():
     username = request.form["username"]
