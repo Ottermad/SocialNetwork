@@ -1,7 +1,10 @@
 {% extends "layout.html" %}
 {% block content %}
     <h1 id="name">{{ user["username"] }}</h1>
-    {% if is_friend %}
+    {% if own_page %}
+        <p>On own page.</p>
+        <!-- Later add controls to editing bio etc. -->
+    {% elif is_friend %}
         <p>You are friends! :)</p>
     {% elif is_pending %}
         <p>Request Pending</p>
