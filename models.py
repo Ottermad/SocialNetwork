@@ -12,6 +12,7 @@ from peewee import (
     ForeignKeyField,
     TextField,
     DoesNotExist,
+    IntegerField
 )
 #from peewee import *
 from flask.ext.login import (
@@ -156,6 +157,13 @@ class User(UserMixin, Model):
             requests.append(data)
         return requests
 
+    def confirm_friend_request(self, id, answer):
+        request = Friends.get(Friends.id == id)
+        if answer is True:
+            request.confirmed = 1
+        else:
+            request.confirmed = 0
+        request.save()
 
     @classmethod
     def create_user(cls, username, email, password, is_admin=False):
@@ -226,7 +234,7 @@ class Comment(Model):
 class Friends(Model):
     user1 = ForeignKeyField(rel_model=User, related_name="user1")
     user2 = ForeignKeyField(rel_model=User, related_name="user2")
-    confirmed = BooleanField(default=False)
+    confirmed = IntegerField(default=-1)
 
     class Meta:
         database = DATABASE
