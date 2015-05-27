@@ -204,6 +204,12 @@ def get_post():
     post = json.dumps(post)
     return post
 
+@app.route("/user/<username>")
+@login_required
+def user(username):
+    data = models.User.view_user(username)
+    return render_template("user.html", user=data)
+
 try:
     models.initialise()
 except:
