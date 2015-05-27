@@ -1,7 +1,13 @@
 {% extends "layout.html" %}
 {% block content %}
     <h1 id="name">{{ user["username"] }}</h1>
-    <button type="button" class="friend-request-button" onclick="sendFriendRequest()">Send Friend Request</button>
+    {% if is_friend %}
+        <p>You are friends! :)</p>
+    {% elif is_pending %}
+        <p>Request Pending</p>
+    {% else %}
+        <button type="button" class="friend-request-button" onclick="sendFriendRequest()">Send Friend Request</button>
+    {% endif %}
 {% endblock %}
 {% block ajax %}
     {% include "send_request.html" %}
