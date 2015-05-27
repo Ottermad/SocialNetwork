@@ -139,6 +139,18 @@ class User(UserMixin, Model):
         except:
             return "Error commenting."
 
+    def friend_request(self, username):
+        user = User.get(User.username == username)
+        try:
+            request = Friends.create(
+                user1=self,
+                user2=user
+            )
+            return "Sent."
+        except:
+            return "Error."
+
+
 
     @classmethod
     def create_user(cls, username, email, password, is_admin=False):
