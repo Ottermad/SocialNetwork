@@ -251,6 +251,12 @@ def confirm_friend_request():
     response = models.User.confirm_friend_request(id, result)
     return response
 
+@app.route("/user-listing")
+@login_required
+def user_listing():
+    users = models.User.get_all_users()
+    return render_template("user-listing.html", users=users)
+
 try:
     models.initialise()
 except:
