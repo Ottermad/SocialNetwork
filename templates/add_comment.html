@@ -64,20 +64,22 @@
                 var json = commentRequest.responseText;
                 var json = JSON.parse(json);
                 var postHTML = "";
-                postHTML += '<p class="name">' + json[0] + '</p>';
-                postHTML += '<p class="timestamp">' + json[1] + '</p>';
+                postHTML += '<p class="name dark-gray"> By ' + json[0] + ' at ';
+                postHTML += '<span class="timestamp">' + json[1] + '</span> </p>';
                 postHTML += '<p class="content">' + json[2] + '</p>';
-                postHTML += '<div>';
-                postHTML += '<ul>';
+                postHTML += '<h2 class="comment-header">Comments:</h2>';
+                postHTML += '<hr class="comment-section-seperator">';
+                postHTML += '<ul class="comment-list">';
                 for(var c = 0; c < json[3].length; c++) {
-                    postHTML += '<li>' + json[3][c][0] + ': ' + json[3][c][2] + ' @ ' +  json[3][c][1] + '</li>';
+                    postHTML += '<li class="comment"><span class="comment-name">' + json[3][c][0] + '</span>: ' + json[3][c][2] + ' <span class="data right">' +  json[3][c][1] + '</span></li>';
+                    postHTML += '<hr class="comment-seperator">';
                 }
                 postHTML += ' </ul>';
                 postHTML += '</div>';
 
                 postHTML += '<form>';
-                postHTML += '<input class="input' + json[4] + '" name="comment" type="text">';
-                postHTML +='<button type="button" id="' + json[4] + '" class="comment-button">Comment</button>';
+                postHTML += '<input class="input' + json[4] + ' comment-input" name="comment" type="text">';
+                postHTML += '<button type="button" id="' + json[4] + '" class="comment-button"><i class="fa fa-comment"></i> Post comment</button>';
                 postHTML += '</form>';
                 $("#div" + id).html(postHTML);
             }

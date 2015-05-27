@@ -21,6 +21,19 @@
 	font-weight: bold;
 }
 
+.comment-button {
+	background-color: rgba(0,0,0,0);
+	border: none;
+}
+
+.comment-input {
+	border-radius: 5px;
+	border-width: 0.1;
+	border-style: solid;
+	border-color: #D4D4D4;
+	width: 60%;
+}
+
 hr {
 	border-style: solid;
 	border-color: #303030;
