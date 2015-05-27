@@ -141,14 +141,12 @@ class User(UserMixin, Model):
 
     def friend_request(self, username):
         user = User.get(User.username == username)
-        try:
-            request = Friends.create(
-                user1=self,
-                user2=user
-            )
-            return "Sent."
-        except:
-            return "Error."
+        request = Friends.create(
+            user1=self,
+            user2=user
+        )
+        return "Sent."
+
 
 
 
@@ -225,5 +223,5 @@ class Friends(Model):
 
 def initialise():
     DATABASE.connect()
-    DATABASE.create_tables([User, Message, Post, Comment], safe=True)
+    DATABASE.create_tables([User, Message, Post, Comment, Friends], safe=True)
     DATABASE.close()
