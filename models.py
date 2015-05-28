@@ -200,12 +200,11 @@ class User(UserMixin, Model):
 
     def delete_post(self, post_id):
         try:
-            post = Post.get(Post.id == post.id)
+            post = Post.get(Post.id == post_id)
             post.delete_instance()
-            return "Done."
+            return "Done"
         except:
-            return "Error."
-
+            return "Error"
 
     @classmethod
     def confirm_friend_request(cls, id, answer):
