@@ -15,13 +15,15 @@
             <button type="button" id="send-message" onclick="createBio()">Send</button>
         </form>
     {% endif %}
-    {% if is_friend %}
-        <p>You are friends! :)</p>
-    {% elif is_pending %}
-        <p>Request Pending</p>
-    {% elif not own_page %}
-        <button type="button" class="friend-request-button" onclick="sendFriendRequest()">Send Friend Request</button>
-    {% endif %}
+    <div id="friend-status">
+        {% if is_friend %}
+            <p>You are friends! :)</p>
+        {% elif is_pending %}
+            <p>Request Pending</p>
+        {% elif not own_page %}
+            <button type="button" class="friend-request-button" onclick="sendFriendRequest()">Send Friend Request</button>
+        {% endif %}
+    </div>
 {% endblock %}
 {% block ajax %}
     {% include "update_bio.html" %}
