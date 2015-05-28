@@ -213,7 +213,7 @@ class User(UserMixin, Model):
     @classmethod
     def view_user(cls, username):
         user = User.get(User.username == username)
-        data = {"id": user.id, "username": user.username}
+        data = {"id": user.id, "username": user.username, "biography": user.biography}
         return data
 
     @classmethod
