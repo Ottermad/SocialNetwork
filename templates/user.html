@@ -6,12 +6,12 @@
     {% if own_page %}
         <p>On own page.</p>
         <!-- Later add controls to editing bio etc. -->
-        <form method="post" id="bio">
+        <form method="post" id="bio-form">
             {{ bio_form.hidden_tag() }}
             {% for field in bio_form %}
                 {{ render_field(field) }}
             {% endfor %}
-            <button type="button" id="send-message" onclick="sendMessage()">Send</button>
+            <button type="button" id="send-message" onclick="createBio()">Send</button>
         </form>
     {% else %}
         <p>{{ user["biography"] }}</p>
@@ -25,5 +25,5 @@
     {% endif %}
 {% endblock %}
 {% block ajax %}
-    {% include "send_request.html" %}
+    {% include "update_bio.html" %}
 {% endblock %}
