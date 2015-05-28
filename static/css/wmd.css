@@ -57,17 +57,28 @@
 }
 
 #wmd-preview {
-    border-width: 1px;
+    border-width: 0px;
+    border-top-width: 1px;
     border-style: solid;
-    border-color: #373737;
-    width: 99%;
-    padding-top: 0;
+    border-color: #B4B4B4;
+    width: 97.5%;
+    padding: 5px 1%;
+    margin: 0;
+    margin-top: 10px;
+    border-radius: none;
+}
+
+#wmd-preview p{
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin: 0;
 }
 
 #wmd-input {
-    width: 100%;
+    width: 97.5%;
+    padding: 1%;
     resize: vertical;
-    min-height: 200px;
+    min-height: 50px;
 }
 
 #button-bar-overlay {

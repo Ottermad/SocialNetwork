@@ -20,12 +20,24 @@
   -moz-osx-font-smoothing: grayscale;
   transform: translate(0, 0);
 }
+
+.fa-pm {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
 .fa:hover {
   color: #3D9970;
 }
 /* makes the font 33% larger relative to the icon container */
 .fa-lg {
-  font-size: 1.33333333em;
+  font-size: 1.4em;
+  line-height: 0.75em;
+  vertical-align: -15%;
+}
+
+.fa-1-5x{
+  font-size: 1.5em;
   line-height: 0.75em;
   vertical-align: -15%;
 }

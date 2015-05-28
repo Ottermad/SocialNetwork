@@ -38,3 +38,8 @@ hr {
 	border-style: solid;
 	border-color: #303030;
 }
+
+.post-form {
+	margin-bottom: 20px;
+	padding: 5px 10px 12px 10px;
+}
