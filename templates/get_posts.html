@@ -15,38 +15,72 @@
             if (getPostsRequest.readyState == 4 & getPostsRequest.status == 200) {
                 var extra = getPostsRequest.responseText;
                 var extra = JSON.parse(extra);
-                var postHTML = "";
-                for (var i = 0; i < extra.length; i++) {
-                    console.log(postHTML);
-                    postHTML += '<div class="post theme-box" id=' + extra[i][4] +'>';
-                    postHTML += '<p class="name">' + extra[i][0] + '</p>';
-                    postHTML += '<p class="timestamp">' + extra[i][1] + '</p>';
-                    postHTML += '<p class="content">' + extra[i][2] + '</p>';
-                    postHTML += '<div>';
-                    postHTML += '<ul>';
-                    for(var c = 0; c < extra[i][3].length; c++) {
-                        postHTML += '<li>' + extra[i][3][c][0] + ': ' + extra[i][3][c][2] + ' @ ' +  extra[i][3][c][1] + '</li>';
-                    }
-                    postHTML += ' </ul>';
-                    postHTML += '</div>';
-
-                    postHTML += '<form>';
-                    postHTML += '<input class="input' + extra[i][4] + '" name="comment" type="text">';
-                    postHTML +='<button type="button" id="' + extra[i][4] + '" class="comment-button">Comment</button>';
-                    postHTML += '</form>';
-                    postHTML += '</div>';
-                    console.log(postHTML);
-                }
+                var postHTML = formatPost(extra);
 
                 $("#posts").append(postHTML);
+                console.log("Updated");
 
             }
         }
 
-        getPostsRequest.open("POST", "{{ url_for("get_posts") }}", true)
+        getPostsRequest.open("POST", "{{ url_for("get_posts") }}", true);
         getPostsRequest.setRequestHeader("Content-type","application/x-www-form-urlencoded");
         getPostsRequest.send("offset=" + count);
 
+    }
+
+    function getLatestPosts() {
+        var getPostsRequest;
+
+        if (window.XMLHttpRequest) {
+            getPostsRequest = new XMLHttpRequest();
+        } else {
+            getPostsRequest = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+
+        getPostsRequest.onreadystatechange = function () {
+            if (getPostsRequest.readyState == 4 & getPostsRequest.status == 200) {
+                var extra = getPostsRequest.responseText;
+                var extra = JSON.parse(extra);
+                var postHTML = formatPost(extra);
+
+                $("#posts").html(postHTML);
+                console.log("Updated!!!!!!!!!!");
+
+            }
+        }
+
+        getPostsRequest.open("POST", "{{ url_for("get_posts") }}", true);
+        getPostsRequest.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+        getPostsRequest.send("offset=" + 0);
+
+    }
+
+    function formatPost (extra) {
+        formattedPost = "";
+        for (var i = 0; i < extra.length; i++) {
+            formattedPost += '<div class="post theme-box" id=' + extra[i][4] +'>';
+            formattedPost += '<p class="name dark-gray">' + 'By ' + extra[i][0] + ' at ';
+            formattedPost += '<span class="timestamp">' + extra[i][1] + '</span> </p>';
+            formattedPost += '<p class="content">' + extra[i][2] + '</p>';
+            formattedPost += '<div>';
+            formattedPost += '<h2 class="comment-header">Comments:</h2>';
+            formattedPost += '<hr class="comment-section-seperator">';
+            formattedPost += '<ul class="comment-list">';
+            for(var c = 0; c < extra[i][3].length; c++) {
+                formattedPost += '<li class="comment"><span class="comment-name">' + extra[i][3][c][0] + '</span>: ' + extra[i][3][c][2] + ' <span class="data right">' +  extra[i][3][c][1] + '</span></li>';
+                formattedPost += '<hr class="comment-seperator">';
+            }
+            formattedPost += '</ul>';
+            formattedPost += '</div>';
+
+            formattedPost += '<form>';
+            formattedPost += '<input class="input' + extra[i][4] + '" name="comment" type="text">';
+            formattedPost +='<button type="button" id="' + extra[i][4] + '" class="comment-button">Comment</button>';
+            formattedPost += '</form>';
+            formattedPost += '</div>';
+        }
+        return formattedPost;
     }
 
 </script>

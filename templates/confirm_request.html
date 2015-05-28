@@ -1,0 +1,92 @@
+<script>
+    function confirmRequest(id, result) {
+        // Create a new variable to hold request
+        var confirmRequest;
+
+        // Check if XMLHttpRequest exists (modern browsers - IE7+, Firefox, Chrome, Opera, Safari)
+        if (window.XMLHttpRequest) {
+            // if it does create a XMLHttpRequest
+            confirmRequest = new XMLHttpRequest();
+        }
+        else {
+            // otherwise deal with IE6, IE5
+            confirmRequest = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+
+        // Call back function for request
+        confirmRequest.onreadystatechange = function () {
+
+            console.log(confirmRequest.status);
+
+            // Check if request was sent successfully.
+            if (confirmRequest.readyState == 4 && confirmRequest.status == 200) {
+
+                // Get response body
+                var response = confirmRequest.responseText;
+                alert(response);
+                getFriendRequests();
+            }
+        };
+
+        // Send a post request
+        confirmRequest.open("POST", "{{ url_for("confirm_friend_request") }}", true);
+        confirmRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        confirmRequest.send("id=" + id +"&result=" + result);
+    }
+
+    function getFriendRequests() {
+        // Create a new variable to hold request
+        var getFriendRequests;
+
+        // Check if XMLHttpRequest exists (modern browsers - IE7+, Firefox, Chrome, Opera, Safari)
+        if (window.XMLHttpRequest) {
+            // if it does create a XMLHttpRequest
+            getFriendRequests = new XMLHttpRequest();
+        }
+        else {
+            // otherwise deal with IE6, IE5
+            getFriendRequests = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+
+        // Call back function for request
+        getFriendRequests.onreadystatechange = function () {
+
+            console.log(getFriendRequests.status);
+
+            // Check if request was sent successfully.
+            if (getFriendRequests.readyState == 4 && getFriendRequests.status == 200) {
+
+                // Get response body
+                var response = getFriendRequests.responseText;
+                var json = JSON.parse(response);
+                var html = "";
+
+                for (var i=0; i < json.length; i++) {
+                    html += '<li>' + json[i][0] + ' - <button id="' + json[i][1] + '" class="confirm-request-button">CONFIRM</button><button id="' + json[i][1] + '" class="decline-request-button">DECLINE</button></li>';
+                }
+
+                $("#friend-requests").html(html);
+            }
+        };
+
+        // Send a post request
+        getFriendRequests.open("POST", "{{ url_for("get_friend_requests") }}", true);
+        getFriendRequests.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        getFriendRequests.send("");
+
+    }
+
+    $(".confirm-request-button").on("click", function() {
+        var id = $(this).attr("id");
+        console.log(id);
+        confirmRequest(id, "True");
+    });
+
+    $(".decline-request-button").on("click", function() {
+        var id = $(this).attr("id");
+
+        confirmRequest(id, "False");
+    });
+
+
+</script>

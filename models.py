@@ -12,6 +12,7 @@ from peewee import (
     ForeignKeyField,
     TextField,
     DoesNotExist,
+    IntegerField
 )
 #from peewee import *
 from flask.ext.login import (
@@ -59,6 +60,7 @@ class User(UserMixin, Model):
     email = CharField(unique=True)
     password = CharField(max_length=100)
     is_admin = BooleanField(default=False)
+    biography = TextField(null=True)
 
     class Meta:
         database = DATABASE
@@ -139,6 +141,70 @@ class User(UserMixin, Model):
         except:
             return "Error commenting."
 
+    def friend_request(self, username):
+        user = User.get(User.username == username)
+        request = Friends.create(
+            user1=self,
+            user2=user
+        )
+        return "Sent."
+
+    def get_friend_requests(self):
+        query = Friends.select().where((Friends.user2 == self) & (Friends.confirmed == -1))
+        requests = []
+        for request in query:
+            other = User.get(User.id == request.user1.id)
+            data = [other.username, request.id]
+            requests.append(data)
+        return requests
+
+    def is_friend(self, username):
+        other = User.get(User.username == username)
+        is_friend = Friends.select().where(
+            (
+                (Friends.user1 == self & Friends.user2 == other) | (Friends.user1 == other & Friends.user2 == self)
+            ) & (
+                Friends.confirmed == 1
+            )
+        ).exists()
+        return is_friend
+
+    def is_pending(self, username):
+        other = User.get(User.username == username)
+        is_friend = Friends.select().where(
+            (
+                (Friends.user1 == self & Friends.user2 == other) | (Friends.user1 == other & Friends.user2 == self)
+            ) & (
+                Friends.confirmed == -1
+            )
+        ).exists()
+        return is_friend
+
+    def create_bio(self, bio):
+        try:
+            self.biography = bio
+            self.save()
+            return "Done."
+        except:
+            return "Error"
+
+    def get_bio(self):
+        return [self.biography]
+
+
+
+    @classmethod
+    def confirm_friend_request(cls, id, answer):
+        try:
+            request = Friends.get(Friends.id == id)
+            if answer is True:
+                request.confirmed = 1
+            else:
+                request.confirmed = 0
+            request.save()
+            return "Done."
+        except:
+            return "Error"
 
     @classmethod
     def create_user(cls, username, email, password, is_admin=False):
@@ -150,6 +216,20 @@ class User(UserMixin, Model):
             )
         except IntegrityError:
             raise ValueError("User already exists.")
+
+    @classmethod
+    def view_user(cls, username):
+        user = User.get(User.username == username)
+        data = {"id": user.id, "username": user.username, "biography": user.biography}
+        return data
+
+    @classmethod
+    def get_all_users(cls):
+        query = User.select()
+        data = []
+        for user in query:
+            data.append(user.username)
+        return data
 
 class Message(Model):
     timestamp = DateTimeField(default=datetime.datetime.now)
@@ -200,7 +280,15 @@ class Comment(Model):
     class Meta:
         database = DATABASE
 
+class Friends(Model):
+    user1 = ForeignKeyField(rel_model=User, related_name="user1")
+    user2 = ForeignKeyField(rel_model=User, related_name="user2")
+    confirmed = IntegerField(default=-1)
+
+    class Meta:
+        database = DATABASE
+
 def initialise():
     DATABASE.connect()
-    DATABASE.create_tables([User, Message, Post, Comment], safe=True)
+    DATABASE.create_tables([User, Message, Post, Comment, Friends], safe=True)
     DATABASE.close()

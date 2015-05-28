@@ -1,0 +1,26 @@
+<script>
+    function sendFriendRequest () {
+
+        var username = $("#name").text();
+
+        var friendRequest;
+
+        if (XMLHttpRequest) {
+            friendRequest = new XMLHttpRequest();
+        } else {
+            friendRequest = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+
+        friendRequest.onreadystatechange = function () {
+            if (friendRequest.readyState == 4 && friendRequest.status == 200) {
+                // Response
+                var response = friendRequest.responseText;
+                alert(response);
+            }
+        }
+
+        friendRequest.open("POST", "{{ url_for("friend_request") }}", true);
+        friendRequest.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+        friendRequest.send("username=" + username);
+    }
+</script>

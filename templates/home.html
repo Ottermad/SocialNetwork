@@ -3,6 +3,7 @@
 {% block css %}
     <link rel="stylesheet" type="text/css" href="{{ url_for("static", filename="css/wmd.css") }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for("static", filename="css/posts.css") }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for("static", filename="css/font-awesome.css") }}">
 {% endblock %}
 {% block content %}
 
@@ -35,28 +36,58 @@
         <h2 class="theme-font"> Make a new post: </h2>
 
         <!--Editor Widget-->
-        <div class="pad-5">
+        <div class="post-form theme-box">
+            <div id="button-bar-overlay">
+                <i class="fa fa-bold fa-lg fa-pm" emulate="#wmd-bold-button" title="Bold"></i> <!--Bold -->
+                <i class="fa fa-5x"></i>
+                <i class="fa fa-italic fa-lg fa-pm" emulate="#wmd-italic-button"></i><!--Italic-->
+                <i class="fa fa-5x"></i> <i class="fa fa-5x"></i> <i class="fa fa-5x"></i><!--Seperator -->
+                <i class="fa fa-link fa-lg fa-pm" emulate="#wmd-link-button"></i>
+                <i class="fa fa-5x"></i>
+                <i class="fa fa-quote-left fa-lg fa-pm" emulate="#wmd-quote-button"></i>
+                <i class="fa fa-5x"></i>
+                <i class="fa fa-code fa-lg fa-pm" emulate="#wmd-code-button"></i>
+                <i class="fa fa-5x"></i>
+                <i class="fa fa-picture-o fa-lg fa-pm" emulate="#wmd-image-button"></i>
+                <i class="fa fa-5x"></i> <i class="fa fa-5x"></i> <i class="fa fa-5x"></i><!--Seperator -->
+                <i class="fa fa-list-ol fa-lg fa-pm" emulate="#wmd-olist-button"></i>
+                <i class="fa fa-5x"></i>
+                <i class="fa fa-list-ul fa-lg fa-pm" emulate="#wmd-ulist-button"></i>
+                <i class="fa fa-5x"></i>
+                <i class="fa fa-header fa-lg fa-pm" emulate="#wmd-heading-button"></i>
+                <i class="fa fa-5x"></i>
+                <i class="fa fa-minus fa-lg fa-pm" emulate="#wmd-hr-button"></i>
+                <i class="fa fa-5x"></i> <i class="fa fa-5x"></i> <i class="fa fa-5x"></i><!--Seperator -->
+                <i class="fa fa-5x"></i>
+                <i class="fa fa-undo fa-lg fa-pm" emulate="#wmd-undo-button"></i>
+                <i class="fa fa-5x"></i>
+                <i class="fa fa-repeat fa-lg fa-pm" emulate="#wmd-redo-button"></i>
+                <!--Send button -->
+                <i class="fa fa-paper-plane fa-lg fa-pm right" id="submit-post" onclick="sendPost()"> Post</i>
+                <i class="fa fa-5x right pad-5"></i>
+                <!--preveiw button-->
+                <i class="fa fa-eye fa-lg fa-pm right" id="preview-toggle" title="Toggle preview"></i>
+            </div>
+
             <div id="wmd-button-bar"></div>
-            <button id="preview-toggle">Toggle Preview</button>
             <form method="post">
                 {{ post_form.hidden_tag() }}
                 {% for field in post_form %}
                     {{ render_field(field) }}
                 {% endfor %}
-                <button type="button" id="submit-post" onclick="sendPost()">Submit Post</button>
             </form>
-            <div id="wmd-preview" class="theme-font theme-box pad-5"></div>
+            <div id="wmd-preview" class="theme-font pad-5"></div>
         </div>
 
         <!-- List all of the posts -->
-        <div id="posts" class="theme-font">
+        <div id="posts pad-5" class="theme-font">
             {% for post in posts %}
                 <div class="post theme-box" id="div{{ post[4] }}">
                     <p class="name dark-gray">By {{ post[0] }} at <span class="timestamp">{{ post[1] }}</span></p>
                     <div class="content">{{ post[2] | safe }}</div>
                     <div>
                         <h2 class="comment-header">Comments:</h2>
-                        <hr class="comment-seperator"> <!-- Comment and post divider -->
+                        <hr class="comment-section-seperator"> <!-- Comment and post divider -->
                         <ul class="comment-list">
                             {% for comment in post[3] %}
                                 <li class="comment"><span class="comment-name">{{ comment[0] }}</span>: {{ comment[2] }} <span class="date right">{{ comment[1] }}</span></li>
@@ -65,14 +96,14 @@
                         </ul>
                     </div>
                     <form>
-                        <input class="input{{ post[4] }}" name="comment" type="text">
-                        <button type="button" id="{{ post[4] }}" class="comment-button">Comment</button>
+                        <input class="input{{ post[4] }} comment-input" name="comment" type="text">
+                        <button type="button" id="{{ post[4] }}" class="comment-button"><i class="fa fa-comment"></i> Post comment</button>
                     </form>
-                    <hr class="comment-seperator">
+                    <hr class="comment-section-seperator">
                 </div>
             {% endfor %}
-            <button type="button" id="load-posts" onclick="getPosts()">Load More</button>
         </div>
+        <button type="button" id="load-posts" onclick="getPosts()">Load More</button>
     </div>
 
 
@@ -81,6 +112,18 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pagedown/1.0/Markdown.Converter.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pagedown/1.0/Markdown.Editor.js"></script>
     <script type="text/javascript" src="{{ url_for("static", filename="js/markdown-editor-widget.js") }}"></script>
+    <script type="text/javascript">
+                jQuery(document).ready(function($) {
+                    $('.fa').click(function(event) {
+                        //event.preventDefault();
+                        var emulateIdentitifier = $(this).attr('emulate');
+                        console.log(emulateIdentitifier);
+                        if ($(emulateIdentitifier)) {
+                            $(emulateIdentitifier).click();
+                        }
+                    });
+                });
+            </script>
     {% include "send_message.html" %}
     {% include "get_messages.html" %}
     {% include "send_post.html" %}

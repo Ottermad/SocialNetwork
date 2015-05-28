@@ -33,6 +33,11 @@ import os
 import json
 import re
 import markdown
+import hashlib
+import html2text
+
+
+h = html2text.HTML2Text()
 
 # Set up application - need a secret key for secure sessions
 app = Flask(__name__)
@@ -48,6 +53,13 @@ def clean_markdown(raw_md):
     cleanr = re.compile("<.*?>")
     cleaned_md = re.sub(cleanr, "", raw_md)
     return cleaned_md
+
+def gravatar_hash(email):
+    email = email.strip()
+    email = email.lower()
+    email = email.encode()
+    email_hash = hashlib.md5(email).hexdigest()
+    return email_hash
 
 # Login Manager Functions
 
@@ -203,6 +215,87 @@ def get_post():
     post = models.Post.get_post(id)
     post = json.dumps(post)
     return post
+
+@app.route("/user/<username>")
+@login_required
+def user(username):
+    bio_form = forms.BiographyForm()
+    user = models.User.get(models.User.id == current_user.get_id())
+    other_user_email = models.User.get(models.User.username == username).email
+    other_user_email_hash = gravatar_hash(other_user_email)
+    gravatar = "http://www.gravatar.com/avatar/{}".format(other_user_email_hash)
+    data = models.User.view_user(username)
+    is_pending = user.is_pending(username)
+    is_friend = user.is_friend(username)
+    if user.username == username:
+        own_page = True
+    else:
+        own_page = False
+    return render_template("user.html", user=data, is_friend=is_friend, is_pending=is_pending, own_page=own_page, gravatar=gravatar, bio_form=bio_form)
+
+@app.route("/friend-request", methods=("POST", "GET"))
+@login_required
+def friend_request():
+    username = request.form["username"]
+    print("USERNAME:", username)
+    user = models.User.get(models.User.id == current_user.get_id())
+    response = user.friend_request(username)
+    return response
+
+@app.route("/view-friend-requests")
+@login_required
+def view_friend_requests():
+    user = models.User.get(models.User.id == current_user.get_id())
+    requests = user.get_friend_requests()
+    return render_template("view_friend_requests.html", requests=requests)
+
+@app.route("/get-friend-requests", methods=("POST", "GET"))
+@login_required
+def get_friend_requests():
+    user = models.User.get(models.User.id == current_user.get_id())
+    requests = user.get_friend_requests()
+    return json.dumps(requests)
+
+@app.route("/confirm-friend-request", methods=("POST", "GET"))
+@login_required
+def confirm_friend_request():
+    id = request.form["id"]
+    if request.form["result"] == "True":
+        result = True
+    else:
+        result = False
+    response = models.User.confirm_friend_request(id, result)
+    return response
+
+@app.route("/user-listing")
+@login_required
+def user_listing():
+    users = models.User.get_all_users()
+    return render_template("user-listing.html", users=users)
+
+@app.route("/create-bio", methods=("POST", "GET"))
+@login_required
+def create_bio():
+    form = forms.BiographyForm(request.form)
+    if form.validate():
+        user = models.User.get(models.User.id == current_user.get_id())
+        md = form.biography.data
+        cleaned_markdown = clean_markdown(md)
+        html = markdown.markdown(cleaned_markdown)
+        result = user.create_bio(html)
+        return result
+    else:
+        return form.errors
+
+@app.route("/get-bio", methods=("POST", "GET"))
+@login_required
+def get_bio():
+    user = models.User.get(models.User.id == current_user.get_id())
+    bio = user.get_bio()
+    bio_md = h.handle(bio[0])
+    return json.dumps([bio_md, bio[0]])
+
+
 
 try:
     models.initialise()

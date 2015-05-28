@@ -1,3 +1,8 @@
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
 .no-pm {
 	padding: 0px;
 	margin: 0px;
@@ -17,6 +22,10 @@
 
 .bg-theme {
 	background-color: #3D9970;
+}
+
+label {
+	display: none;
 }
 
 .container {
@@ -127,4 +136,7 @@
 		padding-bottom: 10px;
 	}
 	
+	.main-content {
+		width: 100%;
+	}
 }
