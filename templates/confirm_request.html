@@ -61,6 +61,10 @@
                 var json = JSON.parse(response);
                 var html = "";
 
+                if (json.length == 0) {
+                    html = "<li>You have no open friend requests.</li>";
+                }
+
                 for (var i=0; i < json.length; i++) {
                     html += '<li>' + json[i][0] + ' - <button id="' + json[i][1] + '" class="confirm-request-button">CONFIRM</button><button id="' + json[i][1] + '" class="decline-request-button">DECLINE</button></li>';
                 }
