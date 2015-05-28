@@ -34,6 +34,10 @@ import json
 import re
 import markdown
 import hashlib
+import html2text
+
+
+h = html2text.HTML2Text()
 
 # Set up application - need a secret key for secure sessions
 app = Flask(__name__)
@@ -287,7 +291,9 @@ def create_bio():
 @login_required
 def get_bio():
     user = models.User.get(models.User.id == current_user.get_id())
-    return json.dumps(user.get_bio())
+    bio = user.get_bio()
+    bio_md = h.handle(bio)
+    return json.dumps(bio_md)
 
 
 
