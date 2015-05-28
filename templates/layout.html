@@ -49,11 +49,12 @@
 	<div class="container dark_gray">
 		{% block content %}
     	{% endblock %}
-    	<br>
-	    {% for message in get_flashed_messages() %}
-	        {{ message }}
-	    {% endfor %}
 	</div>
+    <script type="text/javascript">
+	    {% for message in get_flashed_messages() %}
+	        alert("{{ message }}");
+	    {% endfor %}
+    </script>
     <script src="{{url_for('static', filename="js/jquery-1.11.3.js")}}"></script>
 	{% block ajax %}
 	{% endblock %}
