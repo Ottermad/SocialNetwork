@@ -36,37 +36,37 @@
         <h2 class="theme-font"> Make a new post: </h2>
 
         <!--Editor Widget-->
-        <div class="pad-5">
+        <div class="post-form theme-box">
             <div id="button-bar-overlay">
-                <i class="fa fa-bold fa-2x" emulate="#wmd-bold-button" title="Bold"></i> 
+                <i class="fa fa-bold fa-lg fa-pm" emulate="#wmd-bold-button" title="Bold"></i> <!--Bold -->
                 <i class="fa fa-5x"></i>
-                <i class="fa fa-italic fa-2x" emulate="#wmd-italic-button"></i>
+                <i class="fa fa-italic fa-lg fa-pm" emulate="#wmd-italic-button"></i><!--Italic-->
                 <i class="fa fa-5x"></i> <i class="fa fa-5x"></i> <i class="fa fa-5x"></i><!--Seperator -->
+                <i class="fa fa-link fa-lg fa-pm" emulate="#wmd-link-button"></i>
+                <i class="fa fa-5x"></i>
+                <i class="fa fa-quote-left fa-lg fa-pm" emulate="#wmd-quote-button"></i>
+                <i class="fa fa-5x"></i>
+                <i class="fa fa-code fa-lg fa-pm" emulate="#wmd-code-button"></i>
+                <i class="fa fa-5x"></i>
+                <i class="fa fa-picture-o fa-lg fa-pm" emulate="#wmd-image-button"></i>
                 <i class="fa fa-5x"></i> <i class="fa fa-5x"></i> <i class="fa fa-5x"></i><!--Seperator -->
-                <i class="fa fa-link fa-2x" emulate="#wmd-link-button"></i>
+                <i class="fa fa-list-ol fa-lg fa-pm" emulate="#wmd-olist-button"></i>
                 <i class="fa fa-5x"></i>
-                <i class="fa fa-quote-left fa-2x" emulate="#wmd-quote-button"></i>
+                <i class="fa fa-list-ul fa-lg fa-pm" emulate="#wmd-ulist-button"></i>
                 <i class="fa fa-5x"></i>
-                <i class="fa fa-code fa-2x" emulate="#wmd-code-button"></i>
+                <i class="fa fa-header fa-lg fa-pm" emulate="#wmd-heading-button"></i>
                 <i class="fa fa-5x"></i>
-                <i class="fa fa-picture-o fa-2x" emulate="#wmd-image-button"></i>
-                <i class="fa fa-5x"></i> <i class="fa fa-5x"></i> <i class="fa fa-5x"></i><!--Seperator -->
-                <i class="fa fa-5x"></i> <i class="fa fa-5x"></i> <i class="fa fa-5x"></i><!--Seperator -->
-                <i class="fa fa-list-ol fa-2x" emulate="#wmd-olist-button"></i>
-                <i class="fa fa-5x"></i>
-                <i class="fa fa-list-ul fa-2x" emulate="#wmd-ulist-button"></i>
-                <i class="fa fa-5x"></i>
-                <i class="fa fa-header fa-2x" emulate="#wmd-heading-button"></i>
-                <i class="fa fa-5x"></i>
-                <i class="fa fa-minus fa-2x" emulate="#wmd-hr-button"></i>
-                <i class="fa fa-5x"></i> <i class="fa fa-5x"></i> <i class="fa fa-5x"></i><!--Seperator -->
+                <i class="fa fa-minus fa-lg fa-pm" emulate="#wmd-hr-button"></i>
                 <i class="fa fa-5x"></i> <i class="fa fa-5x"></i> <i class="fa fa-5x"></i><!--Seperator -->
                 <i class="fa fa-5x"></i>
-                <i class="fa fa-undo fa-2x" emulate="#wmd-undo-button"></i>
+                <i class="fa fa-undo fa-lg fa-pm" emulate="#wmd-undo-button"></i>
                 <i class="fa fa-5x"></i>
-                <i class="fa fa-repeat fa-2x" emulate="#wmd-redo-button"></i>
+                <i class="fa fa-repeat fa-lg fa-pm" emulate="#wmd-redo-button"></i>
+                <!--Send button -->
+                <i class="fa fa-paper-plane fa-lg fa-pm right" id="submit-post" onclick="sendPost()"> Post</i>
+                <i class="fa fa-5x right pad-5"></i>
                 <!--preveiw button-->
-                <i class="fa fa-eye fa-2x right" id="preview-toggle" title="Toggle preview"></i>
+                <i class="fa fa-eye fa-lg fa-pm right" id="preview-toggle" title="Toggle preview"></i>
             </div>
 
             <div id="wmd-button-bar"></div>
@@ -75,9 +75,8 @@
                 {% for field in post_form %}
                     {{ render_field(field) }}
                 {% endfor %}
-                <button type="button" id="submit-post" onclick="sendPost()">Submit Post</button>
             </form>
-            <div id="wmd-preview" class="theme-font theme-box pad-5"></div>
+            <div id="wmd-preview" class="theme-font pad-5"></div>
         </div>
 
         <!-- List all of the posts -->
