@@ -60,6 +60,7 @@ class User(UserMixin, Model):
     email = CharField(unique=True)
     password = CharField(max_length=100)
     is_admin = BooleanField(default=False)
+    biography = TextField(null=True)
 
     class Meta:
         database = DATABASE
