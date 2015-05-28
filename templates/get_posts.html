@@ -59,7 +59,7 @@
     function formatPost (extra) {
         formattedPost = "";
         for (var i = 0; i < extra.length; i++) {
-            formattedPost += '<div class="post theme-box" id=' + extra[i][4] +'>';
+            formattedPost += '<div class="post theme-box" id="div' + extra[i][4] +'">';
             formattedPost += '<p class="name dark-gray">' + 'By ' + extra[i][0] + ' at ';
             formattedPost += '<span class="timestamp">' + extra[i][1] + '</span> </p>';
             formattedPost += '<p class="content">' + extra[i][2] + '</p>';
@@ -75,7 +75,7 @@
             formattedPost += '</div>';
 
             formattedPost += '<form>';
-            formattedPost += '<input class="input comment-input' + extra[i][4] + '" name="comment" type="text">';
+            formattedPost += '<input class="input' + extra[i][4] + ' comment-input" name="comment" type="text">';
             formattedPost += '<button type="button" id="' + extra[i][4] + '" class="comment-button"><i class="fa fa-comment"></i> Post comment</button>';
             formattedPost += '</form>';
             formattedPost += '</div>';
