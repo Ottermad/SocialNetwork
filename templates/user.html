@@ -3,6 +3,7 @@
 {% block content %}
     <h1 id="name">{{ user["username"] }}</h1>
     <img src="{{ gravatar }}">
+    <p id="bio-view">{{ user["biography"] }}</p>
     {% if own_page %}
         <p>On own page.</p>
         <!-- Later add controls to editing bio etc. -->
@@ -13,8 +14,6 @@
             {% endfor %}
             <button type="button" id="send-message" onclick="createBio()">Send</button>
         </form>
-    {% else %}
-        <p>{{ user["biography"] }}</p>
     {% endif %}
     {% if is_friend %}
         <p>You are friends! :)</p>

@@ -42,8 +42,9 @@
             if (getBiographyRequest.readyState == 4 & getBiographyRequest.status == 200) {
                 var extra = getBiographyRequest.responseText;
                 var extra = JSON.parse(extra);
-                var bio_md = formatPost(extra);
-
+                var bio_md = extra[0];
+                var bio_html = extra[1];
+                $("#bio-view").html(bio_html);
                 $("#biography").val(bio_md);
 
             }

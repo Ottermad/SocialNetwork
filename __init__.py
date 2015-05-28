@@ -292,8 +292,8 @@ def create_bio():
 def get_bio():
     user = models.User.get(models.User.id == current_user.get_id())
     bio = user.get_bio()
-    bio_md = h.handle(bio)
-    return json.dumps(bio_md)
+    bio_md = h.handle(bio[0])
+    return json.dumps([bio_md, bio[0]])
 
 
 
