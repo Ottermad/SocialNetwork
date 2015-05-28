@@ -1,0 +1,30 @@
+#messages {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	border-width: 0;
+	border-bottom-width: 3px;
+	border-color: #b4b4b4;
+	border-style: solid;
+	padding-bottom: 5px;
+	margin-bottom: 5px;
+}
+
+.msg-sent, .msg-received {
+	margin: 2px;
+	padding: 10px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	border-radius: 40px;
+}
+
+.msg-sent {
+	color: #EEE;
+	background-color: #2D2DDD;
+	float: right;
+}
+
+.msg-received {
+	background-color: #FFF;
+	float: left;
+}

@@ -3,6 +3,18 @@ a {
 	text-decoration: none;
 }
 
+.style-link {
+	color: #00AEFF;
+}
+
+.style-link:hover {
+	text-decoration: underline;
+}
+
+.style-link:visited {
+	color: #00AEFF;
+}
+
 .no-pm {
 	padding: 0px;
 	margin: 0px;

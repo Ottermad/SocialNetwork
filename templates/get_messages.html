@@ -85,20 +85,16 @@
 
                 var htmlString = "";
                 for (i = 0; i < json.length; i++) {
-                    var color = "blue";
+                    var Class = "msg-received";
                     if (json[i][2]) {
-                        color = "red";
+                        Class = "msg-sent";
                     }
-                    var string = "<li style='color:" + color + "'>" + json[i][0] + " " + json[i][1] +"</li>";
+                    var string = "<li class='"+ Class + "'>" + json[i][0] + " " + json[i][1] +"</li>";
                     console.log(string);
                     htmlString = htmlString + string;
                 }
                 var peopleList = document.getElementById("messages");
                 peopleList.innerHTML = htmlString;
-
-
-
-
             }
         }
 
