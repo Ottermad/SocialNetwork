@@ -215,6 +215,7 @@ def get_post():
 @app.route("/user/<username>")
 @login_required
 def user(username):
+    bio_form = forms.BiographyForm()
     user = models.User.get(models.User.id == current_user.get_id())
     other_user_email = models.User.get(models.User.username == username).email
     other_user_email_hash = gravatar_hash(other_user_email)
@@ -226,7 +227,7 @@ def user(username):
         own_page = True
     else:
         own_page = False
-    return render_template("user.html", user=data, is_friend=is_friend, is_pending=is_pending, own_page=own_page, gravatar=gravatar)
+    return render_template("user.html", user=data, is_friend=is_friend, is_pending=is_pending, own_page=own_page, gravatar=gravatar, bio_form=bio_form)
 
 @app.route("/friend-request", methods=("POST", "GET"))
 @login_required
