@@ -282,6 +282,13 @@ def create_bio():
     else:
         return form.errors
 
+@app.route("/get-bio", methods=("POST", "GET"))
+@login_required
+def get_bio():
+    user = models.User.get(models.User.id == current_user.get_id())
+    return json.dumps(user.get_bio())
+
+
 
 try:
     models.initialise()

@@ -188,6 +188,9 @@ class User(UserMixin, Model):
         except:
             return "Error"
 
+    def get_bio(self):
+        return [self.biography]
+
 
 
     @classmethod
