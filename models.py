@@ -181,8 +181,12 @@ class User(UserMixin, Model):
         return is_friend
 
     def create_bio(self, bio):
-        self.biography = bio
-        self.save()
+        try:
+            self.biography = bio
+            self.save()
+            return "Done."
+        except:
+            return "Error"
 
 
 
