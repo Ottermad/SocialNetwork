@@ -160,13 +160,16 @@ class User(UserMixin, Model):
 
     def is_friend(self, username):
         other = User.get(User.username == username)
+        print("OTHER USERNAME", other.username)
+        print(self.username, self.id)
         is_friend = Friends.select().where(
             (
-                (Friends.user1 == self & Friends.user2 == other) | (Friends.user1 == other & Friends.user2 == self)
+                ((Friends.user1 == self) & (Friends.user2 == other)) | ((Friends.user1 == other) & (Friends.user2 == self))
             ) & (
                 Friends.confirmed == 1
             )
         ).exists()
+        print(is_friend)
         return is_friend
 
     def is_pending(self, username):
