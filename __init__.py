@@ -296,7 +296,13 @@ def get_bio():
     bio_md = h.handle(bio[0])
     return json.dumps([bio_md, bio[0]])
 
-
+@app.route("/delete-post", methods=("POST", "GET"))
+@login_required
+def delete_post():
+    user = models.User.get(models.User.id == current_user.get_id())
+    post_id = request.form["id"]
+    result = user.delete_post(post_id)    
+    return result
 
 try:
     models.initialise()
