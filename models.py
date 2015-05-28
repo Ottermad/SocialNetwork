@@ -198,7 +198,13 @@ class User(UserMixin, Model):
     def get_bio(self):
         return [self.biography]
 
-
+    def delete_post(self, post_id):
+        try:
+            post = Post.get(Post.id == post.id)
+            post.delete_instance()
+            return "Done."
+        except:
+            return "Error."
 
 
     @classmethod
