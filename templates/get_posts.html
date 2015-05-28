@@ -61,7 +61,10 @@
         for (var i = 0; i < extra.length; i++) {
             formattedPost += '<div class="post theme-box" id="div' + extra[i][4] +'">';
             formattedPost += '<p class="name dark-gray">' + 'By ' + extra[i][0] + ' at ';
-            formattedPost += '<span class="timestamp">' + extra[i][1] + '</span> </p>';
+            formattedPost += '<span class="timestamp">' + extra[i][1] + '</span> </p>'; 
+            if (extra[i][5]) {
+                formattedPost += '<button class="delete-button">Delete</button>'
+            }
             formattedPost += '<p class="content">' + extra[i][2] + '</p>';
             formattedPost += '<div>';
             formattedPost += '<h2 class="comment-header">Comments:</h2>';
