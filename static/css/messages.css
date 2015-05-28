@@ -32,11 +32,11 @@
 #recipient {
 	margin-bottom: 5px;
 	padding: 1%;
-	width: 97%;
+	width: 100%;
 	border-width: 0.5%;
 }
 
 #body {
-	width: 98%;
-	width: calc(100% - 10px);
+	width: 100%;
+	resize: vertical;
 }
