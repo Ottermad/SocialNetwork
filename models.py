@@ -180,6 +180,11 @@ class User(UserMixin, Model):
         ).exists()
         return is_friend
 
+    def create_bio(self, bio):
+        self.biography = bio
+        self.save()
+
+
 
     @classmethod
     def confirm_friend_request(cls, id, answer):
