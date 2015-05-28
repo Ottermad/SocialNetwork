@@ -1,6 +1,7 @@
 /* Variables */
 body {
-  font-family: 'Comfortaa', cursive; }
+  font-family: 'Comfortaa', cursive; 
+  overflow-x: hidden;}
 
 #title {
   background: #3D9970;
