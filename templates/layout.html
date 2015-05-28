@@ -24,36 +24,37 @@
 </head>
 <body class="no-pm">
 	<!-- Title bar -->
-	<div class='bg-olive no-m' id="Titlebar">
+	<div class='bg-olive no-m clearfix' id="Titlebar">
 		<h1 class="no-m white theme-font" id="title">Fakebook</h1>
 		<div id="ButtonContainer">
             {% if current_user.is_authenticated() %}
 				<!--Change to logout button if user is logged in -->
-				<button class="theme-btn right marg-5 pad-5 theme-font"><a href="{{url_for("logout")}}">Logout</a></button>
+				<a href="{{url_for("logout")}}"><button class="theme-btn right marg-5 pad-5 theme-font">Logout</button></a>
                 {% if request.path != url_for("view_friend_requests") %}
-					<button class="theme-btn right marg-5 pad-5 theme-font"><a href="{{ url_for("view_friend_requests") }}">Friend Requests</a></button>
+					<a href="{{ url_for("view_friend_requests") }}"><button class="theme-btn right marg-5 pad-5 theme-font">Friend Requests</button></a>
 				{% endif %}
                 {% if request.path != url_for("user_listing") %}
-                	<button class="theme-btn right marg-5 pad-5 theme-font"><a href="{{ url_for("user_listing") }}">User Listing</a></button>
+                	<a href="{{ url_for("user_listing") }}"><button class="theme-btn right marg-5 pad-5 theme-font">User Listing</button></a>
 				{% endif %}
                 {% if request.path != url_for("home") %}
-                	<button class="theme-btn right marg-5 pad-5 theme-font"><a href="{{ url_for("home") }}">Home</a></button>
+                	<a href="{{ url_for("home") }}"><button class="theme-btn right marg-5 pad-5 theme-font">Home</button></a>
 				{% endif %}
             {% else %}
             	<!--Change to logout button if user is not logged in -->
-				<button class="theme-btn right marg-5 pad-5 theme-font"><a href="{{url_for("login")}}">Login</a></button>
-				<button class="theme-btn right marg-5 pad-5 theme-font"><a href="{{url_for("register")}}">Register</a></button>
+				<a href="{{url_for("login")}}"><button class="theme-btn right marg-5 pad-5 theme-font">Login</button></a>
+				<a href="{{url_for("register")}}"><button class="theme-btn right marg-5 pad-5 theme-font">Register</button> </a>
             {% endif %}
 		</div>
 	</div>
 	<div class="container dark_gray">
 		{% block content %}
     	{% endblock %}
-    	<br>
-	    {% for message in get_flashed_messages() %}
-	        {{ message }}
-	    {% endfor %}
 	</div>
+    <script type="text/javascript">
+	    {% for message in get_flashed_messages() %}
+	        alert("{{ message }}");
+	    {% endfor %}
+    </script>
     <script src="{{url_for('static', filename="js/jquery-1.11.3.js")}}"></script>
 	{% block ajax %}
 	{% endblock %}

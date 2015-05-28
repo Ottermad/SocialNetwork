@@ -3,6 +3,18 @@ a {
 	text-decoration: none;
 }
 
+.style-link {
+	color: #00AEFF;
+}
+
+.style-link:hover {
+	text-decoration: underline;
+}
+
+.style-link:visited {
+	color: #00AEFF;
+}
+
 .no-pm {
 	padding: 0px;
 	margin: 0px;
@@ -26,6 +38,21 @@ a {
 
 label {
 	display: none;
+}
+
+input[placeholder], input[type="text"], textarea{
+	border-radius: 5px;
+	border-width: 0.1;
+	border-style: solid;
+	border-color: #D4D4D4;
+	width: 60%;
+	padding: 5px;
+	margin: 5px 0px;
+}
+
+textarea {
+	border-width: 1px;
+	border-radius: 10px;
 }
 
 .container {

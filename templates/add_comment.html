@@ -1,5 +1,6 @@
 <script>
-    $(".comment-button").on("click", function() {
+    $("#posts").on("click", ".comment-button", function() {
+
         var id = $(this).attr("id");
         var comment = $(".input" + id ).val();
         var csrfToken = document.getElementById("csrf_token").value;

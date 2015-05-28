@@ -130,7 +130,7 @@ def login():
         else:
             if check_password_hash(user.password, form.password.data):
                 login_user(user)
-                flash("You've been logged in.")
+                flash("You have been logged in.")
                 return redirect(url_for("index"))
             else:
                 flash("Your email or password does not exist.")
@@ -231,6 +231,7 @@ def user(username):
         own_page = True
     else:
         own_page = False
+    print("IS PENDING:", is_pending, "IS FRIEND:", is_friend)
     return render_template("user.html", user=data, is_friend=is_friend, is_pending=is_pending, own_page=own_page, gravatar=gravatar, bio_form=bio_form)
 
 @app.route("/friend-request", methods=("POST", "GET"))

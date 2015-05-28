@@ -1,9 +1,13 @@
 {% extends "layout.html" %}
 {% block content %}
     <ul id="friend-requests">
-        {% for request in requests %}
-            <li>{{ request[0] }} - <button id="{{ request[1] }}" class="confirm-request-button">CONFIRM</button><button id="{{ request[1] }}" class="decline-request-button">DECLINE</button></li>
-        {% endfor %}
+        {% if requests %}
+            {% for request in requests %}
+                <li>{{ request[0] }} - <button id="{{ request[1] }}" class="confirm-request-button">CONFIRM</button><button id="{{ request[1] }}" class="decline-request-button">DECLINE</button></li>
+            {% endfor %}
+        {% else %}
+            <li>You have no open friend requests.</li>
+        {% endif %}
     </ul>
 {% endblock %}
 {% block ajax %}

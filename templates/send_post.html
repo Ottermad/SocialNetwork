@@ -25,6 +25,10 @@
             }
         }
 
+        jQuery(document).ready(function ($) {
+            jQuery("#wmd-preview").hide('fast');  
+        });
+
         sendPostRequest.open("POST", "{{ url_for("add_post") }}", true);
         sendPostRequest.setRequestHeader("Content-type","application/x-www-form-urlencoded");
         sendPostRequest.send("&post=" + content + "&csrf_token=" + csrfToken);

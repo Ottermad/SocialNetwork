@@ -4,6 +4,7 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for("static", filename="css/wmd.css") }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for("static", filename="css/posts.css") }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for("static", filename="css/font-awesome.css") }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for("static", filename="css/messages.css") }}">
 {% endblock %}
 {% block content %}
 
@@ -12,16 +13,17 @@
         <ul class="friends-list" id="people">
 
         </ul>
-        <div class="conversation bg-white" id="Bill">
+        <div class="conversation theme-font" id="Bill">
             <h3 id="name"></h3>
             <div class="messages-box">
-                <ul id="messages">
+                <ul id="messages" class="clearfix">
 
                 </ul>
             </div>
             <div id="messagingForm">
                 <form method="post">
                     {{ messaging_form.hidden_tag() }}
+                    
                     {% for field in messaging_form %}
                         {{ render_field(field) }}
                     {% endfor %}
@@ -80,7 +82,7 @@
         </div>
 
         <!-- List all of the posts -->
-        <div id="posts pad-5" class="theme-font">
+        <div id="posts" class="theme-font">
             {% for post in posts %}
                 <div class="post theme-box" id="div{{ post[4] }}">
                     <p class="name dark-gray">By {{ post[0] }} at <span class="timestamp">{{ post[1] }}</span></p>

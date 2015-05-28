@@ -35,10 +35,11 @@
 
                 // Clear the text box
                 $("#body").val("");
+                getConversation(recipient);
 
             }
         }
-
+z
         // Send a post request
         sendMessageRequest.open("POST","{{ url_for("send_message") }}",true);
         sendMessageRequest.setRequestHeader("Content-type","application/x-www-form-urlencoded");
