@@ -5,11 +5,15 @@
     {% if own_page %}
         <p>On own page.</p>
         <!-- Later add controls to editing bio etc. -->
-    {% elif is_friend %}
+        <textarea>{{ user["biography"] }}</textarea>
+    {% else %}
+        <p>{{ user["biography"] }}</p>
+    {% endif %}
+    {% if is_friend %}
         <p>You are friends! :)</p>
     {% elif is_pending %}
         <p>Request Pending</p>
-    {% else %}
+    {% elif not own_page %}
         <button type="button" class="friend-request-button" onclick="sendFriendRequest()">Send Friend Request</button>
     {% endif %}
 {% endblock %}
