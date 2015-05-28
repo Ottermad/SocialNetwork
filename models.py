@@ -115,6 +115,10 @@ class User(UserMixin, Model):
                 comments.append(comment_data)
             data.append(comments)
             data.append(post.id)
+            if post.user == self:
+                data.append(True)
+            else:
+                data.append(False)
             posts.append(data)
         return posts
 
@@ -193,6 +197,7 @@ class User(UserMixin, Model):
 
     def get_bio(self):
         return [self.biography]
+
 
 
 
