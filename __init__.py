@@ -268,6 +268,21 @@ def user_listing():
     users = models.User.get_all_users()
     return render_template("user-listing.html", users=users)
 
+@app.route("/create-bio", methods=("POST", "GET"))
+@login_required
+def create_bio():
+    form = forms.BiographyForm(request.form)
+    if form.validate():
+        user = models.User.get(models.User.id == current_user.get_id())
+        md = form.biography.data
+        cleaned_markdown = clean_markdown(md)
+        html = markdown.markdown(cleaned_markdown)
+        result = user.create_bio(html)
+        return result
+    else:
+        return form.errors
+
+
 try:
     models.initialise()
 except:
