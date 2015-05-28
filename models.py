@@ -60,6 +60,7 @@ class User(UserMixin, Model):
     email = CharField(unique=True)
     password = CharField(max_length=100)
     is_admin = BooleanField(default=False)
+    biography = TextField(null=True)
 
     class Meta:
         database = DATABASE
@@ -179,6 +180,18 @@ class User(UserMixin, Model):
         ).exists()
         return is_friend
 
+    def create_bio(self, bio):
+        try:
+            self.biography = bio
+            self.save()
+            return "Done."
+        except:
+            return "Error"
+
+    def get_bio(self):
+        return [self.biography]
+
+
 
     @classmethod
     def confirm_friend_request(cls, id, answer):
@@ -207,7 +220,7 @@ class User(UserMixin, Model):
     @classmethod
     def view_user(cls, username):
         user = User.get(User.username == username)
-        data = {"id": user.id, "username": user.username}
+        data = {"id": user.id, "username": user.username, "biography": user.biography}
         return data
 
     @classmethod

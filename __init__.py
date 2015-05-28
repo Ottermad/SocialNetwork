@@ -34,6 +34,10 @@ import json
 import re
 import markdown
 import hashlib
+import html2text
+
+
+h = html2text.HTML2Text()
 
 # Set up application - need a secret key for secure sessions
 app = Flask(__name__)
@@ -215,6 +219,7 @@ def get_post():
 @app.route("/user/<username>")
 @login_required
 def user(username):
+    bio_form = forms.BiographyForm()
     user = models.User.get(models.User.id == current_user.get_id())
     other_user_email = models.User.get(models.User.username == username).email
     other_user_email_hash = gravatar_hash(other_user_email)
@@ -226,7 +231,7 @@ def user(username):
         own_page = True
     else:
         own_page = False
-    return render_template("user.html", user=data, is_friend=is_friend, is_pending=is_pending, own_page=own_page, gravatar=gravatar)
+    return render_template("user.html", user=data, is_friend=is_friend, is_pending=is_pending, own_page=own_page, gravatar=gravatar, bio_form=bio_form)
 
 @app.route("/friend-request", methods=("POST", "GET"))
 @login_required
@@ -267,6 +272,30 @@ def confirm_friend_request():
 def user_listing():
     users = models.User.get_all_users()
     return render_template("user-listing.html", users=users)
+
+@app.route("/create-bio", methods=("POST", "GET"))
+@login_required
+def create_bio():
+    form = forms.BiographyForm(request.form)
+    if form.validate():
+        user = models.User.get(models.User.id == current_user.get_id())
+        md = form.biography.data
+        cleaned_markdown = clean_markdown(md)
+        html = markdown.markdown(cleaned_markdown)
+        result = user.create_bio(html)
+        return result
+    else:
+        return form.errors
+
+@app.route("/get-bio", methods=("POST", "GET"))
+@login_required
+def get_bio():
+    user = models.User.get(models.User.id == current_user.get_id())
+    bio = user.get_bio()
+    bio_md = h.handle(bio[0])
+    return json.dumps([bio_md, bio[0]])
+
+
 
 try:
     models.initialise()
