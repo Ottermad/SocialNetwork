@@ -28,3 +28,15 @@
 	background-color: #FFF;
 	float: left;
 }
+
+#recipient {
+	margin-bottom: 5px;
+	padding: 1%;
+	width: 97%;
+	border-width: 0.5%;
+}
+
+#body {
+	width: 98%;
+	width: calc(100% - 10px);
+}
