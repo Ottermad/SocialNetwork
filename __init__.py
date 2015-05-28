@@ -130,7 +130,7 @@ def login():
         else:
             if check_password_hash(user.password, form.password.data):
                 login_user(user)
-                flash("You've been logged in.")
+                flash("You have been logged in.")
                 return redirect(url_for("index"))
             else:
                 flash("Your email or password does not exist.")
