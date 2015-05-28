@@ -3,7 +3,7 @@
 {% block content %}
     <h1 id="name">{{ user["username"] }}</h1>
     <img src="{{ gravatar }}">
-    <p id="bio-view">{{ user["biography"] }}</p>
+    <p id="bio-view">{{ user["biography"] | safe }}</p>
     {% if own_page %}
         <p>On own page.</p>
         <!-- Later add controls to editing bio etc. -->
