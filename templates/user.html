@@ -1,11 +1,23 @@
 {% from "macros.html" import render_field %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for("static", filename="css/user.css") }}">
+{% endblock %}
 {% extends "layout.html" %}
 {% block content %}
-    <h1 id="name">{{ user["username"] }}</h1>
-    <img src="{{ gravatar }}">
-    <div id="bio-view">{{ user["biography"] | safe }}</div>
+    <h1 id="name" class="theme-font">{{ user["username"] }}
+        {% if own_page %} <tag class="self">You</tag> {% endif %}
+        {% if is_friend %}
+            <tag class="friends">Friends</tag>
+        {% elif is_pending %}
+            <tag class="pending">Request Pending...</tag>
+        {% elif not own_page %}
+            <button type="button" class="friend-request-button" onclick="sendFriendRequest()">Send Friend Request</button>
+        {% endif %}
+    </h1>
+    <img class="profile-pic left" src="{{ gravatar }}">
+    <div class="bio theme-font " id="bio-view">{{ user["biography"] | safe }}</div>
+
     {% if own_page %}
-        <p>On own page.</p>
         <!-- Later add controls to editing bio etc. -->
         <form method="post" id="bio-form">
             {{ bio_form.hidden_tag() }}
@@ -15,15 +27,7 @@
             <button type="button" id="update-bio" onclick="createBio()">Update Bio</button>
         </form>
     {% endif %}
-    <div id="friend-status">
-        {% if is_friend %}
-            <p>You are friends! :)</p>
-        {% elif is_pending %}
-            <p>Request Pending</p>
-        {% elif not own_page %}
-            <button type="button" class="friend-request-button" onclick="sendFriendRequest()">Send Friend Request</button>
-        {% endif %}
-    </div>
+
 {% endblock %}
 {% block ajax %}
     {% include "update_bio.html" %}

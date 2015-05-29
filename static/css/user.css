@@ -1,0 +1,32 @@
+tag {
+	border-radius: 5px;
+	padding: 5px;
+	font-size: 0.7em;
+	margin-bottom: 0.15em;
+}
+
+.self {
+	background-color: green;
+	color: white;
+}
+
+.friends {
+	background-color: #0091FF;
+	color: white;
+}
+
+.pending {
+	background-color: #D60000;
+	color: white;
+}
+
+.profile-pic {
+	border-radius: 100%;
+	width:15%;
+	margin-left: 1%;
+	margin-right: 2%;
+}
+
+.bio {
+	width: 82%;
+}
