@@ -24,7 +24,9 @@ from flask.ext.bcrypt import (
 import os
 import urllib.parse
 import datetime
+import html2text
 
+h = html2text.HTML2Text()
 
 # Database Setup
 # Check if deployed on Heroku
@@ -119,6 +121,7 @@ class User(UserMixin, Model):
                 data.append(True)
             else:
                 data.append(False)
+            data.append(h.handle(post.content))
             posts.append(data)
         return posts
 
