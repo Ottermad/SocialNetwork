@@ -1,11 +1,12 @@
 <script>
-    $("#posts").on("click", ".edit-button", function () {
+    $(".edit-button").click(function (event) {
         console.log("in function");
         var editPostRequest;
 
-        var id = $(this).parent().attr("id").replace("div", "");
+        var id = $(this).attr("data-id");
         var content = $("#edit" + id).val();
-        console.log("#edit" + id);
+        console.log(id);
+        console.log(content);
 
         // Setup request
         if (window.XMLHttpRequest) {

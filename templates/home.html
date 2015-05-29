@@ -84,14 +84,27 @@
         <!-- List all of the posts -->
         <div id="posts" class="theme-font">
             {% for post in posts %}
-                <div class="post theme-box" id="div{{ post[4] }}">
-                    <p class="name dark-gray">By {{ post[0] }} at <span class="timestamp">{{ post[1] }}</span></p>
+                <div class="post theme-box clearfix" id="div{{ post[4] }}">
+                    <span class="name dark-gray">By {{ post[0] }} at <span class="timestamp">{{ post[1] }}</span></span>
                     {% if post[5] %}
-                        <button class="delete-button">Delete</button>
-                        <textarea id="edit{{ post[4] }}">{{ post[6] }}</textarea>
-                        <button class="edit-button">Update</button>
+                        <span class="delete-button right">
+                            <i class="fa fa-times fa-lg" title="delete"></i>
+                        </span>
+            
+                        <!-- Split -->
+                        <i class="fa fa-5x"></i>
+
+                        <span class="edit-toggle right" data-ref="#edit-container{{ post[4] }}">
+                            <i class="fa fa-edit fa-lg"></i>
+                        </span>
                     {% endif %}
                     <div class="content">{{ post[2] | safe }}</div>
+                    {% if post[5] %}
+                        <div id="edit-container{{ post[4] }}" class="edit-container">
+                            <button class="edit-button" data-id="{{ post[4] }}">Update</button> <br>
+                            <textarea id="edit{{ post[4] }}">{{ post[6] }}</textarea>
+                        </div>
+                    {% endif %}
                     <div>
                         <h2 class="comment-header">Comments:</h2>
                         <hr class="comment-section-seperator"> <!-- Comment and post divider -->
@@ -152,6 +165,14 @@
         getPeople();
         auto_update();
 
+    </script>
+    <script type="text/javascript">
+        //Script to edit post update animation
+        jQuery(document).ready(function($) {
+            $('.edit-toggle').click(function(event) {
+                $($(this).attr('data-ref')).slideToggle(400);
+            });
+        });
     </script>
 
 {% endblock %}
