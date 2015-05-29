@@ -63,7 +63,10 @@
             formattedPost += '<p class="name dark-gray">' + 'By ' + extra[i][0] + ' at ';
             formattedPost += '<span class="timestamp">' + extra[i][1] + '</span> </p>'; 
             if (extra[i][5]) {
-                formattedPost += '<button class="delete-button">Delete</button>'
+                formattedPost += '<button class="delete-button">Delete</button>';
+                formattedPost += '<textarea id="edit' + extra[i][4] +'">' + extra[i][6] +'</textarea>';
+                formattedPost += '<button class="edit-button">Update</button>';
+
             }
             formattedPost += '<p class="content">' + extra[i][2] + '</p>';
             formattedPost += '<div>';
