@@ -310,7 +310,9 @@ def edit_post():
     user = models.User.get(models.User.id == current_user.get_id())
     post_id = request.form["id"]
     content = request.form["content"]
-    result = user.edit_post(post_id, content)
+    cleaned_markdown = clean_markdown(content)
+    html = markdown.markdown(cleaned_markdown)
+    result = user.edit_post(post_id, html)
     return result
 
 try:
