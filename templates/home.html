@@ -88,7 +88,7 @@
                     <p class="name dark-gray">By {{ post[0] }} at <span class="timestamp">{{ post[1] }}</span></p>
                     {% if post[5] %}
                         <button class="delete-button">Delete</button>
-                        <textarea id="edit{{ post[4] }}"></textarea>
+                        <textarea id="edit{{ post[4] }}">{{ post[6] }}</textarea>
                         <button class="edit-button">Update</button>
                     {% endif %}
                     <div class="content">{{ post[2] | safe }}</div>
