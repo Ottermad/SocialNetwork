@@ -304,6 +304,15 @@ def delete_post():
     result = user.delete_post(post_id)    
     return result
 
+@app.route("/edit-post", methods=("POST", "GET"))
+@login_required
+def edit_post():
+    user = models.User.get(models.User.id == current_user.get_id())
+    post_id = request.form["id"]
+    content = request.form["content"]
+    result = user.edit_post(post_id, content)
+    return result
+
 try:
     models.initialise()
 except:
