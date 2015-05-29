@@ -210,9 +210,13 @@ class User(UserMixin, Model):
             return "Error"
 
     def edit_post(self, post_id, content):
-        post = Post.get(Post.id == post_id)
-        post.content = content
-        post.save()
+        try:
+            post = Post.get(Post.id == post_id)
+            post.content = content
+            post.save()
+            return "Done"
+        except:
+            return "Error"
 
     @classmethod
     def confirm_friend_request(cls, id, answer):
