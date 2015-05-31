@@ -231,6 +231,16 @@ class User(UserMixin, Model):
         except:
             return "Error"
 
+    def file_bug_report(self, description):
+        try:
+            BugReport.create(
+                user=self,
+                description=description
+            )
+            return "Done."
+        except:
+            return "Error."
+
     @classmethod
     def create_user(cls, username, email, password, is_admin=False):
         try:
