@@ -24,7 +24,7 @@ from flask.ext.login import (
 )
 
 from peewee import (
-    DoesNotExist
+    DoesNotExist,
 )
 
 import forms
@@ -219,8 +219,8 @@ def get_post():
 @app.route("/user/<username>")
 @login_required
 def user(username):
-    other_user = models.User.get(models.User.username == username)
-    if other_user:
+   try:
+        other_user = models.User.get(models.User.username == username)
         bio_form = forms.BiographyForm()
         user = models.User.get(models.User.id == current_user.get_id())
         other_user_email = other_user.email
@@ -235,6 +235,7 @@ def user(username):
             own_page = False
         print("IS PENDING:", is_pending, "IS FRIEND:", is_friend)
         return render_template("user.html", user=data, is_friend=is_friend, is_pending=is_pending, own_page=own_page, gravatar=gravatar, bio_form=bio_form)
+   except DoesNotExist:
     return render_template("error.html", title="User does not exist.", description="Please make sure the url contains a valid username.")
 
 @app.route("/friend-request", methods=("POST", "GET"))
