@@ -219,20 +219,23 @@ def get_post():
 @app.route("/user/<username>")
 @login_required
 def user(username):
-    bio_form = forms.BiographyForm()
-    user = models.User.get(models.User.id == current_user.get_id())
-    other_user_email = models.User.get(models.User.username == username).email
-    other_user_email_hash = gravatar_hash(other_user_email)
-    gravatar = "http://www.gravatar.com/avatar/{}?s=300".format(other_user_email_hash)
-    data = models.User.view_user(username)
-    is_pending = user.is_pending(username)
-    is_friend = user.is_friend(username)
-    if user.username == username:
-        own_page = True
-    else:
-        own_page = False
-    print("IS PENDING:", is_pending, "IS FRIEND:", is_friend)
-    return render_template("user.html", user=data, is_friend=is_friend, is_pending=is_pending, own_page=own_page, gravatar=gravatar, bio_form=bio_form)
+    other_user = models.User.get(models.User.username == username)
+    if other_user:
+        bio_form = forms.BiographyForm()
+        user = models.User.get(models.User.id == current_user.get_id())
+        other_user_email = other_user.email
+        other_user_email_hash = gravatar_hash(other_user_email)
+        gravatar = "http://www.gravatar.com/avatar/{}?s=300".format(other_user_email_hash)
+        data = models.User.view_user(username)
+        is_pending = user.is_pending(username)
+        is_friend = user.is_friend(username)
+        if user.username == username:
+            own_page = True
+        else:
+            own_page = False
+        print("IS PENDING:", is_pending, "IS FRIEND:", is_friend)
+        return render_template("user.html", user=data, is_friend=is_friend, is_pending=is_pending, own_page=own_page, gravatar=gravatar, bio_form=bio_form)
+    return render_template("error.html", title="User does not exist.", description="Please make sure the url contains a valid username.")
 
 @app.route("/friend-request", methods=("POST", "GET"))
 @login_required

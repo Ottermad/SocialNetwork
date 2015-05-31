@@ -1,0 +1,6 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h1>{{ title }}</h1>
+    <p>{{ description }}</p>
+    <p> If believe this is a bug please report it <a href="{{ url_for("report") }}">here</a>.</p>
+{% endblock %}
