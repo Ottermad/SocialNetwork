@@ -319,6 +319,19 @@ def edit_post():
     result = user.edit_post(post_id, html)
     return result
 
+@app.route("/report", methods=("POST", "GET"))
+@login_required
+def report():
+    form = forms.BugReportForm()
+    if form.validate_on_submit():
+        # Do Stuff
+        description = form.description.data
+        user = models.User.get(models.User.id == current_user.get_id())
+        result = user.file_bug_report(description)
+        flash(result)
+        return redirect(url_for("home"))
+    return render_template("report.html", form=form)
+
 try:
     models.initialise()
 except:
