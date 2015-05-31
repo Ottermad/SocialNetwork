@@ -97,3 +97,6 @@ class CommentForm(Form):
 
 class BiographyForm(Form):
     biography = TextAreaField("biography")
+
+class BugReportForm(Form):
+    description = TextAreaField("description", validators=[DataRequired()])
