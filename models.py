@@ -104,7 +104,8 @@ class User(UserMixin, Model):
             return "There was an error sending the message."
 
     def get_posts(self, number=10, offset=0):
-        query = Post.select().order_by(Post.timestamp.desc()).limit(number).offset(offset)
+        friends = self.get_friends()
+        query = Post.select().where((Post.user in friends) | (Post.user == self)).order_by(Post.timestamp.desc()).limit(number).offset(offset)
         posts = []
         for post in query:
             data = [post.user.username, post.timestamp.strftime("%H:%M %d/%m/%y"), post.content]
