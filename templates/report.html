@@ -2,6 +2,7 @@
 {% extends "layout.html" %}
 {% block content %}
     <form method="POST" id="bugReportForm">
+        {{ form.hidden_tag() }}
         {% for field in form %}
             {{ render_field(field) }}
         {% endfor %}
