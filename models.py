@@ -313,7 +313,15 @@ class Friends(Model):
     class Meta:
         database = DATABASE
 
+class BugReport(Model):
+    user = ForeignKeyField(rel_model=User)
+    description = TextField()
+    datetime = DateTimeField(default=datetime.datetime.now)
+    seen = BooleanField(default=False)
+    class Meta:
+        database = DATABASE
+
 def initialise():
     DATABASE.connect()
-    DATABASE.create_tables([User, Message, Post, Comment, Friends], safe=True)
+    DATABASE.create_tables([User, Message, Post, Comment, Friends, BugReport], safe=True)
     DATABASE.close()
