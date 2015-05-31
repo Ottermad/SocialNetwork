@@ -165,6 +165,14 @@ class User(UserMixin, Model):
             requests.append(data)
         return requests
 
+    def get_friends(self):
+        friends = []
+        users = User.select().where(User.username != self.username)
+        for user in users:
+            if self.is_friend(user.username):
+                friends.append(user)
+        return friends
+
     def is_friend(self, username):
         other = User.get(User.username == username)
         print("OTHER USERNAME", other.username)
