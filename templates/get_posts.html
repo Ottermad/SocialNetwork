@@ -59,13 +59,27 @@
     function formatPost (extra) {
         formattedPost = "";
         for (var i = 0; i < extra.length; i++) {
-            formattedPost += '<div class="post theme-box" id="div' + extra[i][4] +'">';
-            formattedPost += '<p class="name dark-gray">' + 'By ' + extra[i][0] + ' at ';
-            formattedPost += '<span class="timestamp">' + extra[i][1] + '</span> </p>'; 
+            formattedPost += '<div class="post theme-box clearfix" id="div' + extra[i][4] +'">';
+            formattedPost += '<span class="name dark-gray">' + 'By ' + extra[i][0] + ' at ';
+            formattedPost += '<span class="timestamp">' + extra[i][1] + '</span> </span>'; 
             if (extra[i][5]) {
-                formattedPost += '<button class="delete-button">Delete</button>'
+               formattedPost += '<span class="delete-button right"><i class="fa fa-times fa-lg" title="delete"></i></span>';
+               formattedPost += '<i class="fa fa-5x"></i><span class="edit-toggle right" data-ref="#edit-container'
+               formattedPost += extra[i][4];
+               formattedPost += '"><i class="fa fa-edit fa-lg"></i></span>';
             }
             formattedPost += '<p class="content">' + extra[i][2] + '</p>';
+            if (extra[i][5]) {
+                //Stuff
+                formattedPost += '<div id="edit-container';
+                formattedPost += extra[i][4];
+                formattedPost += '" class="edit-container"><button class="edit-button" data-id="';
+                formattedPost += extra[i][4];
+                formattedPost += '">Update</button> <br> <textarea id="edit';
+                formattedPost += extra[i][4] + '">';
+                formattedPost += extra[i][6];
+                formattedPost += '</textarea></div>';
+            }
             formattedPost += '<div>';
             formattedPost += '<h2 class="comment-header">Comments:</h2>';
             formattedPost += '<hr class="comment-section-seperator">';
