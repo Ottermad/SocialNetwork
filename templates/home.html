@@ -168,10 +168,13 @@
     </script>
     <script type="text/javascript">
         //Script to edit post update animation
-        jQuery(document).ready(function($) {
+        /*jQuery(document).ready(function($) {
             $('.edit-toggle').click(function(event) {
                 $($(this).attr('data-ref')).slideToggle(400);
             });
+        });*/
+        $(document).on("click", ".edit-toggle", function () {
+            $($(this).attr('data-ref')).slideToggle(400);
         });
     </script>
 
