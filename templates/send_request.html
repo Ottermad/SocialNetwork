@@ -1,8 +1,8 @@
 <script>
     function sendFriendRequest () {
 
-        var username = $("#name").text();
-
+        var username = $(".friend-request-button").attr("data-ref");
+        console.log(username);
         var friendRequest;
 
         if (XMLHttpRequest) {
@@ -16,7 +16,7 @@
                 // Response
                 var response = friendRequest.responseText;
                 alert(response);
-                $("#friend-status").html("<p>Request Pending</p>");
+                $("#name").html(username + "<tag class='pending'>Request Pending...</tag>");
             }
         }
 

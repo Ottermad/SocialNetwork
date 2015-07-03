@@ -4,14 +4,14 @@
 {% endblock %}
 {% extends "layout.html" %}
 {% block content %}
-    <h1 id="name" class="theme-font">{{ user["username"] }}
+    <h1 id="name" class="theme-font" data-ref="{{ user["username"] }}">{{ user["username"] }}
         {% if own_page %} <tag class="self">You</tag> {% endif %}
         {% if is_friend %}
             <tag class="friends">Friends</tag>
         {% elif is_pending %}
             <tag class="pending">Request Pending...</tag>
         {% elif not own_page %}
-            <button type="button" class="friend-request-button" onclick="sendFriendRequest()">Send Friend Request</button>
+            <button type="button" class="friend-request-button" onclick="sendFriendRequest()"  data-ref="{{ user["username"] }}">Send Friend Request</button>
         {% endif %}
     </h1>
     <img class="profile-pic left" src="{{ gravatar }}">

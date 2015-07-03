@@ -80,13 +80,13 @@
 
     }
 
-    $(".confirm-request-button").on("click", function() {
+    $("#friend-requests").on("click", ".confirm-request-button", function() {
         var id = $(this).attr("id");
         console.log(id);
         confirmRequest(id, "True");
     });
 
-    $(".decline-request-button").on("click", function() {
+    $("#friend-requests").on("click", ".decline-request-button", function() {
         var id = $(this).attr("id");
 
         confirmRequest(id, "False");
