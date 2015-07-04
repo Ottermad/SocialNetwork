@@ -1,5 +1,4 @@
-<script>
-    $(document).on("click", ".edit-button", function () {
+$(document).on("click", ".edit-button", function () {
         console.log("in function");
         var editPostRequest;
 
@@ -25,8 +24,9 @@
             }
         }
 
-        editPostRequest.open("POST", "{{ url_for("posts_blueprint.edit_post") }}", true);
+        var url = $("#edit-post-url").data()["url"];
+
+        editPostRequest.open("POST", url, true);
         editPostRequest.setRequestHeader("Content-type","application/x-www-form-urlencoded");
         editPostRequest.send("id=" + id + "&content=    " + content);
-    });
-</script>
+});

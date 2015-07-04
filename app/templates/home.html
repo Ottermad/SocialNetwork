@@ -1,5 +1,16 @@
 {% from "macros.html" import render_field %}
 {% extends "layout.html" %}
+{% block urls %}
+    <meta id="send-message-url" data-url="{{ url_for("messaging_blueprint.send_message") }}">
+    <meta id="people-url" data-url="{{ url_for("messaging_blueprint.people") }}">
+    <meta id="get-messages-url" data-url="{{ url_for("messaging_blueprint.get_messages") }}">
+    <meta id="send-post-url" data-url="{{ url_for("posts_blueprint.add_post") }}">
+    <meta id="get-posts-url" data-url="{{ url_for("posts_blueprint.get_posts") }}">
+    <meta id="add-comment-url" data-url="{{ url_for("posts_blueprint.comment") }}">
+    <meta id="get-post-url" data-url="{{ url_for("posts_blueprint.get_post") }}">
+    <meta id="delete-post-url" data-url="{{ url_for("posts_blueprint.delete_post") }}">
+    <meta id="edit-post-url" data-url="{{ url_for("posts_blueprint.edit_post") }}">
+{% endblock %}
 {% block css %}
     <link rel="stylesheet" type="text/css" href="{{ url_for("static", filename="css/wmd.css") }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for("static", filename="css/posts.css") }}">
@@ -125,32 +136,30 @@
         </div>
         <button type="button" id="load-posts" onclick="getPosts()">Load More</button>
     </div>
-
-
 {% endblock %}
 {% block ajax %}
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pagedown/1.0/Markdown.Converter.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pagedown/1.0/Markdown.Editor.js"></script>
     <script type="text/javascript" src="{{ url_for("static", filename="js/markdown-editor-widget.js") }}"></script>
     <script type="text/javascript">
-                jQuery(document).ready(function($) {
-                    $('.fa').click(function(event) {
-                        //event.preventDefault();
-                        var emulateIdentitifier = $(this).attr('emulate');
-                        console.log(emulateIdentitifier);
-                        if ($(emulateIdentitifier)) {
-                            $(emulateIdentitifier).click();
-                        }
-                    });
-                });
-            </script>
-    {% include "send_message.html" %}
-    {% include "get_messages.html" %}
-    {% include "send_post.html" %}
-    {% include "get_posts.html" %}
-    {% include "add_comment.html" %}
-    {% include "delete_post.html" %}
-    {% include "edit_post.html" %}
+        jQuery(document).ready(function($) {
+            $('.fa').click(function(event) {
+                //event.preventDefault();
+                var emulateIdentitifier = $(this).attr('emulate');
+                console.log(emulateIdentitifier);
+                if ($(emulateIdentitifier)) {
+                    $(emulateIdentitifier).click();
+                }
+            });
+        });
+    </script>
+    <script type="text/javascript" src="{{ url_for("static", filename="js/send_message.js") }}"></script>
+    <script type="text/javascript" src="{{ url_for("static", filename="js/get_messages.js") }}"></script>
+    <script type="text/javascript" src="{{ url_for("static", filename="js/send_post.js") }}"></script>
+    <script type="text/javascript" src="{{ url_for("static", filename="js/get_posts.js") }}"></script>
+    <script type="text/javascript" src="{{ url_for("static", filename="js/add_comment.js") }}"></script>
+    <script type="text/javascript" src="{{ url_for("static", filename="js/delete_post.js") }}"></script>
+    <script type="text/javascript" src="{{ url_for("static", filename="js/edit_post.js") }}"></script>
     <script type="text/javascript">
 
         var currentPerson = "";

@@ -1,6 +1,4 @@
-<script>
-
-    function getPosts() {
+function getPosts() {
         var count = $("#posts .post").length;
 
         var getPostsRequest;
@@ -23,7 +21,9 @@
             }
         }
 
-        getPostsRequest.open("POST", "{{ url_for("posts_blueprint.get_posts") }}", true);
+        var url = $("#get-posts-url").data()["url"];
+
+        getPostsRequest.open("POST", url, true);
         getPostsRequest.setRequestHeader("Content-type","application/x-www-form-urlencoded");
         getPostsRequest.send("offset=" + count);
 
@@ -50,7 +50,9 @@
             }
         }
 
-        getPostsRequest.open("POST", "{{ url_for("posts_blueprint.get_posts") }}", true);
+        var url = $("#get-posts-url").data()["url"];
+
+        getPostsRequest.open("POST", url, true);
         getPostsRequest.setRequestHeader("Content-type","application/x-www-form-urlencoded");
         getPostsRequest.send("offset=" + 0);
 
@@ -99,5 +101,3 @@
         }
         return formattedPost;
     }
-
-</script>
