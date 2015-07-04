@@ -1,4 +1,9 @@
 {% from "macros.html" import render_field %}
+{% block urls %}
+    <meta id="create-bio" data-url="{{ url_for("user_blueprint.create_bio") }}">
+    <meta id="get-bio" data-url="{{ url_for("user_blueprint.get_bio") }}">
+    <meta id="send-friend-request" data-url="{{ url_for("user_blueprint.friend_request") }}">
+{% endblock %}
 {% block css %}
     <link rel="stylesheet" type="text/css" href="{{ url_for("static", filename="css/user.css") }}">
 {% endblock %}
@@ -30,6 +35,6 @@
 
 {% endblock %}
 {% block ajax %}
-    {% include "update_bio.html" %}
-    {% include "send_request.html" %}
+    <script type="text/javascript" src="{{ url_for("static", filename="js/bio.js") }}"></script>
+    <script type="text/javascript" src="{{ url_for("static", filename="js/send_request.js") }}"></script>
 {% endblock %}
