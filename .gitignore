@@ -4,3 +4,6 @@ venv/
 key.txt
 *.db
 .DS_Store
+default
+wsgi.py
+
