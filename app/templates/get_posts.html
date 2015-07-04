@@ -23,7 +23,7 @@
             }
         }
 
-        getPostsRequest.open("POST", "{{ url_for("get_posts") }}", true);
+        getPostsRequest.open("POST", "{{ url_for("posts_blueprint.get_posts") }}", true);
         getPostsRequest.setRequestHeader("Content-type","application/x-www-form-urlencoded");
         getPostsRequest.send("offset=" + count);
 
@@ -50,7 +50,7 @@
             }
         }
 
-        getPostsRequest.open("POST", "{{ url_for("get_posts") }}", true);
+        getPostsRequest.open("POST", "{{ url_for("posts_blueprint.get_posts") }}", true);
         getPostsRequest.setRequestHeader("Content-type","application/x-www-form-urlencoded");
         getPostsRequest.send("offset=" + 0);
 

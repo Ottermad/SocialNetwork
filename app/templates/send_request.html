@@ -20,7 +20,7 @@
             }
         }
 
-        friendRequest.open("POST", "{{ url_for("friend_request") }}", true);
+        friendRequest.open("POST", "{{ url_for("user_blueprint.friend_request") }}", true);
         friendRequest.setRequestHeader("Content-type","application/x-www-form-urlencoded");
         friendRequest.send("username=" + username);
     }

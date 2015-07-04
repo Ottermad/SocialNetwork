@@ -41,7 +41,7 @@
         }
 
         // Send a post request
-        sendMessageRequest.open("POST","{{ url_for("send_message") }}",true);
+        sendMessageRequest.open("POST","{{ url_for("messaging_blueprint.send_message") }}",true);
         sendMessageRequest.setRequestHeader("Content-type","application/x-www-form-urlencoded");
         sendMessageRequest.send("recipient=" + recipient + "&body=" + body + "&csrf_token=" + csrfToken);
     }

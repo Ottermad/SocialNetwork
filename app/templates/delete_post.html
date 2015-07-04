@@ -22,7 +22,7 @@
             }
         }
 
-        deletePostRequest.open("POST", "{{ url_for("delete_post") }}", true);
+        deletePostRequest.open("POST", "{{ url_for("posts_blueprint.delete_post") }}", true);
         deletePostRequest.setRequestHeader("Content-type","application/x-www-form-urlencoded");
         deletePostRequest.send("id=" + id);
     });

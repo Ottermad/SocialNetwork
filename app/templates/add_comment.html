@@ -34,7 +34,7 @@
         }
 
         // Send a post request
-        commentRequest.open("POST","{{ url_for("comment") }}",true);
+        commentRequest.open("POST","{{ url_for("posts_blueprint.comment") }}",true);
         commentRequest.setRequestHeader("Content-type","application/x-www-form-urlencoded");
         commentRequest.send("comment=" + comment + "&post_id=" + id + "&csrf_token=" + csrfToken);
     });
@@ -87,7 +87,7 @@
         }
 
         // Send a post request
-        commentRequest.open("POST","{{ url_for("get_post") }}",true);
+        commentRequest.open("POST","{{ url_for("posts_blueprint.get_post") }}",true);
         commentRequest.setRequestHeader("Content-type","application/x-www-form-urlencoded");
         commentRequest.send("id=" + id);
     }

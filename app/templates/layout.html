@@ -29,20 +29,20 @@
 		<div id="ButtonContainer">
             {% if current_user.is_authenticated() %}
 				<!--Change to logout button if user is logged in -->
-				<a href="{{url_for("logout")}}"><button class="theme-btn right marg-5 pad-5 theme-font">Logout</button></a>
-                {% if request.path != url_for("view_friend_requests") %}
-					<a href="{{ url_for("view_friend_requests") }}"><button class="theme-btn right marg-5 pad-5 theme-font">Friend Requests</button></a>
+				<a href="{{url_for("user_blueprint.logout")}}"><button class="theme-btn right marg-5 pad-5 theme-font">Logout</button></a>
+                {% if request.path != url_for("user_blueprint.view_friend_requests") %}
+					<a href="{{ url_for("user_blueprint.view_friend_requests") }}"><button class="theme-btn right marg-5 pad-5 theme-font">Friend Requests</button></a>
 				{% endif %}
-                {% if request.path != url_for("user_listing") %}
-                	<a href="{{ url_for("user_listing") }}"><button class="theme-btn right marg-5 pad-5 theme-font">User Listing</button></a>
+                {% if request.path != url_for("user_blueprint.user_listing") %}
+                	<a href="{{ url_for("user_blueprint.user_listing") }}"><button class="theme-btn right marg-5 pad-5 theme-font">User Listing</button></a>
 				{% endif %}
-                {% if request.path != url_for("home") %}
-                	<a href="{{ url_for("home") }}"><button class="theme-btn right marg-5 pad-5 theme-font">Home</button></a>
+                {% if request.path != url_for("user_blueprint.home") %}
+                	<a href="{{ url_for("user_blueprint.home") }}"><button class="theme-btn right marg-5 pad-5 theme-font">Home</button></a>
 				{% endif %}
             {% else %}
             	<!--Change to logout button if user is not logged in -->
-				<a href="{{url_for("login")}}"><button class="theme-btn right marg-5 pad-5 theme-font">Login</button></a>
-				<a href="{{url_for("register")}}"><button class="theme-btn right marg-5 pad-5 theme-font">Register</button> </a>
+				<a href="{{url_for("user_blueprint.login")}}"><button class="theme-btn right marg-5 pad-5 theme-font">Login</button></a>
+				<a href="{{url_for("user_blueprint.register")}}"><button class="theme-btn right marg-5 pad-5 theme-font">Register</button> </a>
             {% endif %}
 		</div>
 	</div>

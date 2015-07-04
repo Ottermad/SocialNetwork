@@ -25,7 +25,7 @@
             }
         }
 
-        editPostRequest.open("POST", "{{ url_for("edit_post") }}", true);
+        editPostRequest.open("POST", "{{ url_for("posts_blueprint.edit_post") }}", true);
         editPostRequest.setRequestHeader("Content-type","application/x-www-form-urlencoded");
         editPostRequest.send("id=" + id + "&content=    " + content);
     });

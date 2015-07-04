@@ -3,3 +3,4 @@ venv/
 .idea/
 key.txt
 *.db
+.DS_Store

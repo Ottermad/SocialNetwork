@@ -21,39 +21,15 @@ from flask.ext.login import (
 from flask.ext.bcrypt import (
     generate_password_hash,
 )
+
+from app.models import DATABASE
+
 import os
 import urllib.parse
 import datetime
 import html2text
 
 h = html2text.HTML2Text()
-
-# Database Setup
-# Check if deployed on Heroku
-if "HEROKU" in os.environ:
-    # If on heroku then create Postgres db
-    urllib.parse.uses_netloc.append("postgres")
-    url = urllib.parse.urlparse(os.environ["DATABASE_URL"])
-
-    # Database Configuration Dictionary
-    database = {
-        "engine": "peewee.PostgresqlDatabase",
-        "name": url.path[1:],
-        "user": url.username,
-        "password": url.password,
-        "host": url.hostname,
-        "port": url.port
-    }
-    DATABASE = PostgresqlDatabase(
-        database["name"],
-        user=database["user"],
-        password=database["password"],
-        host=database["host"],
-        port=database["port"]
-    )
-else:
-    # Else create SQLite db
-    DATABASE = SqliteDatabase("socialnetwork.db")
 
 
 # User model
@@ -68,6 +44,7 @@ class User(UserMixin, Model):
         database = DATABASE
 
     def get_messages(self, other):
+        from app.messaging.models import Message
         query = Message.select().where(
             (
                 (Message.recipient == self.id) | (Message.sender == self.id)
@@ -96,6 +73,7 @@ class User(UserMixin, Model):
         return usernames
 
     def send_message(self, recipient_name, message_body):
+        from app.messaging.models import Message
         recipient = User.get(User.username == recipient_name)
         try:
             Message.create(sender=self, recipient=recipient, content=message_body)
@@ -104,6 +82,7 @@ class User(UserMixin, Model):
             return "There was an error sending the message."
 
     def get_posts(self, number=10, offset=0):
+        from app.posts.models import Post, Comment
         friends = self.get_friends()
         query = Post.select().where((Post.user in friends) | (Post.user == self)).order_by(Post.timestamp.desc()).limit(number).offset(offset)
         posts = []
@@ -127,6 +106,7 @@ class User(UserMixin, Model):
         return posts
 
     def create_post(self, content):
+        from app.posts.models import Post
         try:
             Post.create(
                 user=self,
@@ -137,6 +117,7 @@ class User(UserMixin, Model):
             return "There was an error posting your post."
 
     def comment(self, post_id, comment_text):
+        from app.posts.models import Post, Comment
         post = Post.get(Post.id == post_id)
         print(comment_text)
         try:
@@ -211,6 +192,7 @@ class User(UserMixin, Model):
         return [self.biography]
 
     def delete_post(self, post_id):
+        from app.posts.models import Post
         try:
             post = Post.get(Post.id == post_id)
             post.delete_instance()
@@ -219,6 +201,7 @@ class User(UserMixin, Model):
             return "Error"
 
     def edit_post(self, post_id, content):
+        from app.posts.models import Post
         try:
             post = Post.get(Post.id == post_id)
             post.content = content
@@ -241,6 +224,7 @@ class User(UserMixin, Model):
             return "Error"
 
     def file_bug_report(self, description):
+        from app.bugreport.models import BugReport
         try:
             BugReport.create(
                 user=self,
@@ -275,55 +259,6 @@ class User(UserMixin, Model):
             data.append(user.username)
         return data
 
-class Message(Model):
-    timestamp = DateTimeField(default=datetime.datetime.now)
-    recipient = ForeignKeyField(
-        rel_model=User,
-        related_name="recipient"
-    )
-    sender = ForeignKeyField(
-        rel_model=User,
-        related_name="sender"
-    )
-    content = TextField()
-
-    class Meta:
-        database = DATABASE
-
-
-class Post(Model):
-    timestamp = DateTimeField(default=datetime.datetime.now)
-    user = ForeignKeyField(rel_model=User)
-    content = TextField()
-
-    @classmethod
-    def get_post(cls, post_id):
-        post = Post.get(Post.id == post_id)
-
-        data = [post.user.username, post.timestamp.strftime("%H:%M %d/%m/%y"), post.content]
-        comment_query = Comment.select().where(Comment.post == post).order_by(Comment.timestamp.asc())
-        comments = []
-        for comment in comment_query:
-            print(comment.__dict__)
-            commenter = User.get(User.id == comment.user)
-            comment_data = [commenter.username, comment.timestamp.strftime("%H:%M %d/%m/%y"), comment.content]
-            comments.append(comment_data)
-        data.append(comments)
-        data.append(post.id)
-        return data
-
-    class Meta:
-        database = DATABASE
-
-class Comment(Model):
-    timestamp = DateTimeField(default=datetime.datetime.now)
-    user = ForeignKeyField(rel_model=User)
-    post = ForeignKeyField(rel_model=Post)
-    content = CharField()
-
-    class Meta:
-        database = DATABASE
-
 class Friends(Model):
     user1 = ForeignKeyField(rel_model=User, related_name="user1")
     user2 = ForeignKeyField(rel_model=User, related_name="user2")
@@ -331,16 +266,3 @@ class Friends(Model):
 
     class Meta:
         database = DATABASE
-
-class BugReport(Model):
-    user = ForeignKeyField(rel_model=User)
-    description = TextField()
-    datetime = DateTimeField(default=datetime.datetime.now)
-    seen = BooleanField(default=False)
-    class Meta:
-        database = DATABASE
-
-def initialise():
-    DATABASE.connect()
-    DATABASE.create_tables([User, Message, Post, Comment, Friends, BugReport], safe=True)
-    DATABASE.close()

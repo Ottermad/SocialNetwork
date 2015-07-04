@@ -29,7 +29,7 @@
         };
 
         // Send a post request
-        confirmRequest.open("POST", "{{ url_for("confirm_friend_request") }}", true);
+        confirmRequest.open("POST", "{{ url_for("user_blueprint.confirm_friend_request") }}", true);
         confirmRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         confirmRequest.send("id=" + id +"&result=" + result);
     }
@@ -74,7 +74,7 @@
         };
 
         // Send a post request
-        getFriendRequests.open("POST", "{{ url_for("get_friend_requests") }}", true);
+        getFriendRequests.open("POST", "{{ url_for("user_blueprint.get_friend_requests") }}", true);
         getFriendRequests.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         getFriendRequests.send("");
 

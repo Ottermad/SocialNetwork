@@ -50,7 +50,7 @@
         }
 
         // Send a post request
-        getPeopleRequest.open("POST","{{ url_for("people") }}",true);
+        getPeopleRequest.open("POST","{{ url_for("messaging_blueprint.people") }}",true);
         getPeopleRequest.setRequestHeader("Content-type","application/x-www-form-urlencoded");
         getPeopleRequest.send();
     }
@@ -99,7 +99,7 @@
         }
 
         // Send a post request
-        getConversasionRequest.open("POST","{{ url_for("get_messages") }}",true);
+        getConversasionRequest.open("POST","{{ url_for("messaging_blueprint.get_messages") }}",true);
         getConversasionRequest.setRequestHeader("Content-type","application/x-www-form-urlencoded");
         getConversasionRequest.send("other=" + name);
     }

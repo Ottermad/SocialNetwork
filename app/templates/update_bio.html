@@ -23,7 +23,7 @@
             }
         }
 
-        createBioRequest.open("POST", "{{ url_for("create_bio") }}", true);
+        createBioRequest.open("POST", "{{ url_for("user_blueprint.create_bio") }}", true);
         createBioRequest.setRequestHeader("Content-type","application/x-www-form-urlencoded");
         createBioRequest.send("biography=" + biography+ "&csrf_token=" + csrfToken);
 
@@ -50,7 +50,7 @@
             }
         }
 
-        getBiographyRequest.open("POST", "{{ url_for("get_bio") }}", true);
+        getBiographyRequest.open("POST", "{{ url_for("user_blueprint.get_bio") }}", true);
         getBiographyRequest.setRequestHeader("Content-type","application/x-www-form-urlencoded");
         getBiographyRequest.send();
 

@@ -18,15 +18,12 @@ from wtforms.validators import (
     EqualTo,
 )
 
-from models import (
+from app.user.models import (
     User,
 )
 
-
-def username_exists(form, field):
-    if not User.select().where(User.username == field.data).exists():
-        raise ValidationError("User does not exist.")
-
+class BiographyForm(Form):
+    biography = TextAreaField("biography")
 
 def username_in_use(form, field):
     if User.select().where(User.username == field.data).exists():
@@ -79,24 +76,3 @@ class RegisterForm(Form):
 class LoginForm(Form):
     email = StringField("Email", validators=[DataRequired(), Email()])
     password = PasswordField("Password", validators=[DataRequired()])
-
-
-class MessagingForm(Form):
-    recipient = StringField("Recipient", validators=[DataRequired(), username_exists])
-    body = TextAreaField("Body", validators=[DataRequired()])
-
-
-class PostForm(Form):
-    post = TextAreaField("post", id="wmd-input", validators=[DataRequired()])
-
-
-class CommentForm(Form):
-    comment = StringField("comment", validators=[DataRequired()])
-    post_id = IntegerField("postid", validators=[DataRequired()])
-
-
-class BiographyForm(Form):
-    biography = TextAreaField("biography")
-
-class BugReportForm(Form):
-    description = TextAreaField("description", validators=[DataRequired()])
