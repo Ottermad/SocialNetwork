@@ -1,4 +1,8 @@
 {% extends "layout.html" %}
+{% block urls %}
+    <meta id="confirm-friend-request" data-url="{{ url_for("user_blueprint.confirm_friend_request") }}">
+    <meta id="get-friend-requests" data-url="{{ url_for("user_blueprint.get_friend_requests") }}">
+{% endblock %}
 {% block content %}
     <ul id="friend-requests">
         {% if requests %}
@@ -11,5 +15,5 @@
     </ul>
 {% endblock %}
 {% block ajax %}
-    {% include "confirm_request.html" %}
+    <script type="text/javascript" src="{{ url_for("static", filename="js/confirm_request.js") }}"></script>
 {% endblock %}
