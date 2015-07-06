@@ -37,5 +37,5 @@ def send_message():
 @login_required
 def people():
     user = User.get(User.id == current_user.get_id())
-    json_people = json.dumps(user.get_people())
+    json_people = json.dumps([friend.username for friend in user.get_friends()])
     return json_people

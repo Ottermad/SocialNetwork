@@ -75,6 +75,8 @@ class User(UserMixin, Model):
     def send_message(self, recipient_name, message_body):
         from app.messaging.models import Message
         recipient = User.get(User.username == recipient_name)
+        if not self.is_friend(recipient.username):
+            return "Not a friend."
         try:
             Message.create(sender=self, recipient=recipient, content=message_body)
             return "Message sent."
