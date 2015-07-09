@@ -86,9 +86,13 @@ class User(UserMixin, Model):
     def get_posts(self, number=10, offset=0):
         from app.posts.models import Post, Comment
         friends = self.get_friends()
-        query = Post.select().where((Post.user in friends) | (Post.user == self)).order_by(Post.timestamp.desc()).limit(number).offset(offset)
+        print(friends)
+        query = Post.select().join(User).where(
+            (User.id << friends) | (User.id == self.id)
+        ).order_by(Post.timestamp.desc()).limit(number).offset(offset)
         posts = []
         for post in query:
+            print("POST ID {} POSTED BY {} IS FRIEND {}".format(post.id, post.user.username, post.user in friends))
             data = [post.user.username, post.timestamp.strftime("%H:%M %d/%m/%y"), post.content]
             comment_query = Comment.select().where(Comment.post == post).order_by(Comment.timestamp.asc())
             comments = []
