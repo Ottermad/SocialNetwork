@@ -201,8 +201,10 @@ class User(UserMixin, Model):
         from app.posts.models import Post
         try:
             post = Post.get(Post.id == post_id)
-            post.delete_instance()
-            return "Done"
+            if self.owns_post(post):
+                post.delete_instance()
+                return "Done"
+            return "You do not have correct permissions."
         except:
             return "Error"
 
@@ -210,9 +212,11 @@ class User(UserMixin, Model):
         from app.posts.models import Post
         try:
             post = Post.get(Post.id == post_id)
-            post.content = content
-            post.save()
-            return "Done"
+            if self.owns_post(post):
+                post.content = content
+                post.save()
+                return "Done"
+            return "Do not have correct permissions."
         except:
             return "Error"
 
@@ -239,6 +243,11 @@ class User(UserMixin, Model):
             return "Done."
         except:
             return "Error."
+
+    def owns_post(self, post):
+        if post.user == self:
+            return True
+        return False
 
     @classmethod
     def create_user(cls, username, email, password, is_admin=False):
