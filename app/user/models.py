@@ -125,14 +125,20 @@ class User(UserMixin, Model):
     def comment(self, post_id, comment_text):
         from app.posts.models import Post, Comment
         post = Post.get(Post.id == post_id)
+        user = User.get(User.id == post.user)
+        ids = [friend.id for friend in user.get_friends()]
+        ids.append(user.id)
+        print(ids)
         print(comment_text)
         try:
-            Comment.create(
-                user=self,
-                post=post,
-                content=comment_text
-            )
-            return "Commented."
+            if self.id in ids:
+                Comment.create(
+                    user=self,
+                    post=post,
+                    content=comment_text
+                )
+                return "Commented."
+            return "You do not have correct permissions"
         except:
             return "Error commenting."
 
