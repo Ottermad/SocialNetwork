@@ -4,26 +4,12 @@
 from peewee import (
     SqliteDatabase,
     PostgresqlDatabase,
-    Model,
-    CharField,
-    DateTimeField,
-    BooleanField,
-    IntegrityError,
-    ForeignKeyField,
-    TextField,
-    DoesNotExist,
-    IntegerField
 )
-#from peewee import *
-from flask.ext.login import (
-    UserMixin,
-)
-from flask.ext.bcrypt import (
-    generate_password_hash,
-)
+
+from app.config import PATH
+
 import os
 import urllib.parse
-import datetime
 import html2text
 
 h = html2text.HTML2Text()
@@ -53,13 +39,14 @@ if "HEROKU" in os.environ:
     )
 else:
     # Else create SQLite db
-    DATABASE = SqliteDatabase("socialnetwork.db")
+    DATABASE = SqliteDatabase(PATH + "socialnetwork.db")
 
 
-
-"""
 def initialise():
+    from app.user.models import User, Friends
+    from app.posts.models import Post, Comment
+    from app.messaging.models import Message
+    from app.bugreport.models import BugReport
     DATABASE.connect()
     DATABASE.create_tables([User, Message, Post, Comment, Friends, BugReport], safe=True)
     DATABASE.close()
-"""

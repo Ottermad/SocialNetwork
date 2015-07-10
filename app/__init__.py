@@ -19,6 +19,7 @@ from flask.ext.login import (
     current_user
 )
 
+from app.config import PATH, DEBUG
 
 from app.posts.forms import PostForm
 from app.messaging.forms import MessagingForm
@@ -37,10 +38,11 @@ from app.models import DATABASE
 
 h = html2text.HTML2Text()
 
+
 # Set up application - need a secret key for secure sessions
 app = Flask(__name__)
-app.config["SECRET_KEY"] = open("key.txt").readline()
-app.config["DEBUG"] = True
+app.config["SECRET_KEY"] = open(PATH + "key.txt").readline()
+app.config["DEBUG"] = DEBUG
 
 
 
