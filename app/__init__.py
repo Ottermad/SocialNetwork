@@ -33,7 +33,7 @@ import markdown
 import hashlib
 import html2text
 
-from app.models import DATABASE
+from app.models import DATABASE, initialise
 
 
 h = html2text.HTML2Text()
@@ -49,6 +49,9 @@ app.config["DEBUG"] = bool(os.environ.get('DEBUG', False))
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = "user_blueprint.login"
+
+# Create database tables
+initialise()
 
 
 # Login Manager Functions
