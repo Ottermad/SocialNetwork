@@ -16,7 +16,7 @@ h = html2text.HTML2Text()
 
 # Database Setup
 # Check if deployed on Heroku
-if "HEROKU" in os.environ:
+if "DATABASE_URL" in os.environ:
     # If on heroku then create Postgres db
     urllib.parse.uses_netloc.append("postgres")
     url = urllib.parse.urlparse(os.environ["DATABASE_URL"])
@@ -39,7 +39,7 @@ if "HEROKU" in os.environ:
     )
 else:
     # Else create SQLite db
-    DATABASE = SqliteDatabase(PATH + "socialnetwork.db")
+    DATABASE = SqliteDatabase("socialnetwork.db")
 
 
 def initialise():

@@ -88,7 +88,7 @@ class User(UserMixin, Model):
         friends = self.get_friends()
         print(friends)
         query = Post.select().join(User).where(
-            (User.id << friends) | (User.id == self.id)
+            (User.id << friends + [self.id])
         ).order_by(Post.timestamp.desc()).limit(number).offset(offset)
         posts = []
         for post in query:

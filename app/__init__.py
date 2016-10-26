@@ -33,7 +33,7 @@ import markdown
 import hashlib
 import html2text
 
-from app.models import DATABASE
+from app.models import DATABASE, initialise
 
 
 h = html2text.HTML2Text()
@@ -41,34 +41,38 @@ h = html2text.HTML2Text()
 
 # Set up application - need a secret key for secure sessions
 app = Flask(__name__)
-app.config["SECRET_KEY"] = open(PATH + "key.txt").readline()
-app.config["DEBUG"] = DEBUG
-
+app.config["SECRET_KEY"] = os.environ.get('SECRET_KEY', None)
+app.config["DEBUG"] = bool(os.environ.get('DEBUG', False))
 
 
 # Set up login manager
 login_manager = LoginManager()
 login_manager.init_app(app)
-login_manager.login_view = "login"
+login_manager.login_view = "user_blueprint.login"
+
+# Create database tables
+initialise()
 
 
 # Login Manager Functions
 
 @login_manager.user_loader
 def load_user(userid):
+    """Load user based on id for flask-login."""
     try:
         return User.get(User.id == userid)
     except:
         return None
 
-# Before and After request functions
 
+# Before and After request functions
 @app.before_request
 def before_request():
     """Connect to database before each request"""
     g.db = DATABASE
     g.db.connect()
     g.user = current_user
+
 
 @app.after_request
 def after_request(response):
